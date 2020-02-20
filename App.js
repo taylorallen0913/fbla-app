@@ -1,4 +1,4 @@
-import { createAppContainer, createSwitchNavigator, SafeAreaView } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import LoadingScreen from './screens/LoadingScreen';
@@ -31,7 +31,7 @@ import * as firebase from 'firebase';
   })
 
   export default createAppContainer (
-      createStackNavigator(
+      createSwitchNavigator(
           {
               Loading: LoadingScreen,
               App: AppStack,
