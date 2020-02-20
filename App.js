@@ -4,9 +4,10 @@ import { createStackNavigator } from 'react-navigation-stack';
 import LoadingScreen from './screens/LoadingScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
-import HomeScreen from './screens/HomeScreen';
+import AuthenticatedScreen from './screens/Authenticated';
 
 import * as firebase from 'firebase';
+require("firebase/firestore");
 
   // Your web app's Firebase configuration
   var firebaseConfig = {
@@ -21,8 +22,10 @@ import * as firebase from 'firebase';
 
   firebase.initializeApp(firebaseConfig);
 
+  var db = firebase.firestore();
+
   const AppStack = createStackNavigator({
-      Home: HomeScreen
+      Home: AuthenticatedScreen
   })
 
   const AuthStack = createStackNavigator({

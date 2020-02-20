@@ -23,7 +23,7 @@ class LoginScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.greeting}>
-                    Welcome back
+                    Welcome back to your FBLA manager!
                 </Text>
 
                 <View style={styles.errorMessage}>
