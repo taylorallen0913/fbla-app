@@ -1,11 +1,11 @@
 import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 
-class HomeScreen extends React.Component {
+class OfficerContactScreen extends React.Component {
     render() {
         return (
           <View style={styles.container}>
-            <Text>My Chapter</Text>
+            <Text>Contact Screen</Text>
           </View>
         )
       }
@@ -19,4 +19,4 @@ const styles = StyleSheet.create({
     }
   });  
 
-export default HomeScreen
+export default OfficerContactScreen

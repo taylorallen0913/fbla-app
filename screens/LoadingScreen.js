@@ -5,7 +5,16 @@ import * as firebase from 'firebase';
 class LoadingScreen extends React.Component {
     componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
-            this.props.navigation.navigate(user ? "App" : "Auth");
+            if(user) {
+                const { uid } = firebase.auth().currentUser;
+                var userDb = firebase.firestore().collection('users');
+                userDb.doc(uid).get()
+                    .then((doc) => {
+                        if(doc.data().role == "member") this.props.navigation.navigate("Member");
+                        else if(doc.data().role == "officer") this.props.navigation.navigate("Officer");
+                    })
+            }
+            this.props.navigation.navigate("Auth");
         })
     }
 

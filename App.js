@@ -3,13 +3,15 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import LoadingScreen from './screens/LoadingScreen';
 import LoginScreen from './screens/LoginScreen';
-import MemberRegisterScreen from './screens/MemberRegisterScreen';
-import AuthenticatedScreen from './screens/Authenticated';
+import MemberRegisterScreen from './screens/MemberRegisterScreen'
 
 import * as firebase from 'firebase';
 import OfficerRegisterScreen from './screens/OfficerRegisterScreen';
 import AuthLanding from './screens/AuthLanding';
 import MasterRegisterScreen from './screens/MasterRegisterScreen';
+import MemberScreen from './screens/MemberScreen';
+import OfficerScreen from './screens/OfficerScreen';
+import AddChapterScreen from './screens/AddChapterScreen'
 require("firebase/firestore");
 
   // Your web app's Firebase configuration
@@ -25,9 +27,15 @@ require("firebase/firestore");
 
   firebase.initializeApp(firebaseConfig);
 
-  const AppStack = createStackNavigator({
-      Home: AuthenticatedScreen
+
+  const MemberAppStack = createStackNavigator({
+      Home: MemberScreen
   })
+
+  const OfficerAppStack = createStackNavigator({
+    Home: OfficerScreen,
+    AddChapter: AddChapterScreen
+})
 
   const AuthStack = createStackNavigator({
       Landing: AuthLanding,
@@ -41,7 +49,8 @@ require("firebase/firestore");
       createSwitchNavigator(
           {
               Loading: LoadingScreen,
-              App: AppStack,
+              Member: MemberAppStack,
+              Officer: OfficerAppStack,
               Auth: AuthStack
           },
           {

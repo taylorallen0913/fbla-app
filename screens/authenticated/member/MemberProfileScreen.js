@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import * as firebase from 'firebase';
 
-class ProfileScreen extends React.Component {
+class MemberProfileScreen extends React.Component {
     state = {
         email: "",
         displayName: "",
@@ -16,13 +16,12 @@ class ProfileScreen extends React.Component {
         userDb.doc(uid).get()
             .then(doc => {
                 if(doc.exists) {
-                    role = doc.data().role;
+                    this.setState({role: doc.data().role});
                 }
             })
             .catch(err => {
                 console.log(err);
             })
-        this.setState({role: ""})
     }
 
     signOutUser = () => {
@@ -53,4 +52,4 @@ const styles = StyleSheet.create({
     }
   });
 
-export default ProfileScreen
+export default MemberProfileScreen

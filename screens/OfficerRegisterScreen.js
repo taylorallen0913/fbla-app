@@ -17,7 +17,8 @@ class OfficerRegisterScreen extends React.Component {
             .auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
             .then(userCredentials => {
                 db.collection('users').doc(userCredentials.user.uid).set({
-                    role: "officer"
+                    role: "officer",
+                    chapters: new Array
                 })
                 return userCredentials.user.updateProfile({
                     displayName: this.state.name

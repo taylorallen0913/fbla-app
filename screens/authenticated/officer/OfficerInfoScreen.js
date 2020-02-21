@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
-class InfoScreen extends React.Component {
+class OfficerInfoScreen extends React.Component {
     render() {
       return (
         <View style={styles.container}>
@@ -19,4 +19,4 @@ class InfoScreen extends React.Component {
     }
   });
 
-export default InfoScreen
+export default OfficerInfoScreen
