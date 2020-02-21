@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TextInput } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as firebase from 'firebase'
 
-class RegisterScreen extends React.Component {
+class MemberRegisterScreen extends React.Component {
     state = {
         name: "",
         email: "",
@@ -12,9 +12,13 @@ class RegisterScreen extends React.Component {
     }
 
     handleSignUp = () => {
+        var db = firebase.firestore();
         firebase
             .auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
             .then(userCredentials => {
+                db.collection('users').doc(userCredentials.user.uid).set({
+                    role: "member"
+                })
                 return userCredentials.user.updateProfile({
                     displayName: this.state.name
                 })
@@ -26,7 +30,7 @@ class RegisterScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.greeting}>
-                    Welcome! Sign up to get started.
+                    Register as a Member
                 </Text>
 
                 <View style={styles.errorMessage}>
@@ -72,7 +76,7 @@ class RegisterScreen extends React.Component {
 
                 <TouchableOpacity style={{alignContent: "center", marginTop: 32}}>
                     <Text style={{color: "#414959", fontSize: 13, textAlign: "center"}}>
-                        New? <Text style={{ fontWeight: "500", color: "#E9446A" }}>Login</Text>
+                        Already have an account? <Text style={{ fontWeight: "500", color: "#E9446A" }} onPress={() => this.props.navigation.navigate("Login")}>Login</Text>
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -128,4 +132,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default RegisterScreen;
+export default MemberRegisterScreen;

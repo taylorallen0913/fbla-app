@@ -3,10 +3,13 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import LoadingScreen from './screens/LoadingScreen';
 import LoginScreen from './screens/LoginScreen';
-import RegisterScreen from './screens/RegisterScreen';
+import MemberRegisterScreen from './screens/MemberRegisterScreen';
 import AuthenticatedScreen from './screens/Authenticated';
 
 import * as firebase from 'firebase';
+import OfficerRegisterScreen from './screens/OfficerRegisterScreen';
+import AuthLanding from './screens/AuthLanding';
+import MasterRegisterScreen from './screens/MasterRegisterScreen';
 require("firebase/firestore");
 
   // Your web app's Firebase configuration
@@ -22,15 +25,16 @@ require("firebase/firestore");
 
   firebase.initializeApp(firebaseConfig);
 
-  var db = firebase.firestore();
-
   const AppStack = createStackNavigator({
       Home: AuthenticatedScreen
   })
 
   const AuthStack = createStackNavigator({
+      Landing: AuthLanding,
+      MasterRegister: MasterRegisterScreen,
       Login: LoginScreen,
-      Register: RegisterScreen
+      MemberRegister: MemberRegisterScreen,
+      OfficerRegister: OfficerRegisterScreen
   })
 
   export default createAppContainer (

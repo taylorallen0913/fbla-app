@@ -6,21 +6,33 @@ class ProfileScreen extends React.Component {
     state = {
         email: "",
         displayName: "",
-        id: ""
+        id: "",
+        role: ""
     }
     componentDidMount() {
+        var userDb = firebase.firestore().collection('users');
         const { email, displayName, uid } = firebase.auth().currentUser;
-
         this.setState( { email, displayName, uid } )
+        userDb.doc(uid).get()
+            .then(doc => {
+                if(doc.exists) {
+                    role = doc.data().role;
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        this.setState({role: ""})
     }
 
     signOutUser = () => {
         firebase.auth().signOut();
     }
+
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.header}>FBLA Chapter Manager</Text>
+                <Text>Role: {this.state.role}</Text>
                 <Text>Email: {this.state.email}</Text>
                 <Text>User ID: {this.state.uid}</Text>
                 <TouchableOpacity style={{ marginTop: 32 }} onPress={this.signOutUser}>
