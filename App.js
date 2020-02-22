@@ -12,6 +12,7 @@ import MasterRegisterScreen from './screens/MasterRegisterScreen';
 import MemberScreen from './screens/MemberScreen';
 import OfficerScreen from './screens/OfficerScreen';
 import AddChapterScreen from './screens/AddChapterScreen'
+import ChapterScreen from './screens/authenticated/officer/ChapterScreen';
 require("firebase/firestore");
 
   // Your web app's Firebase configuration
@@ -29,20 +30,39 @@ require("firebase/firestore");
 
 
   const MemberAppStack = createStackNavigator({
-      Home: MemberScreen
+      Home: {
+          screen: MemberScreen
+      }
   })
 
   const OfficerAppStack = createStackNavigator({
-    Home: OfficerScreen,
-    AddChapter: AddChapterScreen
+    Home: {
+        screen: OfficerScreen
+    },
+    AddChapter: {
+        screen: AddChapterScreen
+    },
+    Chapter: {
+        screen: ChapterScreen
+    }
 })
 
   const AuthStack = createStackNavigator({
-      Landing: AuthLanding,
-      MasterRegister: MasterRegisterScreen,
-      Login: LoginScreen,
-      MemberRegister: MemberRegisterScreen,
-      OfficerRegister: OfficerRegisterScreen
+      Landing: {
+          screen: AuthLanding
+      },
+      MasterRegister: {
+          screen: MasterRegisterScreen
+      },
+      Login: {
+        screen: LoginScreen
+      },
+      MemberRegister: {
+          screen: MemberRegisterScreen
+      },
+      OfficerRegister: {
+          screen: OfficerRegisterScreen
+      }
   })
 
   export default createAppContainer (

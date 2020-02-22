@@ -19,26 +19,21 @@ class AddChapterScreen extends React.Component {
         return result;
      }
 
-    createChapter = async() => {
+    createChapter = () => {
         const { uid } = firebase.auth().currentUser;
         var db = firebase.firestore();
-        var newChapter = {
-            name: this.state.name,
-            description: this.state.description,
-            school: this.state.school,
-            id: this.generateClassID(5)
+        const id = this.generateClassID(5)
+        var newChapter = 
+        {
+        name: this.state.name,
+        description: this.state.description,
+        school: this.state.school,
+        officers: [uid],
+        members: new Array,
+        id: id
         }
-        var allData = []
-        await db.collection('users').doc(uid).get()
-            .then((doc) => {
-                if(doc.exists) {
-                    allData = doc.data().chapters
-                }
-            })
-        allData.push(newChapter)
-        db.collection('users').doc(uid).set({
-            chapters: allData
-        }, {merge: true}) 
+
+        db.collection('chapters').doc(id).set(newChapter)
         this.props.navigation.navigate("Home")
     }
 

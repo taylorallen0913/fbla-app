@@ -1,11 +1,12 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import Info from '../../info/Info'
 
 class MemberInfoScreen extends React.Component {
     render() {
       return (
         <View style={styles.container}>
-          <Text>Info Screen</Text>
+          <Info />
         </View>
       )
     }
@@ -13,9 +14,7 @@ class MemberInfoScreen extends React.Component {
 
   const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
+      flex: 1
     }
   });
 
