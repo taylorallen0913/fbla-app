@@ -1,7 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as firebase from 'firebase'
+
+const DismissKeyboard = ({ children }) => (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        {children}
+    </TouchableWithoutFeedback>
+)
 
 class LoginScreen extends React.Component {
     state = {
@@ -21,6 +27,7 @@ class LoginScreen extends React.Component {
 
     render() {
         return (
+            <DismissKeyboard>
             <View style={styles.container}>
                 <Text style={styles.greeting}>
                     Welcome back to your FBLA manager!
@@ -63,6 +70,7 @@ class LoginScreen extends React.Component {
                     </Text>
                 </TouchableOpacity>
             </View>
+            </DismissKeyboard>
         )
     }
 }

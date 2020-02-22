@@ -70,7 +70,7 @@ class OfficerHomeScreen extends React.Component {
             : null
             }
           <TouchableOpacity style={styles.addButton} onPress={() => this.props.navigation.navigate("AddChapter")}>
-              <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}> - Create A Chapter - </Text>
+              <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>Create A Chapter</Text>
           </TouchableOpacity>
         </View>
       )
@@ -97,8 +97,7 @@ const styles = StyleSheet.create({
       height: 52,
       alignContent: "center",
       justifyContent: "center",
-      marginTop: 30,
-      marginBottom: 40
+      margin: 40
     }
   });  
 

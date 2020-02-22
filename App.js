@@ -13,6 +13,7 @@ import MemberScreen from './screens/MemberScreen';
 import OfficerScreen from './screens/OfficerScreen';
 import AddChapterScreen from './screens/AddChapterScreen'
 import ChapterScreen from './screens/authenticated/officer/ChapterScreen';
+
 require("firebase/firestore");
 
   // Your web app's Firebase configuration

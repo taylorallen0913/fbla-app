@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import * as firebase from 'firebase';
+import Profile from '../Profile/Profile'
 
 class MemberProfileScreen extends React.Component {
     state = {
@@ -31,13 +32,10 @@ class MemberProfileScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Role: {this.state.role}</Text>
-                <Text>Email: {this.state.email}</Text>
-                <Text>User ID: {this.state.uid}</Text>
-                <TouchableOpacity style={{ marginTop: 32 }} onPress={this.signOutUser}>
-                    <Text style={{ textAlign: "center" }}>Logout</Text>
+                <Profile role={this.state.role}/>
+                <TouchableOpacity style={styles.button} onPress={this.signOutUser}>
+                    <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}> Logout </Text>
                 </TouchableOpacity>
-                
             </View>
         )
     }
@@ -46,10 +44,17 @@ class MemberProfileScreen extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
-    }
+      flex: 1
+    },
+    button: {
+        marginTop: 32,
+        marginHorizontal: 30,
+        backgroundColor: "#000080",
+        borderRadius: 4,
+        height: 52,
+        alignContent: "center",
+        justifyContent: "center",
+      },
   });
 
 export default MemberProfileScreen
