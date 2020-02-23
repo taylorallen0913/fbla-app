@@ -23,21 +23,20 @@ class Profile extends React.Component {
 
     componentDidMount() {
         const user = firebase.auth().currentUser
-        this.setState({ displayName: user.displayName,
-        photoURL: user.photoURL }, () => this.setState({isLoaded: true}))
+        this.setState({ displayName: user.displayName })
+        this.setState({ photoURL: user.photoURL }, () => this.setState({isLoaded: true})) 
         const { email, displayName, uid } = firebase.auth().currentUser;
         this.setState( { email, displayName, uid } )
     }
 
 
     saveChanges = () => {
-        console.log("saved")
         var user = firebase.auth().currentUser;
 
         user.updateProfile({
             displayName: this.state.displayName
         })
-            .then(() => {console.log("changed")})
+            .then(() => {})
             .catch(err => console.log(err))
     }
 
@@ -48,10 +47,12 @@ class Profile extends React.Component {
                 {
                 this.state.isLoaded ?
                 <View style={{ justifyContent: 'center', alignItems: 'center', margin: 10 }}>
+
                     <Image
                     style={{ width: 100, height: 100, resizeMode: 'center' }}
-                    source={{ uri: this.state.photoURL }}
+                    source={require('../../../images/profilepic.png')}
                     />
+                    
                 </View>
                 : null
                 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import * as firebase from 'firebase';
-import Profile from '../Profile/Profile'
+import Profile from '../../authenticated/Profile/Profile'
 
 class MemberProfileScreen extends React.Component {
     state = {
@@ -47,13 +47,12 @@ const styles = StyleSheet.create({
       flex: 1
     },
     button: {
-        marginTop: 32,
         marginHorizontal: 30,
         backgroundColor: "#000080",
         borderRadius: 4,
         height: 52,
         alignContent: "center",
-        justifyContent: "center",
+        justifyContent: "center"
       },
   });
 

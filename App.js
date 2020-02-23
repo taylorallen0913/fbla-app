@@ -9,10 +9,12 @@ import * as firebase from 'firebase';
 import OfficerRegisterScreen from './screens/OfficerRegisterScreen';
 import AuthLanding from './screens/AuthLanding';
 import MasterRegisterScreen from './screens/MasterRegisterScreen';
-import MemberScreen from './screens/MemberScreen';
-import OfficerScreen from './screens/OfficerScreen';
-import AddChapterScreen from './screens/AddChapterScreen'
-import ChapterScreen from './screens/authenticated/officer/ChapterScreen';
+import MemberScreen from './screens/Member/MemberScreen';
+import OfficerScreen from './screens/Officer/OfficerScreen';
+import AddChapterScreen from './screens/Officer/OfficerDashboard/AddChapterScreen'
+import OfficerChapterScreen from './screens/Officer/OfficerChapterScreen'
+import JoinChapterScreen from './screens/Member/MemberDashboard/JoinChapterScreen'
+import MemberChapterScreen from './screens/Member/MemberChapterScreen'
 
 require("firebase/firestore");
 
@@ -31,20 +33,44 @@ require("firebase/firestore");
 
 
   const MemberAppStack = createStackNavigator({
-      Home: {
-          screen: MemberScreen
+      MemberHome: {
+          screen: MemberScreen,
+          navigationOptions: {
+              title: "Home"
+          }
+      },
+      JoinChapter: {
+          screen: JoinChapterScreen,
+          navigationOptions: {
+              title: "Join Chapter"
+          }
+      },
+      MemberChapter: {
+          screen: MemberChapterScreen,
+          navigationOptions: {
+              title: "Chapter"
+          }
       }
   })
 
   const OfficerAppStack = createStackNavigator({
-    Home: {
-        screen: OfficerScreen
+    OfficerHome: {
+        screen: OfficerScreen,
+        navigationOptions: {
+            title: "Home"
+        }
     },
     AddChapter: {
-        screen: AddChapterScreen
+        screen: AddChapterScreen,
+        navigationOptions: {
+            title: "Add Chapter"
+        }
     },
-    Chapter: {
-        screen: ChapterScreen
+    OfficerChapter: {
+        screen: OfficerChapterScreen,
+        navigationOptions: {
+            title: "Chapter Manager"
+        }
     }
 })
 
@@ -70,8 +96,8 @@ require("firebase/firestore");
       createSwitchNavigator(
           {
               Loading: LoadingScreen,
-              Member: MemberAppStack,
               Officer: OfficerAppStack,
+              Member: MemberAppStack,
               Auth: AuthStack
           },
           {

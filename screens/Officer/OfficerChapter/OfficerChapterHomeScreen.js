@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 
-class ChapterScreen extends React.Component {
+class OfficerChapterHomeScreen extends React.Component {
 
     render() {
         const { params } = this.props.navigation.state;
@@ -12,7 +12,7 @@ class ChapterScreen extends React.Component {
         const school = params ? params.school : null; 
         return (
             <View>
-                <Text style={{fontSize: 40, fontWeight: "bold"}}>Chapter Screen</Text>
+                <Text style={{fontSize: 40, fontWeight: "bold"}}>Officer Chapter Screen</Text>
                 <Text>ID: {JSON.stringify(id)}</Text>
                 <Text>DESCRIPTION: {JSON.stringify(description)}</Text>
                 <Text>NAME: {JSON.stringify(name)}</Text>
@@ -22,4 +22,4 @@ class ChapterScreen extends React.Component {
     }
 }
 
-export default ChapterScreen
+export default OfficerChapterHomeScreen

@@ -19,6 +19,13 @@ class AddChapterScreen extends React.Component {
         return result;
      }
 
+    restOfCreateChapter = (officerData, id, uid) => {
+        var db = firebase.firestore();
+        officerData.push(id)
+        db.collection('users').doc(uid).set({ chapters: officerData }, { merge : true })
+        this.props.navigation.navigate("OfficerHome")
+    }
+
     createChapter = () => {
         const { uid } = firebase.auth().currentUser;
         var db = firebase.firestore();
@@ -31,10 +38,16 @@ class AddChapterScreen extends React.Component {
         officers: [uid],
         members: new Array,
         id: id
-        }
-
+        } 
         db.collection('chapters').doc(id).set(newChapter)
-        this.props.navigation.navigate("Home")
+
+        var officerData = []
+        db.collection('users').doc(uid).get()
+            .then((doc) => {
+                officerData = doc.data().chapters
+                this.restOfCreateChapter(officerData, id, uid)
+        })
+        
     }
 
     render() {

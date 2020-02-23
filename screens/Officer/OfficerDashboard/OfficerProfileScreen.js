@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import * as firebase from 'firebase';
-import Profile from '../Profile/Profile'
+import Profile from '../../authenticated/Profile/Profile'
 
 class OfficerProfileScreen extends React.Component {
     state = {

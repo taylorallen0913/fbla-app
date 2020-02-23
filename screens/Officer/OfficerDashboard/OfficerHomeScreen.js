@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text, TouchableOpacity, FlatList, ListItem } from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity, FlatList } from 'react-native'
 import * as firebase from 'firebase';
 
 class OfficerHomeScreen extends React.Component {
@@ -26,9 +26,11 @@ class OfficerHomeScreen extends React.Component {
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
           var data = doc.data()
-          var stateData = this.state.chapters
-          stateData.push(data)
-          this.setState({ chapters: stateData }, () => this.setState({ isLoaded: true }))
+          if(data.officers.includes(uid)) {
+            var stateData = this.state.chapters
+            stateData.push(data)
+            this.setState({ chapters: stateData }, () => this.setState({ isLoaded: true }))
+          }
         })
       })
       .catch(err => {
@@ -45,17 +47,17 @@ class OfficerHomeScreen extends React.Component {
   }
 
   render() {
-    const { isLoaded } = this.state
+    const { isLoaded, chapters } = this.state
       return (
         <View style={styles.container}>
             {
             isLoaded 
             ? 
               <FlatList 
-                data={this.state.chapters}
+                data={chapters}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
-                  <TouchableOpacity style={styles.chapterButton} onPress={() => this.props.navigation.navigate("Chapter", {
+                  <TouchableOpacity style={styles.chapterButton} onPress={() => this.props.navigation.navigate("OfficerChapter", {
                     name: item.name,
                     description: item.description,
                     id: item.id,

@@ -12,10 +12,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {createAppContainer} from 'react-navigation';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 
-import HomeScreen from './authenticated/officer/OfficerHomeScreen'
-import ContactScreen from './authenticated/officer/OfficerContactScreen'
-import InfoScreen from './authenticated/officer/OfficerInfoScreen'
-import ProfileScreen from './authenticated/officer/OfficerProfileScreen'
+import HomeScreen from './MemberDashboard/MemberHomeScreen'
+import ContactScreen from './MemberDashboard/MemberContactScreen'
+import InfoScreen from './MemberDashboard/MemberInfoScreen'
+import ProfileScreen from './MemberDashboard/MemberProfileScreen'
 
 const TabNavigator = createMaterialBottomTabNavigator(
   {
