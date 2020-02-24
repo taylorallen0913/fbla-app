@@ -1,5 +1,6 @@
 import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
+import * as firebase from 'firebase';
 
 class MemberChapterHomeScreen extends React.Component {
 

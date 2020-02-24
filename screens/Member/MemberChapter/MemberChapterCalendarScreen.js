@@ -1,8 +1,14 @@
 import React from 'react'
 import {Alert, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import {Calendar, CalendarList, Agenda } from 'react-native-calendars';
+import { Agenda } from 'react-native-calendars';
+import * as firebase from 'firebase';
 
 class MemberChapterCalendarScreen extends React.Component {
+
+    componentDidMount() {
+      var db = firebase.firestore()
+    }
+
     state = {
         items: {}
     }
@@ -12,24 +18,10 @@ class MemberChapterCalendarScreen extends React.Component {
           <Agenda
             items={this.state.items}
             loadItemsForMonth={this.loadItems.bind(this)}
-            selected={'2017-05-16'}
+            selected={Date.now()}
             renderItem={this.renderItem.bind(this)}
             renderEmptyDate={this.renderEmptyDate.bind(this)}
             rowHasChanged={this.rowHasChanged.bind(this)}
-            // markingType={'period'}
-            // markedDates={{
-            //    '2017-05-08': {textColor: '#43515c'},
-            //    '2017-05-09': {textColor: '#43515c'},
-            //    '2017-05-14': {startingDay: true, endingDay: true, color: 'blue'},
-            //    '2017-05-21': {startingDay: true, color: 'blue'},
-            //    '2017-05-22': {endingDay: true, color: 'gray'},
-            //    '2017-05-24': {startingDay: true, color: 'gray'},
-            //    '2017-05-25': {color: 'gray'},
-            //    '2017-05-26': {endingDay: true, color: 'gray'}}}
-            // monthFormat={'yyyy'}
-            // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
-            //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
-            // hideExtraDays={false}
           />
         );
       }

@@ -15,6 +15,12 @@ import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom
 import HomeScreen from './MemberChapter/MemberChapterHomeScreen'
 import CalandarScreen from './MemberChapter/MemberChapterCalendarScreen'
 
+export default class MemberChapterScreen extends React.Component {
+  render() {
+    return <AppContainer />;
+  }
+}
+
 const TabNavigator = createMaterialBottomTabNavigator(
   {
     Home: {
@@ -40,34 +46,6 @@ const TabNavigator = createMaterialBottomTabNavigator(
         barStyle: { backgroundColor: '#2c6d6a' },
       }
     },
-    /*
-    Info: {
-      screen: InfoScreen,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <View>
-            <Icon style={[{color: tintColor}]} size={25} name={'ios-book'} />
-          </View>
-        ),
-        activeColor: '#ffffff',
-        inactiveColor: '#ebaabd',
-        barStyle: { backgroundColor: '#d13560' },
-      }
-    },
-    Profile: {
-        screen: ProfileScreen,
-        navigationOptions: {
-          tabBarIcon: ({ tintColor }) => (
-            <View>
-              <Icon style={[{color: tintColor}]} size={25} name={'ios-person'} />
-            </View>
-          ),
-          activeColor: '#ffffff',
-          inactiveColor: '#a3c2fa',
-          barStyle: { backgroundColor: '#2163f6' },
-        }
-      }
-      */
   },
   {
     initialRouteName: 'Home',
@@ -77,4 +55,4 @@ const TabNavigator = createMaterialBottomTabNavigator(
   }
 );
 
-export default createAppContainer(TabNavigator);
+const AppContainer = createAppContainer(TabNavigator);
