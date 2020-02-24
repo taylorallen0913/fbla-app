@@ -12,11 +12,7 @@ class MemberChapterHomeScreen extends React.Component {
         const school = params ? params.school : null; 
         return (
             <View>
-                <Text style={{fontSize: 40, fontWeight: "bold"}}>Member Chapter Screen</Text>
-                <Text>ID: {JSON.stringify(id)}</Text>
-                <Text>DESCRIPTION: {JSON.stringify(description)}</Text>
-                <Text>NAME: {JSON.stringify(name)}</Text>
-                <Text>SCHOOL: {JSON.stringify(school)}</Text>
+                <Text style={{fontSize: 40, fontWeight: "bold", textAlign: "center"}}>Member Home</Text>
             </View>
         )
     }

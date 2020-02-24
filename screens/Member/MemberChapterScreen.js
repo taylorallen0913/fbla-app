@@ -13,6 +13,7 @@ import {createAppContainer} from 'react-navigation';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 
 import HomeScreen from './MemberChapter/MemberChapterHomeScreen'
+import CalandarScreen from './MemberChapter/MemberChapterCalendarScreen'
 
 const TabNavigator = createMaterialBottomTabNavigator(
   {
@@ -26,13 +27,12 @@ const TabNavigator = createMaterialBottomTabNavigator(
         ),
       }
     },
-    /*
-    Contact: {
-      screen: ContactScreen,
+    Calandar: {
+      screen: CalandarScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <View>
-            <Icon style={[{color: tintColor}]} size={25} name={'ios-contact'} />
+            <Icon style={[{color: tintColor}]} size={25} name={'ios-calendar'} />
           </View>
         ),
         activeColor: '#ffffff',
@@ -40,6 +40,7 @@ const TabNavigator = createMaterialBottomTabNavigator(
         barStyle: { backgroundColor: '#2c6d6a' },
       }
     },
+    /*
     Info: {
       screen: InfoScreen,
       navigationOptions: {
