@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Button } from 'react-native'
 import * as firebase from 'firebase';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -12,15 +12,14 @@ const DismissKeyboard = ({ children }) => (
 AddEvent = (props) => {
     const [id, setId] = useState();
     const [ eventName, setEventName ] = useState();
-    const [date, setDate] = useState(new Date(1598051730000));
+    const [ eventDescription, setEventDescription ] = useState();
+    const [ date, setDate ] = useState(new Date(1598051730000));
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
 
-    /*
-    const { params } = props.navigation.state;
-    const idFromParams = params ? params.id : null;
-    setId(idFromParams)
-*/
+    useEffect(() => {
+        setId(props.navigation.state.params.id)
+    })
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
@@ -29,37 +28,21 @@ AddEvent = (props) => {
         setShow(Platform.OS === 'ios' ? true : false);
         };
 
-        const showMode = currentMode => {
-        setShow(true);
-        setMode(currentMode);
-        };
-
         const addEvent = () => {
-            var db = firebase.firestore()
-            var calendarData = []
-            db.collection('chapters').doc(id).get()
-                .then((document) => {
-                    calendarData = document.data().calendar
-                })
-            calendarData.push({date})
-            db.collection('chapters').doc(id).set({ calendar: calendarData }, { merge: true })  
-            console.log(date)
+            dateEvent = {
+                name: eventName,
+                description: eventDescription,
+                date: date.toJSON().toString().substring(0,10)
+            } 
+            firebase.firestore().collection('chapters').doc(id).update({
+                calendar: firebase.firestore.FieldValue.arrayUnion(dateEvent)
+            }) 
         }
         
 
         return (
             <DismissKeyboard>
                 <View style={styles.form}>
-                <DateTimePicker
-                    testID="dateTimePicker"
-                    timeZoneOffsetInMinutes={0}
-                    value={date}
-                    mode={mode}
-                    is24Hour={true}
-                    display="default"
-                    onChange={onChange}
-                    />
-
                     <View style={{marginTop: 32}}>
                         <Text style={styles.inputText}>Event Name</Text>
                         <TextInput 
@@ -67,7 +50,27 @@ AddEvent = (props) => {
                             autoCapitalize="none" 
                             onChangeText={eventName => setEventName(eventName)}
                             value={eventName}
-                            ></TextInput>
+                        ></TextInput>
+                    </View>
+                    <View style={{marginTop: 32}}>
+                        <Text style={styles.inputText}>Event Description</Text>
+                        <TextInput 
+                            style={styles.input}
+                            autoCapitalize="none" 
+                            onChangeText={eventDescription => setEventDescription(eventDescription)}
+                            value={eventDescription}
+                        ></TextInput>
+                    </View>
+                    <View style={{marginTop: 32}}>
+                        <DateTimePicker
+                            testID="dateTimePicker"
+                            timeZoneOffsetInMinutes={0}
+                            value={date}
+                            mode={mode}
+                            is24Hour={true}
+                            display="default"
+                            onChange={onChange}
+                        />
                     </View>
                     <TouchableOpacity style={styles.button} onPress={addEvent}>
                         <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>Add Event</Text>
