@@ -1,14 +1,8 @@
 import React from 'react'
 import {Alert, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import { Agenda } from 'react-native-calendars';
-import * as firebase from 'firebase';
+import {Calendar, CalendarList, Agenda } from 'react-native-calendars';
 
 class MemberChapterCalendarScreen extends React.Component {
-
-    componentDidMount() {
-      var db = firebase.firestore()
-    }
-
     state = {
         items: {}
     }
@@ -16,7 +10,13 @@ class MemberChapterCalendarScreen extends React.Component {
     render() {
         return (
           <Agenda
-            items={this.state.items}
+            //items={this.state.items}
+            items={{
+              '2020-02-25': [{name: 'item 1 - any js object'}],
+              '2020-02-26': [{name: 'item 2 - any js object', height: 80}],
+              '2020-02-27': [],
+              '2020-02-27': [{name: 'item 3 - any js object'}, {name: 'any js object'}]
+            }}
             loadItemsForMonth={this.loadItems.bind(this)}
             selected={Date.now()}
             renderItem={this.renderItem.bind(this)}

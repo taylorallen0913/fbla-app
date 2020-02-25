@@ -10,15 +10,9 @@ import {
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import {createAppContainer} from 'react-navigation';
-import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'; 
+import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 
 import HomeScreen from './OfficerChapter/OfficerChapterHomeScreen'
-
-export default class MemberChapterScreen extends React.Component {
-  render() {
-    return <AppContainer />;
-  }
-}
 
 const TabNavigator = createMaterialBottomTabNavigator(
   {
@@ -33,12 +27,12 @@ const TabNavigator = createMaterialBottomTabNavigator(
       }
     },
     /*
-    Calandar: {
-      screen: CalandarScreen,
+    Contact: {
+      screen: ContactScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <View>
-            <Icon style={[{color: tintColor}]} size={25} name={'ios-calendar'} />
+            <Icon style={[{color: tintColor}]} size={25} name={'ios-contact'} />
           </View>
         ),
         activeColor: '#ffffff',
@@ -46,7 +40,33 @@ const TabNavigator = createMaterialBottomTabNavigator(
         barStyle: { backgroundColor: '#2c6d6a' },
       }
     },
-    */
+    Info: {
+      screen: InfoScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <View>
+            <Icon style={[{color: tintColor}]} size={25} name={'ios-book'} />
+          </View>
+        ),
+        activeColor: '#ffffff',
+        inactiveColor: '#ebaabd',
+        barStyle: { backgroundColor: '#d13560' },
+      }
+    },
+    Profile: {
+        screen: ProfileScreen,
+        navigationOptions: {
+          tabBarIcon: ({ tintColor }) => (
+            <View>
+              <Icon style={[{color: tintColor}]} size={25} name={'ios-person'} />
+            </View>
+          ),
+          activeColor: '#ffffff',
+          inactiveColor: '#a3c2fa',
+          barStyle: { backgroundColor: '#2163f6' },
+        }
+      }
+      */
   },
   {
     initialRouteName: 'Home',
@@ -56,4 +76,4 @@ const TabNavigator = createMaterialBottomTabNavigator(
   }
 );
 
-const AppContainer = createAppContainer(TabNavigator);
+export default createAppContainer(TabNavigator);

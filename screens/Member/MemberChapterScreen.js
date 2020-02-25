@@ -15,12 +15,6 @@ import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom
 import HomeScreen from './MemberChapter/MemberChapterHomeScreen'
 import CalandarScreen from './MemberChapter/MemberChapterCalendarScreen'
 
-export default class MemberChapterScreen extends React.Component {
-  render() {
-    return <AppContainer />;
-  }
-}
-
 const TabNavigator = createMaterialBottomTabNavigator(
   {
     Home: {
@@ -55,4 +49,4 @@ const TabNavigator = createMaterialBottomTabNavigator(
   }
 );
 
-const AppContainer = createAppContainer(TabNavigator);
+export default createAppContainer(TabNavigator);
