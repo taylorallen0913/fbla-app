@@ -18,8 +18,9 @@ import CalandarScreen from './MemberChapter/MemberChapterCalendarScreen'
 const TabNavigator = createMaterialBottomTabNavigator(
   {
     Home: {
-      screen: HomeScreen,
+    screen: HomeScreen,
       navigationOptions: {
+        id: "0",
         tabBarIcon: ({ tintColor }) => (
           <View>
             <Icon style={[{color: tintColor}]} size={25} name={'ios-home'} />

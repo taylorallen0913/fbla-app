@@ -5,7 +5,6 @@ class MemberChapterHomeScreen extends React.Component {
 
     render() {
         const { params } = this.props.navigation.state;
-        
         const id = params ? params.id : null;
         const description = params ? params.description : null;
         const name = params ? params.name : null;
@@ -13,6 +12,7 @@ class MemberChapterHomeScreen extends React.Component {
         return (
             <View>
                 <Text style={{fontSize: 40, fontWeight: "bold", textAlign: "center"}}>Member Home</Text>
+                <Text>{id}</Text>
             </View>
         )
     }

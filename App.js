@@ -15,6 +15,7 @@ import AddChapterScreen from './screens/Officer/OfficerDashboard/AddChapterScree
 import OfficerChapterScreen from './screens/Officer/OfficerChapterScreen'
 import JoinChapterScreen from './screens/Member/MemberDashboard/JoinChapterScreen'
 import MemberChapterScreen from './screens/Member/MemberChapterScreen'
+import AddEvent from './screens/Officer/OfficerChapter/AddEvent'
 
 require("firebase/firestore");
 
@@ -70,6 +71,12 @@ require("firebase/firestore");
         screen: OfficerChapterScreen,
         navigationOptions: {
             title: "Chapter Manager"
+        }
+    },
+    AddEvent: {
+        screen: AddEvent,
+        navigationOptions: {
+            title: "Add Event"
         }
     }
 })

@@ -1,12 +1,27 @@
 import React from 'react'
 import {Alert, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import {Calendar, CalendarList, Agenda } from 'react-native-calendars';
+import { Agenda } from 'react-native-calendars';
+import * as firebase from 'firebase';
 
 class MemberChapterCalendarScreen extends React.Component {
     state = {
-        items: {}
+      id: "",
+      items: {}
     }
-   
+    componentDidMount() {
+      const { params } = this.props.navigation.state;
+      const id = params ? params.id : null;
+      this.setState({id: id}, () => { this.renderEventsOnCalendar() })
+    }
+
+    renderEventsOnCalendar = () => {
+      var eventsDb = firebase.firestore().collection('chapters').doc(this.state.id)
+      eventsDb.get()
+        .then((document) => {
+          let data = document.data()
+        })
+    }
+
     render() {
         return (
           <Agenda

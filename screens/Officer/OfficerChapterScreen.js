@@ -13,6 +13,7 @@ import {createAppContainer} from 'react-navigation';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 
 import HomeScreen from './OfficerChapter/OfficerChapterHomeScreen'
+import CalandarScreen from './OfficerChapter/OfficerChapterCalendarScreen'
 
 const TabNavigator = createMaterialBottomTabNavigator(
   {
@@ -26,13 +27,12 @@ const TabNavigator = createMaterialBottomTabNavigator(
         ),
       }
     },
-    /*
-    Contact: {
-      screen: ContactScreen,
+    Calandar: {
+      screen: CalandarScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <View>
-            <Icon style={[{color: tintColor}]} size={25} name={'ios-contact'} />
+            <Icon style={[{color: tintColor}]} size={25} name={'ios-calendar'} />
           </View>
         ),
         activeColor: '#ffffff',
@@ -40,33 +40,6 @@ const TabNavigator = createMaterialBottomTabNavigator(
         barStyle: { backgroundColor: '#2c6d6a' },
       }
     },
-    Info: {
-      screen: InfoScreen,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <View>
-            <Icon style={[{color: tintColor}]} size={25} name={'ios-book'} />
-          </View>
-        ),
-        activeColor: '#ffffff',
-        inactiveColor: '#ebaabd',
-        barStyle: { backgroundColor: '#d13560' },
-      }
-    },
-    Profile: {
-        screen: ProfileScreen,
-        navigationOptions: {
-          tabBarIcon: ({ tintColor }) => (
-            <View>
-              <Icon style={[{color: tintColor}]} size={25} name={'ios-person'} />
-            </View>
-          ),
-          activeColor: '#ffffff',
-          inactiveColor: '#a3c2fa',
-          barStyle: { backgroundColor: '#2163f6' },
-        }
-      }
-      */
   },
   {
     initialRouteName: 'Home',
