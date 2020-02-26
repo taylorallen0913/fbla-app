@@ -31,14 +31,17 @@ class MemberChapterHomeScreen extends React.Component {
             .then(doc => {
                 let found = false
                 let data = doc.data().calendar
-                data.forEach(elem => {
-                    if(this.state.meetingId == elem.id) {
-                        db.collection('chapters').doc(this.state.id).update({
-                            attendance: firebase.firestore.FieldValue.arrayUnion(this.state.uid)
-                        })
+                for(let i = 0; i < data.length; i++) {
+                    if(this.state.meetingId == data[i].id) {
+                        let newData = data[i]
+                        newData.attendance.push(this.state.uid)
+                        //console.log(newData)
+                        console.log("FOUND")
+                        data[i] = newData
                         found = true;
                     }
-                })
+                    db.collection('chapters').doc(this.state.id).update({ calendar: data })
+                }
                 if(!found) {
                     this.setState({ errorMessage: "Error: Meeting Code Was Invalid" })
                 } 

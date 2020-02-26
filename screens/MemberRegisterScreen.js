@@ -23,7 +23,7 @@ class MemberRegisterScreen extends React.Component {
             .auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
             .then(userCredentials => {
                 db.collection('users').doc(userCredentials.user.uid).set({
-                    role: "member", chapters: new Array
+                    role: "member", name: this.state.name
                 })
                 return userCredentials.user.updateProfile({
                     displayName: this.state.name,

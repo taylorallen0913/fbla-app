@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, FlatList, TouchableHighlightBase } from 'react-native'
+import { View, Text, StyleSheet, FlatList, TouchableHighlightBase, Button } from 'react-native'
 import * as firebase from 'firebase';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -13,7 +13,10 @@ class MeetingInfo extends React.Component {
         size: 0,
         sizeLoaded: false,
         meetingNotes: new String,
-        meetingNotesLoaded: false
+        meetingNotesLoaded: false,
+        ids: [],
+        names: [],
+        namesLoading: false
     }
 
     componentDidMount() {
@@ -31,13 +34,24 @@ class MeetingInfo extends React.Component {
         var db = firebase.firestore()
         db.collection('chapters').doc(this.state.id).get()
             .then(document => {
-                let attendanceArr = document.data().attendance
-                console.log(attendanceArr.length) /*
-                calendarData.forEach(elem => {
+                let attendanceArr = document.data().calendar
+                attendanceArr.forEach(elem => {
                     if(elem.id = this.state.meetingId) {
                         this.setState({attendance: elem.attendance}, () => this.setState({ attendanceLoaded: true}))
                     }
-                }) */
+                }) 
+            })
+    }
+
+    getNameFromId = (id) => {
+        let nameList = this.state.names
+        firebase.firestore().collection('users').doc(id).get()
+            .then(doc => {
+                if(doc.exists) {
+                let name = doc.data().name
+                nameList.push(name)
+                this.setState({names: nameList})
+                }
             })
     }
 
@@ -47,7 +61,12 @@ class MeetingInfo extends React.Component {
             .then((doc) => {
                 let data = doc.data()
                 size = data.members.length
-                console.log(size)
+                this.setState({ids: data.members }, () => {
+                    let idList = this.state.ids
+                    idList.forEach(elem => {
+                        this.getNameFromId(elem)
+                    })
+                })
                 this.setState({size: size}, () => this.setState({sizeLoaded: true}))
             })
     }
@@ -66,25 +85,27 @@ class MeetingInfo extends React.Component {
     }
 
     render() {
-        const { isLoaded, attendance, sizeLoaded, size, meetingNotesLoaded, attendanceLoaded } = this.state
-        const mapItems = this.state.attendance.map((item) => 
-        <Text style={{fontSize: 20, margin: 10, textAlign: "center"}} key={item.toString()}>
-            {item}
+        const { attendance, sizeLoaded, size, meetingNotesLoaded, attendanceLoaded } = this.state
+        
+        const mapItems = this.state.attendance.map((item, i) => 
+        <Text style={{fontSize: 20, margin: 10, textAlign: "center"}} key={i}>
+            {(this.getNameFromIditem)}
         </Text>
-    )
+        )
 
         return (
             <View>
                 <Text style={styles.header}>Meeting Analytics</Text>
-                <Text style={{fontSize: 20, margin:20}}>
+                <Button title="Test" onPress={() => console.log(this.state.names)}/>
+                <Text style={{fontSize: 15, margin:10}}>
                     {
                         sizeLoaded && attendanceLoaded ?
-                        <Text>Percent of members who attended this meeting: {size / attendance.length * 100 + '%'}</Text> : null
+                        <Text>Percent attendance: {attendance.length / size * 100 + '%'}</Text> : null
                     }
                 </Text>
                     {
                         meetingNotesLoaded ?
-                        <Text style={{fontSize: 20, margin: 20}}>Meeting Notes:{'\n' + this.state.meetingNotes}</Text> : null
+                        <Text style={{fontSize: 15, margin: 10}}>Meeting Notes:{'\n' + this.state.meetingNotes}</Text> : null
                     }
                 <ScrollView>{mapItems}</ScrollView>
             </View>
