@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList, TouchableHighlightBase } from 'react-native'
 import * as firebase from 'firebase';
+import { ScrollView } from 'react-native-gesture-handler';
 
 class MeetingInfo extends React.Component {
     
@@ -8,31 +9,33 @@ class MeetingInfo extends React.Component {
         meetingId: "",
         isLoaded: false,
         attendance: [],
-        isFetching: false,
-        size: new Number,
-        sizeLoaded: false
+        attendanceLoaded: false,
+        size: 0,
+        sizeLoaded: false,
+        meetingNotes: new String,
+        meetingNotesLoaded: false
     }
 
     componentDidMount() {
         const { params } = this.props.navigation.state;
         const id = params.time.id
         this.setState({meetingId: id})
-        this.setState({id: params.id}, () => { this.getAttendance() })
-    }
-
-    onRefresh = () => {
-        this.setState({ chapters: [] })
-        this.setState({ isFetching: true }, () => { this.getAttendance() });
+        this.setState({id: params.id}, () => {
+            this.getAttendance();
+            this.getPercentAttended();
+            this.loadMeetingNotes();
+        })
     }
 
     getAttendance = () => {
         var db = firebase.firestore()
         db.collection('chapters').doc(this.state.id).get()
             .then(document => {
-                let calendarData = document.data().calendar
+                let calendarData = document.data()
+                console.log(document.data())
                 calendarData.forEach(elem => {
                     if(elem.id = this.state.meetingId) {
-                        this.setState({attendance: elem.attendance}, () => this.setState({ isLoaded: true, isFetching: false }))
+                        this.setState({attendance: elem.attendance}, () => this.setState({ attendanceLoaded: true}))
                     }
                 })
             })
@@ -44,33 +47,46 @@ class MeetingInfo extends React.Component {
             .then((doc) => {
                 let data = doc.data()
                 size = data.members.length
-                this.setState({size: size}, () => this.setState({sizeLoaded: true, isFetching: false}))
+                console.log(size)
+                this.setState({size: size}, () => this.setState({sizeLoaded: true}))
             })
     }
 
+    loadMeetingNotes = () => {
+        var db = firebase.firestore()
+        db.collection('chapters').doc(this.state.id).get()
+            .then(document => {
+                let calendarData = document.data().calendar
+                calendarData.forEach(elem => {
+                    if(elem.id = this.state.meetingId) {
+                        this.setState({meetingNotes: elem.notes}, () => this.setState({ meetingNotesLoaded: true}))
+                    }
+                })
+            })
+    }
 
     render() {
-        const { isLoaded, attendance, sizeLoaded, size } = this.state
-        const mapItems = attendance.map((item) => 
-            <Text style={{fontSize: 20, margin: 20}} key={item.toString()}>
-                {item}
-            </Text>
-        )
+        const { isLoaded, attendance, sizeLoaded, size, meetingNotesLoaded, attendanceLoaded } = this.state
+        const mapItems = this.state.attendance.map((item) => 
+        <Text style={{fontSize: 20, margin: 10, textAlign: "center"}} key={item.toString()}>
+            {item}
+        </Text>
+    )
 
         return (
             <View>
                 <Text style={styles.header}>Meeting Analytics</Text>
-                <View>{mapItems}</View>
-                <Text>
+                <Text style={{fontSize: 20, margin:20}}>
                     {
-                        sizeLoaded ?
-                        <Text>Percent of Members Who Attended the Meeting: {size / attendance.length * 100 + '%'}</Text> : null
-                    }
-                    {
-                        isLoaded ?
-                        this.getPercentAttended() : null
+                        sizeLoaded && attendanceLoaded ?
+                        <Text>Percent of members who attended this meeting: {size / attendance.length * 100 + '%'}</Text> : null
                     }
                 </Text>
+                    {
+                        meetingNotesLoaded ?
+                        <Text style={{fontSize: 20, margin: 20}}>Meeting Notes:{'\n' + this.state.meetingNotes}</Text> : null
+                    }
+                <ScrollView>{mapItems}</ScrollView>
             </View>
         )
     }

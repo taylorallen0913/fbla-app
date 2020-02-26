@@ -16,31 +16,40 @@ class MemberChapterCalendarScreen extends React.Component {
       this.setState({id: id}, () => { this.renderEventsOnCalendar() })
     }
 
-    convertTime = (time) => {
-      let amOrPm = ' PM'
-      let hour = parseInt(time.substring(0,1))
-      if(hour > 12) {
-        hour =- 12;
-        amOrPm = ' AM'
-      }
-      return hour + time.substring(2, time.length-3) + amOrPm
-    }
-
     renderEventsOnCalendar = () => {
       var eventsDb = firebase.firestore().collection('chapters').doc(this.state.id)
       eventsDb.get()
         .then((document) => {
-          let eventMap = [{name: "\n\n" + doc.name + "\n\n" + this.convertTime(doc.time)}]
+          let data = document.data().calendar
           this.pushEventsToState(data)
         })
+    }
+
+    convertTime = (time) => {
+      let amOrPm = ' AM'
+      time = time.substring(0, time.length-3)
+      time = time.split(':')
+      let hour = time[0]
+      if(hour > 12) {
+        hour = hour - 12;
+        time[0] = hour
+        amOrPm = ' PM'
+      }
+      return time[0] + ":" + time[1] + amOrPm
     }
 
     pushEventsToState = (data) => {
       this.setState({ items: new Object })
       let itemsState = {}
       data.forEach(doc => {
-        let eventMap = [{name: doc.name + "\n\n" + doc.time}]
-        itemsState[doc.date] = eventMap
+        if(doc.duration != null) {
+          let eventMap = [{name: "MEETING: " + doc.name + "\n" + "Duration: " + doc.duration, id: doc.id}]
+          itemsState[doc.date] = eventMap
+        }
+        else {
+          let eventMap = [{name: doc.name + "\n\n" + this.convertTime(doc.time), id: doc.id}]
+          itemsState[doc.date] = eventMap
+        }
       })
       this.setState({items: itemsState})
     }
@@ -62,15 +71,23 @@ class MemberChapterCalendarScreen extends React.Component {
 
       render() {
         return (
-          <Agenda
-            items={this.state.items}
-            selected={Date.now()}
-            renderItem={this.renderItem.bind(this)}
-            rowHasChanged={this.rowHasChanged.bind(this)}
-          />
+          <View>
+            <View style={{height: 600}}>
+              <Agenda
+                items={this.state.items}
+                selected={'2020-02-25'}
+                renderItem={this.renderItem.bind(this)}
+                rowHasChanged={this.rowHasChanged.bind(this)}
+              />
+            </View>
+            <TouchableOpacity style={styles.addButton} onPress={() => this.props.navigation.navigate("AddEvent", {
+                id: this.state.id
+            })}>
+            <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>Add Event</Text>
+          </TouchableOpacity>
+        </View>
         );
       }
-
     }
 
 

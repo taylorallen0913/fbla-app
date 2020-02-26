@@ -4,7 +4,8 @@ import * as firebase from 'firebase';
 import { Agenda } from 'react-native-calendars';
 
 class OfficerChapterCalendarScreen extends React.Component {
-    state = {
+    
+  state = {
       id: "",
       items: {}
     }
@@ -42,11 +43,11 @@ class OfficerChapterCalendarScreen extends React.Component {
       let itemsState = {}
       data.forEach(doc => {
         if(doc.duration != null) {
-          let eventMap = [{name: "\n\nMEETING: " + doc.name + "\n" + "Duration: " + doc.duration, id: doc.id}]
+          let eventMap = [{name: "MEETING: " + doc.name + "\n" + "Duration: " + doc.duration, id: doc.id}]
           itemsState[doc.date] = eventMap
         }
         else {
-          let eventMap = [{name: "\n\n" + doc.name + "\n\n" + this.convertTime(doc.time), id: doc.id}]
+          let eventMap = [{name: "" + doc.name + "\n\n" + this.convertTime(doc.time), id: doc.id}]
           itemsState[doc.date] = eventMap
         }
       })
@@ -114,6 +115,19 @@ class OfficerChapterCalendarScreen extends React.Component {
           alignContent: "center",
           justifyContent: "center",
           margin: 40
+        },
+        item: {
+          backgroundColor: 'white',
+          flex: 1,
+          borderRadius: 5,
+          padding: 10,
+          marginRight: 10,
+          marginTop: 17
+        },
+        emptyDate: {
+          height: 15,
+          flex:1,
+          paddingTop: 30
         }
       });
 

@@ -91,7 +91,7 @@ class MeetingScreen extends React.Component {
     }
 
     endMeeting = () => {
-        dateEvent = {
+        let dateEvent = {
             name: this.state.meetingName,
             date: this.getCurrentDate(),
             time: this.getCurrentTime(),
