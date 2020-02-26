@@ -13,7 +13,6 @@ import {createAppContainer} from 'react-navigation';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 
 import HomeScreen from './MemberDashboard/MemberHomeScreen'
-import ContactScreen from './MemberDashboard/MemberContactScreen'
 import InfoScreen from './MemberDashboard/MemberInfoScreen'
 import ProfileScreen from './MemberDashboard/MemberProfileScreen'
 
@@ -27,19 +26,6 @@ const TabNavigator = createMaterialBottomTabNavigator(
             <Icon style={[{color: tintColor}]} size={25} name={'ios-home'} />
           </View>
         ),
-      }
-    },
-    Contact: {
-      screen: ContactScreen,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <View>
-            <Icon style={[{color: tintColor}]} size={25} name={'ios-contact'} />
-          </View>
-        ),
-        activeColor: '#ffffff',
-        inactiveColor: '#92c5c2',
-        barStyle: { backgroundColor: '#2c6d6a' },
       }
     },
     Info: {

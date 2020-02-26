@@ -34,7 +34,7 @@ class LoginScreen extends React.Component {
             <DismissKeyboard>
             <View style={styles.container}>
                 <Text style={styles.greeting}>
-                    Welcome back to your FBLA manager!
+                    Log into FBLA Overseer
                 </Text>
 
                 <View style={styles.errorMessage}>
@@ -63,15 +63,16 @@ class LoginScreen extends React.Component {
                             ></TextInput>
                     </View>
                 </View>
-
-                <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
-                    <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>Sign in</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{alignContent: "center", marginTop: 32}} onPress={() => this.props.navigation.navigate("MasterRegister")}>
-                    <Text style={{color: "#414959", fontSize: 13, textAlign: "center"}}>
-                        New? <Text style={{ fontWeight: "500", color: "#E9446A" }}>Sign Up</Text>
-                    </Text>
-                </TouchableOpacity>
+                <View style={{marginTop: 0}}>
+                    <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
+                        <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>Sign in</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{alignContent: "center", marginTop: 32}} onPress={() => this.props.navigation.navigate("MasterRegister")}>
+                        <Text style={{color: "#414959", fontSize: 13, textAlign: "center"}}>
+                            New? <Text style={{ fontWeight: "500", color: "#E9446A" }}>Sign Up</Text>
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
             </DismissKeyboard>
         )
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
     button: {
         margin: 20,
         marginHorizontal: 30,
-        backgroundColor: "#E9446A",
+        backgroundColor: "#DAA520",
         borderRadius: 4,
         height: 52,
         alignContent: "center",
