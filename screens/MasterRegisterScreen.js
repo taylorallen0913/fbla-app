@@ -7,16 +7,18 @@ class MasterRegisterScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.header}>FBLA Manager App</Text>
-                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate("MemberRegister")}>
-                    <Text style={{color: "#414959", fontSize: 13, textAlign: "center"}}>
-                        <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>I am a member</Text>
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate("OfficerRegister")}>
-                    <Text style={{color: "#414959", fontSize: 13, textAlign: "center"}}>
-                        <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>I am an officer</Text>
-                    </Text>
-                </TouchableOpacity>
+                <View style={{marginTop: 370}}>
+                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate("MemberRegister")}>
+                        <Text style={{color: "#414959", fontSize: 13, textAlign: "center"}}>
+                            <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>I am a member</Text>
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate("OfficerRegister")}>
+                        <Text style={{color: "#414959", fontSize: 13, textAlign: "center"}}>
+                            <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>I am an officer</Text>
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </View>  
         )
     }
@@ -33,12 +35,12 @@ const styles = StyleSheet.create({
     },
     button: {
         marginHorizontal: 30,
-        backgroundColor: "#4d79ff",
+        backgroundColor: "#000080",
         borderRadius: 4,
         height: 52,
         alignContent: "center",
         justifyContent: "center",
-        margin: 30
+        margin: 17
     }
 });
 

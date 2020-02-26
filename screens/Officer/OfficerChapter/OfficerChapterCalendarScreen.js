@@ -77,7 +77,7 @@ class OfficerChapterCalendarScreen extends React.Component {
             <View style={{height: 600}}>
               <Agenda
                 items={this.state.items}
-                selected={'2020-02-25'}
+                selected={'2020-02-26'}
                 renderItem={this.renderItem.bind(this)}
                 rowHasChanged={this.rowHasChanged.bind(this)}
               />

@@ -31,13 +31,13 @@ class MeetingInfo extends React.Component {
         var db = firebase.firestore()
         db.collection('chapters').doc(this.state.id).get()
             .then(document => {
-                let calendarData = document.data()
-                console.log(document.data())
+                let attendanceArr = document.data().attendance
+                console.log(attendanceArr.length) /*
                 calendarData.forEach(elem => {
                     if(elem.id = this.state.meetingId) {
                         this.setState({attendance: elem.attendance}, () => this.setState({ attendanceLoaded: true}))
                     }
-                })
+                }) */
             })
     }
 

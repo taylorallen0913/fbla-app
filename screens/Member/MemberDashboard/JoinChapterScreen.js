@@ -20,9 +20,11 @@ class JoinChapterScreen extends React.Component {
         let chapterMemberList = []
         db.collection('chapters').doc(id).get()
             .then((document) => {
+                console.log(document.data())
                 chapterMemberList = document.data().members
                 chapterMemberList.push(uid)
                 db.collection('chapters').doc(id).set({ members: chapterMemberList }, { merge: true })
+                console.log("DONE")
             })
     }
 
