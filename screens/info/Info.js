@@ -6,6 +6,9 @@ class Info extends React.Component {
         return (
             <View>
                 <Text style={styles.header}>About FBLA</Text>
+                <Text style={styles.body}>
+                    FBLA is a high school club
+                </Text>
             </View>
         )
     }
@@ -22,6 +25,11 @@ const styles = StyleSheet.create({
         fontSize: 50,
         fontWeight: "bold",
         margin: 20
+    },
+    body: {
+        margin: 20,
+        fontSize: 15,
+        fontWeight: "normal"
     }
 });
 

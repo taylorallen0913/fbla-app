@@ -4,66 +4,46 @@ import { Agenda } from 'react-native-calendars';
 import * as firebase from 'firebase';
 
 class MemberChapterCalendarScreen extends React.Component {
+    
     state = {
       id: "",
       items: {}
     }
+
     componentDidMount() {
       const { params } = this.props.navigation.state;
       const id = params ? params.id : null;
       this.setState({id: id}, () => { this.renderEventsOnCalendar() })
     }
 
+    convertTime = (time) => {
+      let amOrPm = ' PM'
+      let hour = parseInt(time.substring(0,1))
+      if(hour > 12) {
+        hour =- 12;
+        amOrPm = ' AM'
+      }
+      return hour + time.substring(2, time.length-3) + amOrPm
+    }
+
     renderEventsOnCalendar = () => {
       var eventsDb = firebase.firestore().collection('chapters').doc(this.state.id)
       eventsDb.get()
         .then((document) => {
-          let data = document.data()
+          let eventMap = [{name: "\n\n" + doc.name + "\n\n" + this.convertTime(doc.time)}]
+          this.pushEventsToState(data)
         })
     }
 
-    render() {
-        return (
-          <Agenda
-            //items={this.state.items}
-            items={{
-              '2020-02-25': [{name: 'item 1 - any js object'}],
-              '2020-02-26': [{name: 'item 2 - any js object', height: 80}],
-              '2020-02-27': [],
-              '2020-02-27': [{name: 'item 3 - any js object'}, {name: 'any js object'}]
-            }}
-            loadItemsForMonth={this.loadItems.bind(this)}
-            selected={Date.now()}
-            renderItem={this.renderItem.bind(this)}
-            renderEmptyDate={this.renderEmptyDate.bind(this)}
-            rowHasChanged={this.rowHasChanged.bind(this)}
-          />
-        );
-      }
-
-      loadItems(day) {
-        setTimeout(() => {
-          for (let i = -15; i < 85; i++) {
-            const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-            const strTime = this.timeToString(time);
-            if (!this.state.items[strTime]) {
-              this.state.items[strTime] = [];
-              const numItems = Math.floor(Math.random() * 5);
-              for (let j = 0; j < numItems; j++) {
-                this.state.items[strTime].push({
-                  name: 'Item for ' + strTime + ' #' + j,
-                  height: Math.max(50, Math.floor(Math.random() * 150))
-                });
-              }
-            }
-          }
-          const newItems = {};
-          Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
-          this.setState({
-            items: newItems
-          });
-        }, 1000);
-      }
+    pushEventsToState = (data) => {
+      this.setState({ items: new Object })
+      let itemsState = {}
+      data.forEach(doc => {
+        let eventMap = [{name: doc.name + "\n\n" + doc.time}]
+        itemsState[doc.date] = eventMap
+      })
+      this.setState({items: itemsState})
+    }
 
       renderItem(item) {
         return (
@@ -75,23 +55,22 @@ class MemberChapterCalendarScreen extends React.Component {
           </TouchableOpacity>
         );
       }
-
-      renderEmptyDate() {
-        return (
-          <View style={styles.emptyDate}>
-            <Text>This is empty date!</Text>
-          </View>
-        );
-      }
     
       rowHasChanged(r1, r2) {
         return r1.name !== r2.name;
       }
-    
-      timeToString(time) {
-        const date = new Date(time);
-        return date.toISOString().split('T')[0];
+
+      render() {
+        return (
+          <Agenda
+            items={this.state.items}
+            selected={Date.now()}
+            renderItem={this.renderItem.bind(this)}
+            rowHasChanged={this.rowHasChanged.bind(this)}
+          />
+        );
       }
+
     }
 
 

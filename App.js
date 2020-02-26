@@ -7,7 +7,7 @@ import MemberRegisterScreen from './screens/MemberRegisterScreen'
 
 import * as firebase from 'firebase';
 import OfficerRegisterScreen from './screens/OfficerRegisterScreen';
-import AuthLanding from './screens/AuthLanding';
+import LandingPage from './screens/LandingPage';
 import MasterRegisterScreen from './screens/MasterRegisterScreen';
 import MemberScreen from './screens/Member/MemberScreen';
 import OfficerScreen from './screens/Officer/OfficerScreen';
@@ -16,6 +16,8 @@ import OfficerChapterScreen from './screens/Officer/OfficerChapterScreen'
 import JoinChapterScreen from './screens/Member/MemberDashboard/JoinChapterScreen'
 import MemberChapterScreen from './screens/Member/MemberChapterScreen'
 import AddEvent from './screens/Officer/OfficerChapter/AddEvent'
+import MeetingScreen from './screens/Officer/OfficerChapter/MeetingScreen'
+import MeetingInfo from './screens/Officer/OfficerChapter/MeetingInfo'
 
 require("firebase/firestore");
 
@@ -78,12 +80,24 @@ require("firebase/firestore");
         navigationOptions: {
             title: "Add Event"
         }
+    },
+    MeetingScreen: {
+        screen: MeetingScreen,
+        navigationOptions: {
+            title: "Meeting"
+        }
+    },
+    MeetingInfo: {
+        screen: MeetingInfo,
+        navigationOptions: {
+            title: "Meeting Info"
+        }
     }
 })
 
   const AuthStack = createStackNavigator({
       Landing: {
-          screen: AuthLanding
+          screen: LandingPage
       },
       MasterRegister: {
           screen: MasterRegisterScreen

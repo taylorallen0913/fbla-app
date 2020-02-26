@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     },
     chapterButton: {
       marginHorizontal: 30,
-      backgroundColor: "#6699ff",
+      backgroundColor: "#000080",
       borderRadius: 4,
       height: 52,
       alignContent: "center",
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     },
     addButton: {
       marginHorizontal: 30,
-      backgroundColor: "#E9446A",
+      backgroundColor: "#DAA520",
       borderRadius: 4,
       height: 52,
       alignContent: "center",

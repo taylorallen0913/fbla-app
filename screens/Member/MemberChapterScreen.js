@@ -13,7 +13,7 @@ import {createAppContainer} from 'react-navigation';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 
 import HomeScreen from './MemberChapter/MemberChapterHomeScreen'
-import CalandarScreen from './MemberChapter/MemberChapterCalendarScreen'
+import CalendarScreen from './MemberChapter/MemberChapterCalendarScreen'
 
 const TabNavigator = createMaterialBottomTabNavigator(
   {
@@ -28,8 +28,8 @@ const TabNavigator = createMaterialBottomTabNavigator(
         ),
       }
     },
-    Calandar: {
-      screen: CalandarScreen,
+    Calendar: {
+      screen: CalendarScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <View>

@@ -25,6 +25,10 @@ class LoginScreen extends React.Component {
         .catch(error => this.setState({ errorMessage: error.message }))
     }
 
+    onLoginWithGoogle = () => {
+        var id_token = googleUser.getAuthResponse().id_token
+    }
+
     render() {
         return (
             <DismissKeyboard>
@@ -63,7 +67,6 @@ class LoginScreen extends React.Component {
                 <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
                     <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>Sign in</Text>
                 </TouchableOpacity>
-
                 <TouchableOpacity style={{alignContent: "center", marginTop: 32}} onPress={() => this.props.navigation.navigate("MasterRegister")}>
                     <Text style={{color: "#414959", fontSize: 13, textAlign: "center"}}>
                         New? <Text style={{ fontWeight: "500", color: "#E9446A" }}>Sign Up</Text>
@@ -114,6 +117,7 @@ const styles = StyleSheet.create({
         color: "#161F3D"
     },
     button: {
+        margin: 20,
         marginHorizontal: 30,
         backgroundColor: "#E9446A",
         borderRadius: 4,

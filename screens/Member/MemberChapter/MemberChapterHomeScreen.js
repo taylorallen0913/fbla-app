@@ -3,16 +3,23 @@ import { Text, View, StyleSheet } from 'react-native'
 
 class MemberChapterHomeScreen extends React.Component {
 
-    render() {
+    state = {
+        id: "",
+        items: {}
+    }
+
+    componentDidMount() {
         const { params } = this.props.navigation.state;
         const id = params ? params.id : null;
-        const description = params ? params.description : null;
-        const name = params ? params.name : null;
-        const school = params ? params.school : null; 
+        this.setState({id: id})
+    }
+
+    render() {
         return (
             <View>
+                
                 <Text style={{fontSize: 40, fontWeight: "bold", textAlign: "center"}}>Member Home</Text>
-                <Text>{id}</Text>
+                <Text>{this.state.id}</Text>
             </View>
         )
     }

@@ -37,14 +37,6 @@ class MemberHomeScreen extends React.Component {
         console.log('Error getting documents', err);
       });    
       
-    this.finishFetching()
-  }
-
-  finishFetching = () => {
-    this.setState({
-      isLoaded: true,
-      isFetching: false
-    })
   }
 
 

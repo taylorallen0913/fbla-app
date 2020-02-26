@@ -1,11 +1,11 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
-class AuthLanding extends React.Component {
+class LandingPage extends React.Component {
     render() {
         return (
            <View style={styles.container}>
-               <Text style={styles.header}>FBLA Manager App</Text>
+               <Text style={styles.header}>FBLA Overseer</Text>
                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate("Login")}>
                     <Text style={{color: "#414959", fontSize: 13, textAlign: "center"}}>
                         <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>Login</Text>
@@ -41,4 +41,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default AuthLanding
+export default LandingPage
