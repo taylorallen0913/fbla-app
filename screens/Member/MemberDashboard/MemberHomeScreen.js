@@ -13,7 +13,7 @@ class MemberHomeScreen extends React.Component {
   componentDidMount() {
     this.getUserData()
   }
-
+  
   onRefresh = () => {
     this.setState({ chapters: [] })
     this.setState({ isFetching: true }, () => { this.getUserData() });
@@ -36,42 +36,52 @@ class MemberHomeScreen extends React.Component {
       .catch(err => {
         console.log('Error getting documents', err);
       });    
-      
+      this.finishFetching()
+    }
+
+  finishFetching = () => {
+    this.setState({
+      isLoaded: true,
+      isFetching: false
+    })
   }
 
-
-    render() {
-      const { isLoaded, chapters } = this.state
-        return (
-          <View style={styles.container}>
-            {
-            isLoaded 
-            ? 
-              <FlatList 
-                data={chapters}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                  <TouchableOpacity style={styles.chapterButton} onPress={() => this.props.navigation.navigate("MemberChapter", {
-                    name: item.name,
-                    description: item.description,
-                    id: item.id,
-                    school: item.school
-                  })}>
-                      <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>{item.name}</Text>
-                  </TouchableOpacity>
-                )}
-                onRefresh={() => this.onRefresh()}
-                refreshing={this.state.isFetching}
-                />
-            : null
-            }
+  render() {
+    const { params } = this.props.navigation.state;
+    const refresh = params ? params.refresh : null;
+    const { isLoaded, chapters } = this.state
+      return (
+        <View style={styles.container}>
+          {
+          isLoaded 
+          ? 
+            <FlatList 
+              data={chapters}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <TouchableOpacity style={styles.chapterButton} onPress={() => this.props.navigation.navigate("MemberChapter", {
+                  name: item.name,
+                  description: item.description,
+                  id: item.id,
+                  school: item.school
+                })}>
+                    <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>{item.name}</Text>
+                </TouchableOpacity>
+              )}
+              onRefresh={() => this.onRefresh()}
+              refreshing={this.state.isFetching}
+              />
+          : null
+          }
+          <View style={{marginBottom: 35}}>
             <TouchableOpacity style={styles.addButton} onPress={() => this.props.navigation.navigate("JoinChapter")}>
               <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>Join A Chapter</Text>
             </TouchableOpacity>
           </View>
-        )
-      }
-}
+        </View>
+      )
+    }
+  }
 
 const styles = StyleSheet.create({
   container: {
@@ -93,7 +103,7 @@ const styles = StyleSheet.create({
     height: 52,
     alignContent: "center",
     justifyContent: "center",
-    margin: 40
+    margin: 10
   }
 });  
 

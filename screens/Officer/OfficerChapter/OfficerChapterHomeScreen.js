@@ -1,29 +1,7 @@
 import React from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
-import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
 
 class OfficerChapterHomeScreen extends React.Component {
-
-    state = {
-        location: {}
-    }
-
-    componentDidMount() {
-        this._getLocationAsync();
-    }
-
-    _getLocationAsync = async () => {
-        let { status } = await Permissions.askAsync(Permissions.LOCATION);
-        if (status !== 'granted') {
-          this.setState({
-            errorMessage: 'Permission to access location was denied',
-          });
-        }
-    
-        let location = await Location.getCurrentPositionAsync({});
-        this.setState({ location });
-      };
 
     render() {
         const { params } = this.props.navigation.state;
@@ -35,12 +13,6 @@ class OfficerChapterHomeScreen extends React.Component {
         return (
             <View>
                 <Text style={{fontSize: 40, fontWeight: "bold"}}>Officer Chapter Screen</Text>
-                <Text>{JSON.stringify(this.state.location)}</Text>
-                
-                <Text>ID: {JSON.stringify(id)}</Text>
-                <Text>DESCRIPTION: {JSON.stringify(description)}</Text>
-                <Text>NAME: {JSON.stringify(name)}</Text>
-                <Text>SCHOOL: {JSON.stringify(school)}</Text>
 
                 <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate("MeetingScreen", {
                     id: id

@@ -53,7 +53,7 @@ class OfficerHomeScreen extends React.Component {
             {
             isLoaded 
             ? 
-              <FlatList 
+              <FlatList
                 data={chapters}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (

@@ -1,6 +1,8 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import * as firebase from 'firebase';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 
 const DismissKeyboard = ({ children }) => (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -11,6 +13,7 @@ const DismissKeyboard = ({ children }) => (
 class MeetingScreen extends React.Component {
 
     state = {
+        location: {},
         meetingCode: '',
         id: '',
         timer: null,
@@ -30,15 +33,48 @@ class MeetingScreen extends React.Component {
     }
 
     componentDidMount() {
+        this._getLocationAsync();
         this.setState({meetingCode: this.generateClassID(5)})
         this.start();
         const { params } = this.props.navigation.state; 
         const id = params ? params.id : null;
         this.setState({id: id})
+        setTimeout(() => {this.startActiveMeeting()}, 1500)
     }
 
     componentWillUnmount() {
+        this.endActiveMeeting()
         clearInterval(this.state.timer);
+    }
+
+    _getLocationAsync = async () => {
+        let { status } = await Permissions.askAsync(Permissions.LOCATION);
+        if (status !== 'granted') {
+          this.setState({
+            errorMessage: 'Permission to access location was denied',
+          });
+        }
+    
+        let location = await Location.getCurrentPositionAsync({});
+        this.setState({ location });
+    };
+    
+    startActiveMeeting = () => {
+        let dateEvent = {
+            date: this.getCurrentDate(),
+            time: this.getCurrentTime(),
+            type: 'meeting',
+            id: this.generateClassID(5),
+            attendance: new Array(),
+            location: [this.state.location.coords.latitude, this.state.location.coords.longitude]
+        } 
+        var db = firebase.firestore()
+        db.collection('chapters').doc(this.state.id).set( { activeMeeting: dateEvent }, { merge: true }) 
+    }
+
+    endActiveMeeting = () => {
+        var db = firebase.firestore()
+        db.collection('chapters').doc(this.state.id).set( { activeMeeting: {} }, { merge: true }) 
     }
 
     start() {
@@ -81,7 +117,7 @@ class MeetingScreen extends React.Component {
     getCurrentDate = () => {
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
-        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
         var yyyy = today.getFullYear();
         today = yyyy + '-' + mm + '-' + dd;
         return today
@@ -93,19 +129,18 @@ class MeetingScreen extends React.Component {
     }
 
     endMeeting = () => {
-        let dateEvent = {
-            name: this.state.meetingName,
-            date: this.getCurrentDate(),
-            time: this.getCurrentTime(),
-            type: 'meeting',
-            duration: this.state.minutes + ':' + this.state.seconds,
-            notes: this.state.meetingNotes,
-            id: this.generateClassID(5),
-            attendance: new Array()
-        } 
-        firebase.firestore().collection('chapters').doc(this.state.id).update({
-            calendar: firebase.firestore.FieldValue.arrayUnion(dateEvent)
-        })
+        firebase.firestore().collection('chapters').doc(this.state.id).get()
+            .then(doc => {
+                let activeMeetingData = doc.data().activeMeeting
+                let endMeetingData = {
+                    duration: this.state.minutes + ':' + this.state.seconds,
+                    name: this.state.meetingName,
+                    notes: this.state.meetingNotes,
+                }
+                firebase.firestore().collection('chapters').doc(this.state.id).update({
+                    calendar: firebase.firestore.FieldValue.arrayUnion({...activeMeetingData, ...endMeetingData})
+                })
+            })
         this.props.navigation.goBack()
     }
 
@@ -113,14 +148,11 @@ class MeetingScreen extends React.Component {
         return (
             <DismissKeyboard>
                 <View>
-                    <Text style={{fontSize: 40, fontWeight: "bold", textAlign: "center"}}>Meeting Screen</Text>                
+                    <Text style={{fontSize: 40, fontWeight: "bold", textAlign: "center"}}>Meeting Screen</Text>
                     <Text style={{fontSize: 30, textAlign: "center", margin: 30}}>{this.state.minutes}:{this.state.seconds}</Text>
                     {
-                            <Text style={{fontSize: 25, textAlign: "center", color: "red"}}>{this.state.meetingCode}</Text>
+                            <Text style={{fontSize: 25, textAlign: "center", color: "red"}}>Meeting ID: {this.state.meetingCode}</Text>
                     }
-                    <Text style={{fontSize: 14, textAlign: "center", margin: 20}}>
-                        Tell your members to enter this code within 10 minutes after the meeting ends to be counted towards attendance
-                    </Text>
                     <View style={styles.form}>
                         <View style={{marginTop: 32}}>
                             <Text >Meeting Name</Text>
@@ -185,7 +217,7 @@ const styles = StyleSheet.create({
     },
     button: {
         marginHorizontal: 30,
-        backgroundColor: "#E9446A",
+        backgroundColor: "#000080",
         borderRadius: 4,
         height: 52,
         alignContent: "center",

@@ -24,7 +24,6 @@ class JoinChapterScreen extends React.Component {
                 chapterMemberList = document.data().members
                 chapterMemberList.push(uid)
                 db.collection('chapters').doc(id).set({ members: chapterMemberList }, { merge: true })
-                console.log("DONE")
             })
     }
 
@@ -37,7 +36,7 @@ class JoinChapterScreen extends React.Component {
                 .then(document => {
                     if(document.exists) {
                         this.addUserToChapterCollection(id, uid)
-                        this.props.navigation.navigate("MemberHome")
+                        this.props.navigation.navigate("MemberHome", { refresh: true })
                     }
                     else {
                         this.setState({ errorMessage: "Error: Chapter Does Not Exist" })

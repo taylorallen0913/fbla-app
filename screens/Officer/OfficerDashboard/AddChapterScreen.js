@@ -38,7 +38,8 @@ class AddChapterScreen extends React.Component {
         officers: [uid],
         members: new Array,
         id: id,
-        calendar: new Array
+        calendar: new Array,
+        activeMeeting: new Object
         } 
         db.collection('chapters').doc(id).set(newChapter)
 

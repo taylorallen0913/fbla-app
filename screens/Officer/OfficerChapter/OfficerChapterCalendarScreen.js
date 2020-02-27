@@ -43,7 +43,7 @@ class OfficerChapterCalendarScreen extends React.Component {
       let itemsState = {}
       data.forEach(doc => {
         if(doc.duration != null) {
-          let eventMap = [{name: "MEETING: " + doc.name + "\n" + "Duration: " + doc.duration + '\nCode: ' + doc.id, id: doc.id}]
+          let eventMap = [{name: "MEETING: " + doc.name + "\n" + "Duration: " + doc.duration + '\nID: ' + doc.id, id: doc.id}]
           itemsState[doc.date] = eventMap
         }
         else {
@@ -51,6 +51,7 @@ class OfficerChapterCalendarScreen extends React.Component {
           itemsState[doc.date] = eventMap
         }
       })
+      console.log(itemsState)
       this.setState({items: itemsState})
     }
 

@@ -1,6 +1,8 @@
 import React from 'react'
 import { Text, View, StyleSheet, TextInput, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from 'react-native'
 import * as firebase from 'firebase';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 
 const DismissKeyboard = ({ children }) => (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -11,7 +13,9 @@ const DismissKeyboard = ({ children }) => (
 class MemberChapterHomeScreen extends React.Component {
 
     state = {
+        location: {},
         uid: "",
+        displayName: "",
         id: "",
         items: {},
         meetingId: "",
@@ -20,37 +24,66 @@ class MemberChapterHomeScreen extends React.Component {
     }
 
     componentDidMount() {
-        const { uid } = firebase.auth().currentUser;
+        this._getLocationAsync();
+        const { uid, displayName } = firebase.auth().currentUser;
         const { params } = this.props.navigation.state;
         const id = params ? params.id : null;
-        this.setState({id: id, uid: uid})
+        this.setState({ id: id, uid: uid, displayName: displayName })
+    }
+
+    addAttendance = () => {
+        let activeMeetingData = {}
+        firebase.firestore().collection('chapters').doc(this.state.id).get()
+            .then(doc => {
+                activeMeetingData = doc.data().activeMeeting
+
+                activeMeetingData.attendance.push(firebase.auth().currentUser.displayName)
+                firebase.firestore().collection('chapters').doc(this.state.id).update({activeMeeting: activeMeetingData})
+            })
+    }
+
+    _getLocationAsync = async () => {
+        let { status } = await Permissions.askAsync(Permissions.LOCATION);
+        if (status !== 'granted') {
+          this.setState({
+            errorMessage: 'Permission to access location was denied',
+          });
+        }
+    
+        let location = await Location.getCurrentPositionAsync({});
+        this.setState({ location });
+    };
+
+    distance = (x1, y1, x2, y2) => {
+        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
     }
 
     attendMeeting = () => {
-        Keyboard.dismiss()
-        var db = firebase.firestore()
-        db.collection('chapters').doc(this.state.id).get()
+        firebase.firestore().collection('chapters').doc(this.state.id).get()
             .then(doc => {
-                let found = false
-                let duplicate = false
-                let data = doc.data().calendar
-                for(let i = 0; i < data.length; i++) {
-                    if(this.state.meetingId == data[i].id && !data[i].attendance.includes(this.state.uid)) {
-                        let newData = data[i]
-                        newData.attendance.push(this.state.uid)
-                        this.setState({ errorMessage: null })
-                        data[i] = newData
-                        found = true;
-                    }
-                    db.collection('chapters').doc(this.state.id).update({ calendar: data })
+                let activeData = doc.data().activeMeeting
+                if(!(Object.entries(activeData).length === 0 && activeData.constructor === Object)) {
+                    firebase.firestore().collection('chapters').doc(this.state.id).get()
+                        .then(doc => {
+                            let location = doc.data().activeMeeting.location
+                            let distance = Math.abs(this.distance(location[1], location[0], this.state.location.coords.longitude, this.state.location.coords.latitude))
+                            if(distance < 0.0001) {
+                                this.addAttendance()
+                                this.setState({ successMessage: 'Success: Attendance was marked'}, () => this.setState({ errorMessage: null }))
+                            }
+                            else {
+                                this.setState({ errorMessage: 'Error: You are not in range of the meeting'}, () => this.setState({ successMessage: null }))
+                            }
+                        })
                 }
-                if(found) {
-                    this.setState({ successMessage: "Success: You were marked present"})
-                }
-                if(!found) {
-                    this.setState({ errorMessage: "Error: Meeting code invalid or you have already marked presence" }, () => this.setState({ successMessage: null }))
+                else {
+                    this.setState({ errorMessage: 'Error: Meeting is not currently in session'}, () => this.setState({ successMessage: null }))
                 }
             })
+    }
+
+    isEmptyObject = (obj) => {
+        return !Object.keys(obj).length;
     }
 
     render() {
@@ -60,13 +93,6 @@ class MemberChapterHomeScreen extends React.Component {
                     <Text style={{fontSize: 40, fontWeight: "bold", textAlign: "center"}}>Member Home</Text>
                     <View style={styles.form} style={{margin: 50}}>
                         <View style={{marginTop: 32}}>
-                                <Text style={styles.inputText}>Attend a Meeting</Text>
-                                <TextInput 
-                                    style={styles.input}
-                                    autoCapitalize="none" 
-                                    onChangeText={meetingId => this.setState({meetingId: meetingId})}
-                                    value={this.state.meetingId}
-                                ></TextInput>
                                 <TouchableOpacity style={styles.button} onPress={() => this.attendMeeting()}>
                                     <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>Confirm Attendance</Text>
                                 </TouchableOpacity>

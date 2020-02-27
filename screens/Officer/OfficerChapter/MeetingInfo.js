@@ -42,21 +42,6 @@ class MeetingInfo extends React.Component {
                 }) 
             })
     }
-    
-    getNamesFromIdList = async(idList) => {
-        let nameList = []
-        idList.forEach(elem => {
-
-        })
-        firebase.firestore().collection('users').doc(id).get()
-            .then(doc => {
-                if(doc.exists) {
-                let name = doc.data().name
-                nameList.push(name)
-                this.setState({names: nameList})
-                }
-            })
-    }
 
     getPercentAttended = () => {
         let size = 0
@@ -64,9 +49,7 @@ class MeetingInfo extends React.Component {
             .then((doc) => {
                 let data = doc.data()
                 size = data.members.length
-                this.setState({ids: data.members }, () => {
-                    this.getNamesFromIdList(this.state.ids)
-                })
+                this.setState({ids: data.members })
                 this.setState({size: size}, () => this.setState({sizeLoaded: true}))
             })
     }
@@ -89,14 +72,13 @@ class MeetingInfo extends React.Component {
         
         const mapItems = this.state.attendance.map((item, i) => 
         <Text style={{fontSize: 20, margin: 10, textAlign: "center"}} key={i}>
-            {(this.getNameFromIditem)}
+            {(item)}
         </Text>
         )
 
         return (
             <View>
                 <Text style={styles.header}>Meeting Analytics</Text>
-                <Button title="Test" onPress={() => console.log(this.state.names)}/>
                 <Text style={{fontSize: 15, margin:10}}>
                     {
                         sizeLoaded && attendanceLoaded ?
