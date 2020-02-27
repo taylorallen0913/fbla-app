@@ -43,11 +43,11 @@ class OfficerChapterCalendarScreen extends React.Component {
       let itemsState = {}
       data.forEach(doc => {
         if(doc.duration != null) {
-          let eventMap = [{name: "MEETING: " + doc.name + "\n" + "Duration: " + doc.duration, id: doc.id}]
+          let eventMap = [{name: "MEETING: " + doc.name + "\n" + "Duration: " + doc.duration + '\nCode: ' + doc.id, id: doc.id}]
           itemsState[doc.date] = eventMap
         }
         else {
-          let eventMap = [{name: "" + doc.name + "\n\n" + this.convertTime(doc.time), id: doc.id}]
+          let eventMap = [{name: doc.name + "\n\n" + this.convertTime(doc.time), id: doc.id}]
           itemsState[doc.date] = eventMap
         }
       })
@@ -77,7 +77,7 @@ class OfficerChapterCalendarScreen extends React.Component {
             <View style={{height: 600}}>
               <Agenda
                 items={this.state.items}
-                selected={'2020-02-26'}
+                selected={new Date()}
                 renderItem={this.renderItem.bind(this)}
                 rowHasChanged={this.rowHasChanged.bind(this)}
               />
@@ -109,7 +109,7 @@ class OfficerChapterCalendarScreen extends React.Component {
         },
         addButton: {
           marginHorizontal: 30,
-          backgroundColor: "#E9446A",
+          backgroundColor: "#000080",
           borderRadius: 4,
           height: 52,
           alignContent: "center",

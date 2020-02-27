@@ -42,9 +42,12 @@ class MeetingInfo extends React.Component {
                 }) 
             })
     }
+    
+    getNamesFromIdList = async(idList) => {
+        let nameList = []
+        idList.forEach(elem => {
 
-    getNameFromId = (id) => {
-        let nameList = this.state.names
+        })
         firebase.firestore().collection('users').doc(id).get()
             .then(doc => {
                 if(doc.exists) {
@@ -62,10 +65,7 @@ class MeetingInfo extends React.Component {
                 let data = doc.data()
                 size = data.members.length
                 this.setState({ids: data.members }, () => {
-                    let idList = this.state.ids
-                    idList.forEach(elem => {
-                        this.getNameFromId(elem)
-                    })
+                    this.getNamesFromIdList(this.state.ids)
                 })
                 this.setState({size: size}, () => this.setState({sizeLoaded: true}))
             })

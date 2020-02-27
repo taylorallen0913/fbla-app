@@ -99,7 +99,6 @@ AddEvent = (props) => {
                             style={styles.input}
                             onValueChange={(value) => setEventType(value)}
                             items={[
-                                { label: 'Meeting', value: 'meeting' },
                                 { label: 'Conference', value: 'conference' },
                                 { label: 'Other', value: 'other' },
                             ]}
@@ -175,7 +174,7 @@ const styles = StyleSheet.create({
     button: {
         marginTop: 50,
         marginHorizontal: 30,
-        backgroundColor: "#E9446A",
+        backgroundColor: "#000080",
         borderRadius: 4,
         height: 52,
         alignContent: "center",

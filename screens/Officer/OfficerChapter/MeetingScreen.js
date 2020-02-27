@@ -11,7 +11,8 @@ const DismissKeyboard = ({ children }) => (
 class MeetingScreen extends React.Component {
 
     state = {
-        id: "",
+        meetingCode: '',
+        id: '',
         timer: null,
         seconds: '00',
         miliseconds: '00',
@@ -29,6 +30,7 @@ class MeetingScreen extends React.Component {
     }
 
     componentDidMount() {
+        this.setState({meetingCode: this.generateClassID(5)})
         this.start();
         const { params } = this.props.navigation.state; 
         const id = params ? params.id : null;
@@ -113,6 +115,12 @@ class MeetingScreen extends React.Component {
                 <View>
                     <Text style={{fontSize: 40, fontWeight: "bold", textAlign: "center"}}>Meeting Screen</Text>                
                     <Text style={{fontSize: 30, textAlign: "center", margin: 30}}>{this.state.minutes}:{this.state.seconds}</Text>
+                    {
+                            <Text style={{fontSize: 25, textAlign: "center", color: "red"}}>{this.state.meetingCode}</Text>
+                    }
+                    <Text style={{fontSize: 14, textAlign: "center", margin: 20}}>
+                        Tell your members to enter this code within 10 minutes after the meeting ends to be counted towards attendance
+                    </Text>
                     <View style={styles.form}>
                         <View style={{marginTop: 32}}>
                             <Text >Meeting Name</Text>
@@ -123,13 +131,12 @@ class MeetingScreen extends React.Component {
                                 value={this.state.meetingName}
                                 ></TextInput>
                         </View>
-
                         <View style={{marginTop: 32}}>
                             <Text style={{marginBottom: 20}}>Meeting Notes</Text>
                             <TextInput
                                 multiline={true}
                                 textAlignVertical='top'
-                                style={{height: 250, borderColor: 'gray', borderWidth: 1}}
+                                style={{height: 220, borderColor: 'gray', borderWidth: 1}}
                                 onChangeText={(text) => this.setState({meetingNotes: text})}
                                 value={this.state.text}
                             />

@@ -15,7 +15,8 @@ class MemberChapterHomeScreen extends React.Component {
         id: "",
         items: {},
         meetingId: "",
-        errorMessage: null
+        errorMessage: null,
+        successMessage: null
     }
 
     componentDidMount() {
@@ -26,25 +27,29 @@ class MemberChapterHomeScreen extends React.Component {
     }
 
     attendMeeting = () => {
+        Keyboard.dismiss()
         var db = firebase.firestore()
         db.collection('chapters').doc(this.state.id).get()
             .then(doc => {
                 let found = false
+                let duplicate = false
                 let data = doc.data().calendar
                 for(let i = 0; i < data.length; i++) {
-                    if(this.state.meetingId == data[i].id) {
+                    if(this.state.meetingId == data[i].id && !data[i].attendance.includes(this.state.uid)) {
                         let newData = data[i]
                         newData.attendance.push(this.state.uid)
-                        //console.log(newData)
-                        console.log("FOUND")
+                        this.setState({ errorMessage: null })
                         data[i] = newData
                         found = true;
                     }
                     db.collection('chapters').doc(this.state.id).update({ calendar: data })
                 }
+                if(found) {
+                    this.setState({ successMessage: "Success: You were marked present"})
+                }
                 if(!found) {
-                    this.setState({ errorMessage: "Error: Meeting Code Was Invalid" })
-                } 
+                    this.setState({ errorMessage: "Error: Meeting code invalid or you have already marked presence" }, () => this.setState({ successMessage: null }))
+                }
             })
     }
 
@@ -68,6 +73,9 @@ class MemberChapterHomeScreen extends React.Component {
                                 <View style={styles.errorMessage}>
                                     {this.state.errorMessage && <Text style={styles.error}>{this.state.errorMessage}</Text>}
                                 </View>
+                                <View style={styles.successMessage}>
+                                    {this.state.successMessage && <Text style={styles.success}>{this.state.successMessage}</Text>}
+                                </View>
                         </View>
                     </View>
                 </View>
@@ -89,6 +97,18 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         marginHorizontal: 30
+    },
+    successMessage: {
+        height: 72,
+        alignItems: "center",
+        justifyContent: "center",
+        marginHorizontal: 30
+    },
+    success: {
+        color: "#32CD32",
+        fontSize: 13,
+        fontWeight: "600",
+        textAlign: "center"
     },
     error: {
         color: "#E9446A",
