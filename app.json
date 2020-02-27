@@ -11,10 +11,10 @@
     ],
     "ios": {
       "bundleIdentifier": "com.taylorallen.fblaoverseer",
-      "supportsTablet": "true"
+      "supportsTablet": true
     },
     "android": {
-      "bundleIdentifier": "com.taylorallen.fblaoverseer",
+      "package": "com.taylorallen.fblaoverseer",
       "permissions": [
         ""
       ]
