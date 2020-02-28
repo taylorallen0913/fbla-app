@@ -65,7 +65,7 @@ class OfficerHomeScreen extends React.Component {
                   })}>
                       <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>{item.name}</Text>
                   </TouchableOpacity>
-                )}
+                  )}
                 onRefresh={() => this.onRefresh()}
                 refreshing={this.state.isFetching}
                 />

@@ -54,8 +54,13 @@ class MemberChapterHomeScreen extends React.Component {
         this.setState({ location });
     };
 
-    distance = (x1, y1, x2, y2) => {
-        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+    isInRange = (range, lat1, long1, lat2, long2) => {
+        console.log("LAT DISTANCE: " + Math.abs(lat1-lat2))
+        console.log("LONG DISTANCE: " + Math.abs(long1-long2))
+        if(Math.abs(lat1-lat2) > range && Math.abs(long1-long2) > range) {
+            return true;
+        }
+        return false;
     }
 
     attendMeeting = () => {
@@ -66,17 +71,23 @@ class MemberChapterHomeScreen extends React.Component {
                     firebase.firestore().collection('chapters').doc(this.state.id).get()
                         .then(doc => {
                             let location = doc.data().activeMeeting.location
-                            let distance = Math.abs(this.distance(location[1], location[0], this.state.location.coords.longitude, this.state.location.coords.latitude))
-                            if(distance < 0.0001) {
+                            let lat1 = this.state.location.coords.latitude
+                            let lat2 = location[0]
+                            let long1 = this.state.location.coords.longitude
+                            let long2 = location[1]
+                            let inRange = this.isInRange(0.00001, lat1, long1, lat2, long2)
+                            console.log(inRange)
+                            if(inRange) {
                                 this.addAttendance()
                                 this.setState({ successMessage: 'Success: Attendance was marked'}, () => this.setState({ errorMessage: null }))
                             }
-                            else {
+                            if(!inRange) {
                                 this.setState({ errorMessage: 'Error: You are not in range of the meeting'}, () => this.setState({ successMessage: null }))
                             }
                         })
                 }
                 else {
+                    console.log('err')
                     this.setState({ errorMessage: 'Error: Meeting is not currently in session'}, () => this.setState({ successMessage: null }))
                 }
             })

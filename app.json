@@ -10,7 +10,7 @@
       "web"
     ],
     "ios": {
-      "bundleIdentifier": "com.taylorallen.fblaoverseer",
+      "bundleIdentifier": "com.taylorallen.fblaoverseer-ios",
       "supportsTablet": true
     },
     "android": {

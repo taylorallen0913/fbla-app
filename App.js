@@ -18,6 +18,7 @@ import MemberChapterScreen from './screens/Member/MemberChapterScreen'
 import AddEvent from './screens/Officer/OfficerChapter/AddEvent'
 import MeetingScreen from './screens/Officer/OfficerChapter/MeetingScreen'
 import MeetingInfo from './screens/Officer/OfficerChapter/MeetingInfo'
+import TOS from './screens/TOS'
 
 require("firebase/firestore");
 
@@ -53,7 +54,13 @@ require("firebase/firestore");
           navigationOptions: {
               title: "Chapter"
           }
-      }
+      },
+      TOSScreen: {
+        screen: TOS,
+        navigationOptions: {
+            title: "Terms and Conditions"
+        }
+    }
   })
 
   const OfficerAppStack = createStackNavigator({
@@ -92,6 +99,12 @@ require("firebase/firestore");
         navigationOptions: {
             title: "Meeting Info"
         }
+    },
+    TOSScreen: {
+        screen: TOS,
+        navigationOptions: {
+            title: "Terms and Conditions"
+        }
     }
 })
 
@@ -110,7 +123,13 @@ require("firebase/firestore");
       },
       OfficerRegister: {
           screen: OfficerRegisterScreen
-      }
+      },
+      TOSScreen: {
+        screen: TOS,
+        navigationOptions: {
+            title: "Terms and Conditions"
+        }
+    }
   })
 
   export default createAppContainer (

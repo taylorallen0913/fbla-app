@@ -15,6 +15,7 @@ import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom
 import HomeScreen from './MemberDashboard/MemberHomeScreen'
 import InfoScreen from './MemberDashboard/MemberInfoScreen'
 import ProfileScreen from './MemberDashboard/MemberProfileScreen'
+import BugReport from '../BugReport/BugReport'
 
 const TabNavigator = createMaterialBottomTabNavigator(
   {
@@ -41,6 +42,19 @@ const TabNavigator = createMaterialBottomTabNavigator(
         barStyle: { backgroundColor: '#d13560' },
       }
     },
+    BugReport: {
+      screen: BugReport,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <View>
+            <Icon style={[{color: tintColor}]} size={25} name={'ios-bug'} />
+          </View>
+        ),
+        activeColor: '#ffffff',
+        inactiveColor: '#a3c2fa',
+        barStyle: { backgroundColor: '#2163f6' },
+      }
+    },
     Profile: {
         screen: ProfileScreen,
         navigationOptions: {
@@ -53,7 +67,7 @@ const TabNavigator = createMaterialBottomTabNavigator(
           inactiveColor: '#a3c2fa',
           barStyle: { backgroundColor: '#2163f6' },
         }
-      }
+      },
   },
   {
     initialRouteName: 'Home',

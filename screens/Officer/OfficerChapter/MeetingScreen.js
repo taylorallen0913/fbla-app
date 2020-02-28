@@ -43,7 +43,7 @@ class MeetingScreen extends React.Component {
     }
 
     componentWillUnmount() {
-        this.endActiveMeeting()
+        //this.endActiveMeeting()
         clearInterval(this.state.timer);
     }
 

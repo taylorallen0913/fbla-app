@@ -13,7 +13,7 @@ class OfficerChapterHomeScreen extends React.Component {
         return (
             <View>
                 <Text style={{fontSize: 40, fontWeight: "bold"}}>Officer Chapter Screen</Text>
-
+                <Text style={{textAlign: "center", fontSize: 40, marginTop: 30}}>Chapter Code: {id}</Text>
                 <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate("MeetingScreen", {
                     id: id
                 })}>
