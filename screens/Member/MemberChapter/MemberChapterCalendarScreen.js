@@ -72,7 +72,7 @@ class MemberChapterCalendarScreen extends React.Component {
       render() {
         return (
           <View>
-            <View style={{height: 600}}>
+            <View style={{height: 800}}>
               <Agenda
                 items={this.state.items}
                 selected={'2020-02-26'}
@@ -80,11 +80,6 @@ class MemberChapterCalendarScreen extends React.Component {
                 rowHasChanged={this.rowHasChanged.bind(this)}
               />
             </View>
-            <TouchableOpacity style={styles.addButton} onPress={() => this.props.navigation.navigate("AddEvent", {
-                id: this.state.id
-            })}>
-            <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>Add Event</Text>
-          </TouchableOpacity>
         </View>
         );
       }

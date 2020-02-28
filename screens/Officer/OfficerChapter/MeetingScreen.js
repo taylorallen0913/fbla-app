@@ -14,7 +14,6 @@ class MeetingScreen extends React.Component {
 
     state = {
         location: {},
-        meetingCode: '',
         id: '',
         timer: null,
         seconds: '00',
@@ -22,7 +21,8 @@ class MeetingScreen extends React.Component {
         minutes: '00',
         meetingName: '',
         meetingNotes: '',
-        meetingTime: ''
+        meetingTime: '',
+        activeMeeting: {},
     }
 
     constructor( props ) {
@@ -34,7 +34,6 @@ class MeetingScreen extends React.Component {
 
     componentDidMount() {
         this._getLocationAsync();
-        this.setState({meetingCode: this.generateClassID(5)})
         this.start();
         const { params } = this.props.navigation.state; 
         const id = params ? params.id : null;
@@ -43,7 +42,7 @@ class MeetingScreen extends React.Component {
     }
 
     componentWillUnmount() {
-        //this.endActiveMeeting()
+        this.endActiveMeeting()
         clearInterval(this.state.timer);
     }
 
@@ -68,6 +67,7 @@ class MeetingScreen extends React.Component {
             attendance: new Array(),
             location: [this.state.location.coords.latitude, this.state.location.coords.longitude]
         } 
+        this.setState({activeMeeting: dateEvent})
         var db = firebase.firestore()
         db.collection('chapters').doc(this.state.id).set( { activeMeeting: dateEvent }, { merge: true }) 
     }
@@ -151,7 +151,7 @@ class MeetingScreen extends React.Component {
                     <Text style={{fontSize: 40, fontWeight: "bold", textAlign: "center"}}>Meeting Screen</Text>
                     <Text style={{fontSize: 30, textAlign: "center", margin: 30}}>{this.state.minutes}:{this.state.seconds}</Text>
                     {
-                            <Text style={{fontSize: 25, textAlign: "center", color: "red"}}>Meeting ID: {this.state.meetingCode}</Text>
+                            <Text style={{fontSize: 25, textAlign: "center", color: "red"}}>Meeting ID: { this.state.activeMeeting.id }</Text>
                     }
                     <View style={styles.form}>
                         <View style={{marginTop: 32}}>

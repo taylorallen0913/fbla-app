@@ -19,6 +19,7 @@ class MemberChapterHomeScreen extends React.Component {
         id: "",
         items: {},
         meetingId: "",
+        inputId: "",
         errorMessage: null,
         successMessage: null
     }
@@ -54,12 +55,15 @@ class MemberChapterHomeScreen extends React.Component {
         this.setState({ location });
     };
 
-    isInRange = (range, lat1, long1, lat2, long2) => {
-        console.log("LAT DISTANCE: " + Math.abs(lat1-lat2))
-        console.log("LONG DISTANCE: " + Math.abs(long1-long2))
-        if(Math.abs(lat1-lat2) > range && Math.abs(long1-long2) > range) {
-            return true;
+    isInRange = (range, range2, lat1, long1, lat2, long2) => {
+        
+        if((Math.abs(lat1-lat2) < range)) {
+            if((Math.abs(long1-long2) < range)) {
+                return true;
+            }
+            return false;
         }
+        
         return false;
     }
 
@@ -67,7 +71,7 @@ class MemberChapterHomeScreen extends React.Component {
         firebase.firestore().collection('chapters').doc(this.state.id).get()
             .then(doc => {
                 let activeData = doc.data().activeMeeting
-                if(!(Object.entries(activeData).length === 0 && activeData.constructor === Object)) {
+                if(!(Object.entries(activeData).length === 0 && activeData.constructor === Object) && this.state.inputId == activeData.id) {
                     firebase.firestore().collection('chapters').doc(this.state.id).get()
                         .then(doc => {
                             let location = doc.data().activeMeeting.location
@@ -75,7 +79,7 @@ class MemberChapterHomeScreen extends React.Component {
                             let lat2 = location[0]
                             let long1 = this.state.location.coords.longitude
                             let long2 = location[1]
-                            let inRange = this.isInRange(0.00001, lat1, long1, lat2, long2)
+                            let inRange = this.isInRange(0.0002, 0.0001, lat1, long1, lat2, long2)
                             console.log(inRange)
                             if(inRange) {
                                 this.addAttendance()
@@ -88,7 +92,7 @@ class MemberChapterHomeScreen extends React.Component {
                 }
                 else {
                     console.log('err')
-                    this.setState({ errorMessage: 'Error: Meeting is not currently in session'}, () => this.setState({ successMessage: null }))
+                    this.setState({ errorMessage: 'Error: Meeting is not currently in session or code is invalid'}, () => this.setState({ successMessage: null }))
                 }
             })
     }
@@ -104,6 +108,15 @@ class MemberChapterHomeScreen extends React.Component {
                     <Text style={{fontSize: 40, fontWeight: "bold", textAlign: "center"}}>Member Home</Text>
                     <View style={styles.form} style={{margin: 50}}>
                         <View style={{marginTop: 32}}>
+                                <View style={{marginTop: 32}}>
+                                <Text style={styles.inputText}>Enter Meeting Code</Text>
+                                <TextInput 
+                                    style={styles.input}  
+                                    autoCapitalize="none"
+                                    onChangeText={inputId => this.setState({ inputId })}
+                                    value={this.state.inputId}
+                                    ></TextInput>
+                                </View>
                                 <TouchableOpacity style={styles.button} onPress={() => this.attendMeeting()}>
                                     <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>Confirm Attendance</Text>
                                 </TouchableOpacity>
