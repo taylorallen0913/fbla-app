@@ -3,6 +3,12 @@ import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import * as firebase from 'firebase';
 
 class LoadingScreen extends React.Component {
+    
+    constructor() {
+        super();
+        console.ignoredYellowBox = ['Setting a timer'];
+    }
+
     componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
             if(user) {

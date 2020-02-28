@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard, Linking } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard, Linking, Platform } from 'react-native'
 import * as firebase from 'firebase';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
@@ -13,12 +13,12 @@ const DismissKeyboard = ({ children }) => (
 class MeetingScreen extends React.Component {
 
     state = {
-        location: {},
-        id: '',
         timer: null,
         seconds: '00',
         miliseconds: '00',
         minutes: '00',
+        location: {},
+        id: '',
         meetingName: '',
         meetingNotes: '',
         meetingTime: '',
@@ -28,23 +28,29 @@ class MeetingScreen extends React.Component {
 
     constructor( props ) {
         super( props );
-        //this.onButtonStop = this.onButtonStop.bind(this);
-        //this.start = this.start.bind(this);
+        this.onButtonStop = this.onButtonStop.bind(this);
+        this.start = this.start.bind(this);
     }
-
+    
     componentDidMount() {
         this.setState({meetingStartTime: this.getCurrentTime()})
         this._getLocationAsync();
-        //this.start();
+        this.start();
         const { params } = this.props.navigation.state; 
         const id = params ? params.id : null;
         this.setState({id: id})
-        setTimeout(() => {this.startActiveMeeting()}, 1500)
+        setTimeout(() => {this.startActiveMeeting()}, 2000)
     }
 
     componentWillUnmount() {
         this.endActiveMeeting()
         clearInterval(this.state.timer);
+    }
+
+    getRemaining = (time) => {
+        const mins = Math.floor(time / 60);
+        const secs = time - mins * 60;
+        return { mins, secs };
     }
 
     _getLocationAsync = async () => {
@@ -54,9 +60,16 @@ class MeetingScreen extends React.Component {
             errorMessage: 'Permission to access location was denied',
           });
         }
-    
-        let location = await Location.getCurrentPositionAsync({});
-        this.setState({ location });
+        if(Platform.OS === 'ios' ) {
+            let location = await Location.getCurrentPositionAsync({});
+            this.setState({ location });
+            console.log(location)
+        }
+        else if(Platform.OS === 'android') {
+            let location = await Location.getCurrentPositionAsync({accuracy:Location.Accuracy.High});
+            this.setState({ location });
+            console.log(location)
+        }
     };
     
     startActiveMeeting = () => {
@@ -100,6 +113,11 @@ class MeetingScreen extends React.Component {
         this.setState({timer});
     }
 
+    onButtonStop() {
+        clearInterval(this.state.timer);
+        this.setState({startDisabled: false, stopDisabled: true});
+    }
+
     generateClassID = (length) => {
         var result = '';
         var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -109,11 +127,6 @@ class MeetingScreen extends React.Component {
         }
         return result;
      }
-
-    onButtonStop() {
-        clearInterval(this.state.timer);
-        this.setState({startDisabled: false, stopDisabled: true});
-    }
 
     getCurrentDate = () => {
         var today = new Date();
@@ -182,9 +195,8 @@ class MeetingScreen extends React.Component {
             <DismissKeyboard>
                 <View>
                     <Text style={{fontSize: 40, fontWeight: "bold", textAlign: "center"}}>Meeting Screen</Text>
-                    {
-                            <Text style={{fontSize: 25, textAlign: "center", color: "red"}}>Meeting ID: { this.state.activeMeeting.id }</Text>
-                    }
+                    <Text style={{fontSize: 25, textAlign: "center", color: "red"}}>Meeting ID: { this.state.activeMeeting.id }</Text>
+                    <Text style={{fontSize: 20, color: "red", textAlign: "center"}}>{this.state.minutes + ':' + this.state.seconds}</Text>
                     <View style={styles.form}>
                         <View style={{marginTop: 32}}>
                             <Text >Meeting Name</Text>

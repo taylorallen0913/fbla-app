@@ -50,9 +50,16 @@ class MemberChapterHomeScreen extends React.Component {
             errorMessage: 'Permission to access location was denied',
           });
         }
-    
-        let location = await Location.getCurrentPositionAsync({});
-        this.setState({ location });
+        if(Platform.OS === 'ios' ) {
+            let location = await Location.getCurrentPositionAsync({});
+            this.setState({ location });
+            console.log(location)
+        }
+        else if(Platform.OS === 'android') {
+            let location = await Location.getCurrentPositionAsync({accuracy:Location.Accuracy.High});
+            this.setState({ location });
+            console.log(location)
+        }
     };
 
     isInRange = (range, range2, lat1, long1, lat2, long2) => {

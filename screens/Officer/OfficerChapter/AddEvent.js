@@ -40,6 +40,19 @@ AddEvent = (props) => {
         setShow(Platform.OS === 'ios' ? true : false);
     };
 
+    const showMode = currentMode => {
+        setShow(true);
+        setMode(currentMode);
+    };
+    
+        const showDatepicker = () => {
+        showMode('date');
+    };
+    
+        const showTimepicker = () => {
+        showMode('time');
+    };
+
     const addEvent = () => {
         dateEvent = {
             name: eventName,
@@ -55,20 +68,6 @@ AddEvent = (props) => {
         })
         props.navigation.navigate("Home")
     }
-    
-
-    const showMode = currentMode => {
-        setShow(true);
-        setMode(currentMode);
-    };
-    
-        const showDatepicker = () => {
-        showMode('date');
-    };
-    
-        const showTimepicker = () => {
-        showMode('time');
-    };
 
     return (
         <DismissKeyboard>
@@ -107,20 +106,23 @@ AddEvent = (props) => {
 
                     <View style={{marginTop: 10}}>
                     <View>
-                        <Button style={styles.inputText} onPress={showDatepicker} title="Select Date" />
+                        <Button onPress={showDatepicker} title="Select Date" />
                     </View>
+                    <View style={{marginVertical: 20}}/>
                     <View>
-                        <Button style={styles.inputText} onPress={showTimepicker} title="Select Time" />
+                        <Button onPress={showTimepicker} title="Select Time" />
                     </View>
+                    {show && (
                         <DateTimePicker
-                            testID="dateTimePicker"
-                            timeZoneOffsetInMinutes={0}
-                            value={date}
-                            mode={mode}
-                            is24Hour={true}
-                            display="default"
-                            onChange={onChange}
+                        testID="dateTimePicker"
+                        timeZoneOffsetInMinutes={0}
+                        value={date}
+                        mode={mode}
+                        is24Hour={true}
+                        display="default"
+                        onChange={onChange}
                         />
+                    )}
                     </View>
                     <TouchableOpacity style={styles.button} onPress={addEvent}>
                         <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>Add Event</Text>

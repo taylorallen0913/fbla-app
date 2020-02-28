@@ -4,6 +4,13 @@ import * as firebase from 'firebase';
 
 class OfficerHomeScreen extends React.Component {
 
+  constructor() {
+    super();
+    console.ignoredYellowBox = [
+    'Setting a timer'
+    ];
+    }
+
   state = {
     isLoaded: false,
     chapters: [],
