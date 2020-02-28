@@ -14,7 +14,16 @@ class Info extends React.Component {
                 The various functionalities of FBLA Overseer allow chapters to stay coordinated, keep track of important information, increase team cohesiveness, and save time on planning. {'\n\n\n'}
                 The FBLA mission is to bring business and education together in a positive working relationship through innovative leadership and career development programs. FBLA brings its mission to life through the application of its motto: Service, Education, and Progress.
                 FBLA Overseer hopes to uphold this motto and allow FBLA to become more efficient through the optimization of otherwise time-consuming activities. 
-
+                {'\n\n'}
+                <Text style={{color:"blue", textAlign: "center"}} onPress={() => Linking.openURL('https://www.fbla-pbl.org/')}>
+                FBLA Website
+                </Text>
+                <Text style={{color:"blue", textAlign: "center"}} onPress={() => Linking.openURL('https://www.fbla-pbl.org/conferences/')}>
+                {'\n\n'}Conferences
+                </Text>
+                <Text style={{color:"blue", textAlign: "center"}} onPress={() => Linking.openURL('https://www.fbla-pbl.org/fbla/competitive-events/')}>
+                {'\n\n'}Competitive Events
+                </Text>
                 </Text>
                 <View style={styles.logoContainer}>
                     <Icon onPress={() => Linking.openURL('https://www.instagram.com/fbla_pbl/?hl=en')} style={styles.logo} size={60} name={'logo-instagram'}/>
@@ -33,7 +42,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     logoContainer: {
-        marginTop: 50,
+        marginTop: 10,
         display: "flex",
         flexDirection: "row"
     },

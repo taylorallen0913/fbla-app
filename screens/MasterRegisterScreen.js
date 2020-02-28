@@ -6,7 +6,7 @@ class MasterRegisterScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.header}>FBLA Manager App</Text>
+                <Text style={styles.header}>FBLA Overseer</Text>
                 <View style={{marginTop: 370}}>
                     <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate("MemberRegister")}>
                         <Text style={{color: "#414959", fontSize: 13, textAlign: "center"}}>

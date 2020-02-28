@@ -51,7 +51,6 @@ class OfficerChapterCalendarScreen extends React.Component {
           itemsState[doc.date] = eventMap
         }
       })
-      console.log(itemsState)
       this.setState({items: itemsState})
     }
 
@@ -86,9 +85,9 @@ class OfficerChapterCalendarScreen extends React.Component {
             <TouchableOpacity style={styles.addButton} onPress={() => this.props.navigation.navigate("AddEvent", {
                 id: this.state.id
             })}>
-            <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>Add Event</Text>
-          </TouchableOpacity>
-        </View>
+              <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>Add Event</Text>
+            </TouchableOpacity>
+          </View>
         );
       }
     }

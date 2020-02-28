@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "fbla",
+    "description": "Submission for the 2020 FBLA Mobile Development competition. The application was built by Taylor Allen and Om Chaudhary.",
     "slug": "fbla",
     "privacy": "public",
     "sdkVersion": "36.0.0",
@@ -21,9 +22,9 @@
     },
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./images/logo-square.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./images/logo-square.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

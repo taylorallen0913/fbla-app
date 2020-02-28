@@ -75,7 +75,7 @@ class MemberChapterCalendarScreen extends React.Component {
             <View style={{height: 800}}>
               <Agenda
                 items={this.state.items}
-                selected={'2020-02-26'}
+                selected={new Date()}
                 renderItem={this.renderItem.bind(this)}
                 rowHasChanged={this.rowHasChanged.bind(this)}
               />

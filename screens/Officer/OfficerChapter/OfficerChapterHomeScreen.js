@@ -12,8 +12,9 @@ class OfficerChapterHomeScreen extends React.Component {
         const school = params ? params.school : null; 
         return (
             <View>
-                <Text style={{fontSize: 40, fontWeight: "bold"}}>Officer Chapter Screen</Text>
-                <Text style={{textAlign: "center", fontSize: 40, marginTop: 30}}>Chapter Code: {id}</Text>
+                <Text style={{fontSize: 40, fontWeight: "bold", textAlign: "center"}}>Officer Chapter Screen</Text>
+                <Text style={{textAlign: "center", fontSize: 35, marginTop: 50}}>Chapter Code:{'\n'} <Text style={{ color: "red" }}>{id}</Text></Text>
+                <Text style={{textAlign: "center", fontSize: 19, marginTop: 30}}>For someone to join your chapter, tell them to enter this code into their "join chapter" field.</Text>
                 <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate("MeetingScreen", {
                     id: id
                 })}>

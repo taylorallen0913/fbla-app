@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, FlatList, TouchableHighlightBase, Button } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Linking } from 'react-native'
 import * as firebase from 'firebase';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -16,7 +16,8 @@ class MeetingInfo extends React.Component {
         meetingNotesLoaded: false,
         ids: [],
         names: [],
-        namesLoading: false
+        namesLoading: false,
+        timeStarted: ""
     }
 
     componentDidMount() {
@@ -82,13 +83,26 @@ class MeetingInfo extends React.Component {
                 <Text style={{fontSize: 15, margin:10}}>
                     {
                         sizeLoaded && attendanceLoaded ?
-                        <Text>Percent attendance: {attendance.length / size * 100 + '%'}</Text> : null
+                        <Text style={{fontSize: 20, textAlign: "center"}}>Percent attendance: 
+                            <Text style={{color: "#696969"}}> {attendance.length / size * 100 + '%'}</Text>
+                        </Text> : null
                     }
                 </Text>
                     {
                         meetingNotesLoaded ?
-                        <Text style={{fontSize: 15, margin: 10}}>Meeting Notes:{'\n' + this.state.meetingNotes}</Text> : null
+                        <>
+                        <Text style={{fontSize: 20, textAlign: "center", paddingTop: 20}}>Meeting Notes:</Text>
+                        <TextInput
+                        multiline={true}
+                        textAlignVertical='top'
+                        margin={10}
+                        style={{height: 100, borderColor: 'gray', borderWidth: 1}}
+                        editable={false}
+                        >{this.state.meetingNotes}</TextInput>
+                        </>
+                         : null
                     }
+                <Text style={{fontSize: 20, textAlign: "center", paddingTop: 20}}>Members Who Attended Meeting:</Text>
                 <ScrollView>{mapItems}</ScrollView>
             </View>
         )
@@ -111,6 +125,15 @@ const styles = StyleSheet.create({
         margin: 20,
         fontSize: 15,
         fontWeight: "normal"
+    },
+    button: {
+        marginTop: 40,
+        marginHorizontal: 30,
+        backgroundColor: "#000080",
+        borderRadius: 4,
+        height: 52,
+        alignContent: "center",
+        justifyContent: "center"
     }
 });
 

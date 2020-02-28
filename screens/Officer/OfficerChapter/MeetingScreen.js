@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard, Linking } from 'react-native'
 import * as firebase from 'firebase';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
@@ -23,18 +23,19 @@ class MeetingScreen extends React.Component {
         meetingNotes: '',
         meetingTime: '',
         activeMeeting: {},
+        meetingStartTime: ''
     }
 
     constructor( props ) {
         super( props );
-
-        this.onButtonStop = this.onButtonStop.bind(this);
-        this.start = this.start.bind(this);
+        //this.onButtonStop = this.onButtonStop.bind(this);
+        //this.start = this.start.bind(this);
     }
 
     componentDidMount() {
+        this.setState({meetingStartTime: this.getCurrentTime()})
         this._getLocationAsync();
-        this.start();
+        //this.start();
         const { params } = this.props.navigation.state; 
         const id = params ? params.id : null;
         this.setState({id: id})
@@ -144,12 +145,43 @@ class MeetingScreen extends React.Component {
         this.props.navigation.goBack()
     }
 
+    getTime = () => {
+        var systemDate = new Date();
+        var hours = systemDate.getHours();
+        var minutes = systemDate.getMinutes();
+        var strampm;
+        if (hours >= 12) {
+            strampm= "PM";
+        } else {
+            strampm= "AM";
+        }
+        hours = hours % 12;
+        if (hours == 0) {
+            hours = 12;
+        }
+        let _hours = this.checkTimeAddZero(hours);
+        let _minutes = this.checkTimeAddZero(minutes);
+        return _hours + ":" + _minutes + " " + strampm
+    }
+        
+    checkTimeAddZero = (i) => {
+        if (i < 10) {
+            i = "0" + i
+        }
+        return i;
+    }
+    
+    generateURL = () => {
+        let startOfUrl = 'https://twitter.com/intent/tweet?text='
+        let text = 'We just started a meeting at ' + this.getTime().toString() + '!\nCome join us!\n\nThis tweet was served by @fblaoverseer'
+        return startOfUrl + text 
+    }
+
     render() {
         return (
             <DismissKeyboard>
                 <View>
                     <Text style={{fontSize: 40, fontWeight: "bold", textAlign: "center"}}>Meeting Screen</Text>
-                    <Text style={{fontSize: 30, textAlign: "center", margin: 30}}>{this.state.minutes}:{this.state.seconds}</Text>
                     {
                             <Text style={{fontSize: 25, textAlign: "center", color: "red"}}>Meeting ID: { this.state.activeMeeting.id }</Text>
                     }
@@ -164,16 +196,19 @@ class MeetingScreen extends React.Component {
                                 ></TextInput>
                         </View>
                         <View style={{marginTop: 32}}>
-                            <Text style={{marginBottom: 20}}>Meeting Notes</Text>
+                            <Text style={{marginBottom: 10}}>Meeting Notes</Text>
                             <TextInput
                                 multiline={true}
                                 textAlignVertical='top'
-                                style={{height: 220, borderColor: 'gray', borderWidth: 1}}
+                                style={{height: 200, borderColor: 'gray', borderWidth: 1}}
                                 onChangeText={(text) => this.setState({meetingNotes: text})}
                                 value={this.state.text}
                             />
                         </View>
                     </View>
+                    <TouchableOpacity style={styles.button2} onPress={() => Linking.openURL(this.generateURL())}>
+                    <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>Share to Twitter!</Text>
+                    </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={() => this.endMeeting()}>
                         <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}>End Meeting</Text>
                     </TouchableOpacity>
@@ -218,6 +253,15 @@ const styles = StyleSheet.create({
     button: {
         marginHorizontal: 30,
         backgroundColor: "#000080",
+        borderRadius: 4,
+        height: 52,
+        alignContent: "center",
+        justifyContent: "center"
+    },
+    button2: {
+        marginBottom: 30,
+        marginHorizontal: 30,
+        backgroundColor: "#1DA1F2",
         borderRadius: 4,
         height: 52,
         alignContent: "center",
