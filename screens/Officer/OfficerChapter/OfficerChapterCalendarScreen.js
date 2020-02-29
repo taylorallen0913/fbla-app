@@ -4,12 +4,12 @@ import * as firebase from 'firebase';
 import { Agenda } from 'react-native-calendars';
 
 class OfficerChapterCalendarScreen extends React.Component {
-    
+  
   state = {
-      id: "",
-      items: {}
-    }
-
+    id: "",
+    items: {}
+  }
+  
     componentDidMount() {
       const { params } = this.props.navigation.state;
       const id = params ? params.id : null;

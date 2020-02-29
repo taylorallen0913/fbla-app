@@ -53,24 +53,17 @@ class MemberChapterHomeScreen extends React.Component {
         if(Platform.OS === 'ios' ) {
             let location = await Location.getCurrentPositionAsync({});
             this.setState({ location });
-            console.log(location)
         }
         else if(Platform.OS === 'android') {
             let location = await Location.getCurrentPositionAsync({accuracy:Location.Accuracy.High});
             this.setState({ location });
-            console.log(location)
         }
     };
 
-    isInRange = (range, range2, lat1, long1, lat2, long2) => {
-        
-        if((Math.abs(lat1-lat2) < range)) {
-            if((Math.abs(long1-long2) < range)) {
-                return true;
-            }
-            return false;
-        }
-        
+    isInRange = (range, lat1, long1, lat2, long2) => {
+        if((Math.abs(lat1-lat2) < range || Math.abs(long1-long2) < range)) {
+            return true;
+        }   
         return false;
     }
 
@@ -86,8 +79,7 @@ class MemberChapterHomeScreen extends React.Component {
                             let lat2 = location[0]
                             let long1 = this.state.location.coords.longitude
                             let long2 = location[1]
-                            let inRange = this.isInRange(0.0002, 0.0001, lat1, long1, lat2, long2)
-                            console.log(inRange)
+                            let inRange = this.isInRange(0.0005, lat1, long1, lat2, long2)
                             if(inRange) {
                                 this.addAttendance()
                                 this.setState({ successMessage: 'Success: Attendance was marked'}, () => this.setState({ errorMessage: null }))

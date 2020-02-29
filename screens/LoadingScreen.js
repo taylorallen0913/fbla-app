@@ -1,15 +1,17 @@
 import React from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import * as firebase from 'firebase';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 
 class LoadingScreen extends React.Component {
     
     constructor() {
         super();
-        console.ignoredYellowBox = ['Setting a timer'];
     }
 
     componentDidMount() {
+        Permissions.askAsync(Permissions.LOCATION)
         firebase.auth().onAuthStateChanged(user => {
             if(user) {
                 const { uid } = firebase.auth().currentUser;

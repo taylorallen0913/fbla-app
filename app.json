@@ -17,7 +17,8 @@
     "android": {
       "package": "com.taylorallen.fblaoverseer",
       "permissions": [
-        ""
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
       ]
     },
     "version": "1.0.0",
