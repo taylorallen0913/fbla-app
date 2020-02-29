@@ -5,7 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "prettier": "prettier 'screens/**/*.js'"
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "2.1.0",
@@ -13,14 +14,17 @@
     "@react-navigation/bottom-tabs": "^5.0.6",
     "@react-navigation/native": "^5.0.6",
     "expo": "~36.0.0",
+    "expo-font": "~8.0.0",
     "firebase": "^7.8.2",
     "lodash": "^4.17.15",
+    "native-base": "^2.13.8",
     "react": "16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "^0.61.4",
     "react-native-calendars": "^1.263.0",
     "react-native-datepicker": "^1.7.2",
-    "react-native-gesture-handler": "~1.5.0",
+    "react-native-gesture-handler": "^1.5.6",
+    "react-native-gradient-buttons": "^2.0.1",
     "react-native-paper": "^3.6.0",
     "react-native-picker-select": "^6.5.0",
     "react-native-reanimated": "~1.4.0",
@@ -32,8 +36,14 @@
     "react-navigation-stack": "^2.1.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0",
     "babel-preset-expo": "~8.0.0",
-    "@babel/core": "^7.0.0"
+    "prettier": "^1.19.1"
   },
-  "private": true
+  "private": true,
+  "prettier": {
+    "jsxBracketSameLine": true,
+    "semi": false,
+    "singleQuote": true
+  }
 }
