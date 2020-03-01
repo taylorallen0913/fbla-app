@@ -1,80 +1,68 @@
-import React from 'react'
-import { View, StyleSheet, Image, Button } from 'react-native'
-import * as Font from 'expo-font'
-import { AppLoading } from 'expo'
-import { Ionicons } from '@expo/vector-icons'
+import React from "react";
+import { View, StyleSheet, Image, Dimensions, StatusBar, ImageBackground } from "react-native";
+import * as Font from "expo-font";
+import { AppLoading } from "expo";
+import { Block, Button, Text, theme } from 'galio-framework';
+
+const { height, width } = Dimensions.get('screen');
+
+import materialTheme from '../constants/Theme';
 
 class LandingPage extends React.Component {
-  state = {
-    loaded: false
-  }
-
-  async componentDidMount() {
-    await Font.loadAsync({
-      Roboto: require('native-base/Fonts/Roboto.ttf'),
-      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-      'montserrat-bold': require('../fonts/Montserrat-Bold.ttf'),
-      ...Ionicons.font
-    })
-    this.setState({ isReady: true })
-  }
-
   render() {
-    if (!this.state.isReady) {
-      return <AppLoading />
-    }
-
     return (
-      <View style={styles.container}>
-        <View style={styles.textView}>
-          <Text style={styles.headerText}>FBLA Overseer</Text>
-        </View>
-        <View style={styles.logoView}>
+      <Block flex style={styles.container}>
+        <StatusBar barStyle="light-content" />
+        <Block flex center>
           <Image
-            style={{ width: 309.4, height: 126 }}
             source={require('../images/logo.png')}
+            style={{ height: height * 0.85, width: width * 0.85, marginTop: '-40%', zIndex: 1, resizeMode: "contain" }}
           />
-        </View>
-        <View style={styles.buttonView}>
-          <Button
-            style={{ marginHorizontal: 30 }}
-            onPress={() => this.props.navigation.navigate('Login')}
-            title={'Login'}
-          />
-          <View style={{ margin: 15 }} />
-          <Button
-            style={{ marginHorizontal: 30 }}
-            onPress={() => this.props.navigation.navigate('MasterRegister')}
-            title={'Register'}
-          />
-        </View>
-      </View>
-    )
+        </Block>
+        <Block flex space="between" style={styles.padded}>
+        <Block flex space="around" style={{ zIndex: 2, marginTop: '-50%'}}>
+            <Block>
+              <Block>
+                <Text color="white" size={60}>FBLA</Text>
+              </Block>
+              <Block row>
+                <Text color="white" size={60}>Overseer</Text>
+              </Block>
+              <Text size={16} color='rgba(255,255,255,0.6)'>
+                FBLA Manager to Increase Organizational Efficency
+              </Text>
+            </Block>
+            <Block center>
+              <Button
+                shadowless
+                style={styles.button}
+                color={materialTheme.COLORS.BUTTON_COLOR}
+                onPress={() => this.props.navigation.navigate('MasterRegister', {transition: 'bottomTransition'} )}>
+                GET STARTED
+              </Button>
+            </Block>
+          </Block>
+        </Block>
+      </Block>
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    backgroundColor: theme.COLORS.BLACK,
   },
-  textView: {
-    marginTop: 20
+  padded: {
+    paddingHorizontal: theme.SIZES.BASE * 2,
+    position: 'relative',
+    bottom: theme.SIZES.BASE,
   },
-  logoView: {
-    flex: 3,
-    alignItems: 'center',
-    justifyContent: 'center'
+  button: {
+    width: width - theme.SIZES.BASE * 4,
+    height: theme.SIZES.BASE * 3,
+    shadowRadius: 0,
+    shadowOpacity: 0,
   },
-  buttonView: {
-    flex: 2,
-    alignItems: 'center'
-  },
-  headerText: {
-    textAlign: 'center',
-    fontSize: 50,
-    fontWeight: 'bold',
-    fontFamily: 'montserrat-bold'
-  }
-})
+});
 
-export default LandingPage
+export default LandingPage;

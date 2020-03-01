@@ -1,12 +1,16 @@
 {
+  "name": "fbla-overseer",
   "main": "node_modules/expo/AppEntry.js",
+  "private": true,
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject",
-    "prettier": "prettier 'screens/**/*.js'"
+    "eject": "expo eject"
+  },
+  "jest": {
+    "preset": "jest-expo"
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "2.1.0",
@@ -16,6 +20,7 @@
     "expo": "~36.0.0",
     "expo-font": "~8.0.0",
     "firebase": "^7.8.2",
+    "galio-framework": "^0.6.3",
     "lodash": "^4.17.15",
     "react": "16.9.0",
     "react-dom": "~16.9.0",
@@ -36,12 +41,7 @@
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "babel-preset-expo": "~8.0.0",
-    "prettier": "^1.19.1"
-  },
-  "private": true,
-  "prettier": {
-    "jsxBracketSameLine": true,
-    "semi": false,
-    "singleQuote": true
+    "cross-env": "^7.0.0",
+    "jest-expo": "^36.0.1"
   }
 }

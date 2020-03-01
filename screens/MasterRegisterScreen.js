@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
     header: {
         fontSize: 36,
         textAlign: "center",
-        marginBottom: "25%"
+        marginBottom: "25%",
+        marginTop: 60
     },
     button: {
         marginHorizontal: 30,

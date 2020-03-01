@@ -2,7 +2,7 @@ import { YellowBox } from 'react-native'
 import _ from 'lodash';
 
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { createStackNavigator, TransitionPresets } from 'react-navigation-stack';
 
 import LoadingScreen from './screens/LoadingScreen';
 import LoginScreen from './screens/LoginScreen';
@@ -23,9 +23,10 @@ import MeetingScreen from './screens/Officer/OfficerChapter/MeetingScreen'
 import MeetingInfo from './screens/Officer/OfficerChapter/MeetingInfo'
 import TOS from './screens/TOS'
 
+// Require firebase module
 require("firebase/firestore");
 
-  // Your web app's Firebase configuration
+  // Web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyDmiemXSdITHB7f8Gvr56Pk-4zhbykD95U",
     authDomain: "fbla-app-6c5af.firebaseapp.com",
@@ -36,8 +37,10 @@ require("firebase/firestore");
     appId: "1:617900237739:web:773b266932a0ca562968ee"
   };
 
+  // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
+  // Ignore Firebase errors thrown on Android; the errors are harmless
   YellowBox.ignoreWarnings(['Setting a timer']);
   const _console = _.clone(console);
   console.warn = message => {
@@ -120,7 +123,10 @@ require("firebase/firestore");
 
   const AuthStack = createStackNavigator({
       Landing: {
-          screen: LandingPage
+          screen: LandingPage,
+          navigationOptions: {
+              headerShown: false,
+            }
       },
       MasterRegister: {
           screen: MasterRegisterScreen
@@ -139,8 +145,13 @@ require("firebase/firestore");
         navigationOptions: {
             title: "Terms and Conditions"
         }
-    }
-  })
+    },
+}, {
+    headerMode: 'none',
+    defaultNavigationOptions: {
+        ...TransitionPresets.ModalSlideFromBottomIOS,
+    },
+})
 
   export default createAppContainer (
       createSwitchNavigator(
