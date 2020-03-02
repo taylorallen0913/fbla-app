@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import Info from '../../info/Info'
+import Info from '../../Info/Info'
 
 class OfficerInfoScreen extends React.Component {
     render() {

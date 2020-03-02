@@ -15,7 +15,7 @@ import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom
 import HomeScreen from './MemberDashboard/MemberHomeScreen'
 import InfoScreen from './MemberDashboard/MemberInfoScreen'
 import ProfileScreen from './MemberDashboard/MemberProfileScreen'
-import BugReport from '../BugReport/BugReport'
+import SettingsScreen from '../Settings/Settings'
 
 const TabNavigator = createMaterialBottomTabNavigator(
   {
@@ -38,19 +38,6 @@ const TabNavigator = createMaterialBottomTabNavigator(
           </View>
         ),
         activeColor: '#ffffff',
-        inactiveColor: '#ebaabd',
-        barStyle: { backgroundColor: '#d13560' },
-      }
-    },
-    BugReport: {
-      screen: BugReport,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <View>
-            <Icon style={[{color: tintColor}]} size={25} name={'ios-bug'} />
-          </View>
-        ),
-        activeColor: '#ffffff',
         inactiveColor: '#a3c2fa',
         barStyle: { backgroundColor: '#2163f6' },
       }
@@ -68,12 +55,25 @@ const TabNavigator = createMaterialBottomTabNavigator(
           barStyle: { backgroundColor: '#2163f6' },
         }
       },
+      Settings: {
+        screen: SettingsScreen,
+        navigationOptions: {
+          tabBarIcon: ({ tintColor }) => (
+            <View>
+              <Icon style={[{color: tintColor}]} size={25} name={'ios-settings'} />
+            </View>
+          ),
+          activeColor: '#ffffff',
+          inactiveColor: '#a3c2fa',
+          barStyle: { backgroundColor: '#2163f6' },
+        }
+      }, 
   },
   {
     initialRouteName: 'Home',
     activeColor: '#ffffff',
-    inactiveColor: '#bda1f7',
-    barStyle: { backgroundColor: '#6948f4' },
+    inactiveColor: '#a3c2fa',
+    barStyle: { backgroundColor: '#2163f6' },
   }
 );
 

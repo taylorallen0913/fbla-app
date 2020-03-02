@@ -50,7 +50,7 @@ class Profile extends React.Component {
 
                     <Image
                     style={{ width: 100, height: 100, resizeMode: 'center' }}
-                    source={require('../../../images/profilepic.png')}
+                    source={require('../../../assets/profilepic.png')}
                     />
                     
                 </View>
