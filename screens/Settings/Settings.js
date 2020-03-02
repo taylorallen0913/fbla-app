@@ -21,7 +21,7 @@ class Settings extends React.Component {
         <Block shadow>
           <Card title="SUPPORT">
             <Block style={styles.button}>
-              <Button shadowless round color="info" size="small">
+              <Button shadowless round color="info" size="small" onPress={() => {this.props.navigation.navigate("BugReportScreen")}}>
                 REPORT A BUG
               </Button>
             </Block>
@@ -36,7 +36,7 @@ class Settings extends React.Component {
               </Button>
             </Block>
             <Block style={styles.button}>
-              <Button shadowless round color="info" size="small">
+              <Button shadowless round color="info" size="small" onPress={() => {this.props.navigation.navigate("PrivacyPolicyScreen")}}>
                 PRIVACY POLICY
               </Button>
             </Block>

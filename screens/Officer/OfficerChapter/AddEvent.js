@@ -66,7 +66,7 @@ AddEvent = (props) => {
         firebase.firestore().collection('chapters').doc(id).update({
             calendar: firebase.firestore.FieldValue.arrayUnion(dateEvent)
         })
-        props.navigation.navigate("Home")
+        props.navigation.navigate("OfficerHome")
     }
 
     return (

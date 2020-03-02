@@ -36,11 +36,6 @@ class MemberProfileScreen extends React.Component {
                 <TouchableOpacity style={styles.button} onPress={this.signOutUser}>
                     <Text style={{color: "#FFF", fontWeight: "500", textAlign: "center"}}> Logout </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{alignContent: "center", marginTop: 30}} onPress={() => this.props.navigation.navigate("TOSScreen")}>
-                    <Text style={{color: "#414959", fontSize: 13, textAlign: "center"}}>
-                        <Text style={{ fontWeight: "500", color: "#E9446A" }}>Terms And Condtions</Text>
-                    </Text>
-                </TouchableOpacity>
             </View>
         )
     }

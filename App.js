@@ -30,6 +30,8 @@ import AddEvent from "./screens/Officer/OfficerChapter/AddEvent";
 import MeetingScreen from "./screens/Officer/OfficerChapter/MeetingScreen";
 import MeetingInfo from "./screens/Officer/OfficerChapter/MeetingInfo";
 import TOS from "./screens/TOS";
+import PrivacyPolicy from './screens/PrivacyPolicy'
+import BugReport from './screens/BugReport/BugReport'
 
 import MemberTutorialScreen from './screens/Tutorial/MemberTutorialScreen'
 import OfficerTutorialScreen from './screens/Tutorial/OfficerTutorialScreen'
@@ -103,6 +105,18 @@ const MemberAppStack = createStackNavigator({
     navigationOptions: {
       title: "Terms and Conditions"
     }
+  },
+  PrivacyPolicyScreen: {
+    screen: PrivacyPolicy,
+    navigationOptions: {
+      title: "Privacy Policy"
+    }
+  },
+  BugReportScreen: {
+    screen: BugReport,
+    navigationOptions: {
+      title: "Report a Bug"
+    }
   }
 });
 
@@ -147,6 +161,18 @@ const OfficerAppStack = createStackNavigator({
     screen: TOS,
     navigationOptions: {
       title: "Terms and Conditions"
+    }
+  },
+  PrivacyPolicyScreen: {
+    screen: PrivacyPolicy,
+    navigationOptions: {
+      title: "Privacy Policy"
+    }
+  },
+  BugReportScreen: {
+    screen: BugReport,
+    navigationOptions: {
+      title: "Report a Bug"
     }
   }
 });
