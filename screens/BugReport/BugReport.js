@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity
 } from "react-native";
+import { Button, Block } from "galio-framework";
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -39,8 +40,8 @@ class BugReport extends React.Component {
               ></TextInput>
             </View>
 
-            <View style={{ marginTop: 32 }}>
-              <Text style={styles.inputText} style={{ marginBottom: 30 }}>
+            <View style={{ marginTop: "5%" }}>
+              <Text style={styles.inputText} style={{ marginBottom: "5%" }}>
                 Describe The Problem
               </Text>
               <TextInput
@@ -51,18 +52,14 @@ class BugReport extends React.Component {
                 value={this.state.text}
               />
             </View>
-            <TouchableOpacity style={styles.button}>
-              <Text
-                style={{
-                  color: "#FFF",
-                  fontWeight: "500",
-                  textAlign: "center"
-                }}
+            <Block center style={{marginTop: '10%'}}>
+              <Button
+                color="#000080"
                 onPress={() => this.props.navigation.goBack()}
               >
-                Report Bug
-              </Text>
-            </TouchableOpacity>
+                Report
+              </Button>
+            </Block>
           </View>
         </View>
       </DismissKeyboard>
@@ -115,8 +112,7 @@ const styles = StyleSheet.create({
     color: "#161F3D"
   },
   button: {
-    marginTop: 70,
-    margin: 20,
+    marginTop: "20%",
     marginHorizontal: 30,
     backgroundColor: "#000080",
     borderRadius: 4,

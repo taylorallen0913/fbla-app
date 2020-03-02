@@ -56,7 +56,7 @@ class Profile extends React.Component {
                 </View>
                 : null
                 }
-                <View style={{padding: 10}}>
+                <View style={{padding: '1%'}}>
                     <Text style={styles.text}>Display Name:</Text>
                     <TextInput 
                         autoCapitalize = "none"
@@ -65,7 +65,7 @@ class Profile extends React.Component {
                         keyboardShouldPersistTaps={true}
                         />
                 </View>
-                <View style={{padding: 10}}>
+                <View style={{padding: '1%'}}>
                     <Text style={styles.text}>User ID:</Text>
                     <TextInput 
                         autoCapitalize = "none"
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         paddingBottom: 10
     },
     button: {
-        marginTop: 70,
+        marginTop: '10%',
         margin: 20,
         marginHorizontal: 30,
         backgroundColor: "#0066cc",

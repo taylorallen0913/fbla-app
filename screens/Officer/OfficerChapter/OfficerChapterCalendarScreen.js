@@ -132,7 +132,7 @@ class OfficerChapterCalendarScreen extends React.Component {
   render() {
     return (
       <View>
-        <View style={{ height: height * 0.7 }}>
+        <View style={{ height: height * 0.6 }}>
           <Agenda
             items={this.state.items}
             selected={new Date()}

@@ -4,7 +4,8 @@ import {
   TextInput,
   Dimensions,
   TouchableWithoutFeedback,
-  Keyboard
+  Keyboard,
+  KeyboardAvoidingView
 } from "react-native";
 import React from "react";
 import { Block, Button, Text, theme, NavBar } from "galio-framework";
@@ -73,6 +74,7 @@ class LoginScreen extends React.Component {
           <Block flex space="between" style={styles.padded}>
             <Block flex space="around" style={{ zIndex: 2, marginTop: "20%" }}>
               <Block flex>
+                <Block style={{marginTop: '7%'}}>
                 <Button
                   shadowless
                   style={styles.button}
@@ -82,6 +84,7 @@ class LoginScreen extends React.Component {
                 >
                   SIGN IN
                 </Button>
+                </Block>
                 <Block style={styles.errorMessage}>
                   {this.state.errorMessage && (
                     <Text style={styles.error}>{this.state.errorMessage}</Text>
@@ -128,7 +131,7 @@ const styles = StyleSheet.create({
     width: width - theme.SIZES.BASE * 4,
     height: theme.SIZES.BASE * 3,
     shadowRadius: 0,
-    shadowOpacity: 0
+    shadowOpacity: 0,
   },
   errorMessage: {
     height: 72,
