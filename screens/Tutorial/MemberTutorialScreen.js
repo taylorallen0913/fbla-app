@@ -3,6 +3,8 @@ import { Text, View, StyleSheet, Image, Dimensions } from "react-native";
 import Swiper from "react-native-swiper";
 import * as firebase from "firebase";
 
+const { height, width } = Dimensions.get("screen");
+
 class MemberTutorialScreen extends React.Component {
   state = {
     uid: null

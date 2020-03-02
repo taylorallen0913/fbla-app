@@ -30,12 +30,14 @@ import AddEvent from "./screens/Officer/OfficerChapter/AddEvent";
 import MeetingScreen from "./screens/Officer/OfficerChapter/MeetingScreen";
 import MeetingInfo from "./screens/Officer/OfficerChapter/MeetingInfo";
 import TOS from "./screens/TOS";
-import PrivacyPolicy from './screens/PrivacyPolicy'
-import BugReport from './screens/BugReport/BugReport'
+import PrivacyPolicy from "./screens/PrivacyPolicy";
+import BugReport from "./screens/BugReport/BugReport";
+import License from "./screens/License/License";
+import ContactUs from "./screens/ContactUs/ContactUs";
 
-import MemberTutorialScreen from './screens/Tutorial/MemberTutorialScreen'
-import OfficerTutorialScreen from './screens/Tutorial/OfficerTutorialScreen'
-
+import MemberTutorialScreen from "./screens/Tutorial/MemberTutorialScreen";
+import OfficerTutorialScreen from "./screens/Tutorial/OfficerTutorialScreen";
+import OfficerEventInfo from "./screens/Officer/OfficerChapter/OfficerEventInfo";
 
 // Require firebase module
 require("firebase/firestore");
@@ -70,7 +72,7 @@ const OfficerTutorialAppStack = createStackNavigator({
       title: "Officer Tutorial"
     }
   }
-})
+});
 
 const MemberTutorialAppStack = createStackNavigator({
   MemberTutorial: {
@@ -78,8 +80,8 @@ const MemberTutorialAppStack = createStackNavigator({
     navigationOptions: {
       title: "Member Tutorial"
     }
-  },
-})
+  }
+});
 
 const MemberAppStack = createStackNavigator({
   MemberHome: {
@@ -116,6 +118,18 @@ const MemberAppStack = createStackNavigator({
     screen: BugReport,
     navigationOptions: {
       title: "Report a Bug"
+    }
+  },
+  LicenseScreen: {
+    screen: License,
+    navigationOptions: {
+      title: "License"
+    }
+  },
+  ContactUsScreen: {
+    screen: ContactUs,
+    navigationOptions: {
+      title: "Contact Us"
     }
   }
 });
@@ -174,6 +188,24 @@ const OfficerAppStack = createStackNavigator({
     navigationOptions: {
       title: "Report a Bug"
     }
+  },
+  LicenseScreen: {
+    screen: License,
+    navigationOptions: {
+      title: "License"
+    }
+  },
+  ContactUsScreen: {
+    screen: ContactUs,
+    navigationOptions: {
+      title: "Contact Us"
+    }
+  },
+  OfficerEventInfoScreen: {
+    screen: OfficerEventInfo,
+    navigationOptions: {
+      title: "Event Info"
+    }
   }
 });
 
@@ -189,7 +221,7 @@ const AuthStack = createStackNavigator(
       screen: MasterRegisterScreen,
       navigationOptions: {
         headerShown: false,
-        title: 'Registration'
+        title: "Registration"
       }
     },
     MemberRegister: {
@@ -206,7 +238,7 @@ const AuthStack = createStackNavigator(
       navigationOptions: {
         title: "Officer Registration",
         headerStyle: {
-          backgroundColor: "black",
+          backgroundColor: "black"
         }
       }
     },
@@ -214,7 +246,7 @@ const AuthStack = createStackNavigator(
       screen: LoginScreen,
       navigationOptions: {
         headerStyle: {
-          backgroundColor: "black",
+          backgroundColor: "black"
         }
       }
     },

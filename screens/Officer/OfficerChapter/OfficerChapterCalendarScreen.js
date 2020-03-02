@@ -1,11 +1,11 @@
 import React from "react";
 import {
-
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  Alert
 } from "react-native";
 import * as firebase from "firebase";
 import { Agenda } from "react-native-calendars";
@@ -66,7 +66,9 @@ class OfficerChapterCalendarScreen extends React.Component {
             "Duration: " +
             doc.duration +
             "\nID: " +
-            doc.id
+            doc.id,
+          type: doc.type,
+          id: doc.id
         };
         // If date is already in object
         if (itemsState.hasOwnProperty(doc.date)) {
@@ -77,15 +79,17 @@ class OfficerChapterCalendarScreen extends React.Component {
       // If event is not a meeting
       else {
         let eventMap = {
-          name: doc.name + "\n\n" + this.convertTime(doc.time),
+          name: doc.type + '\n\n' + doc.name + "\n\n" + this.convertTime(doc.time),
           id: doc.id,
-          date: doc.date
+          date: doc.date,
+          type: doc.type
         };
         if (itemsState.hasOwnProperty(doc.date)) {
           itemsState[doc.date].push({
             name: doc.name + "\n\n" + this.convertTime(doc.time),
             id: doc.id,
-            date: doc.date
+            date: doc.date,
+            type: doc.type
           });
           itemsState[doc.date].push(eventMap);
         } else itemsState[doc.date] = [eventMap];
@@ -98,12 +102,19 @@ class OfficerChapterCalendarScreen extends React.Component {
     return (
       <TouchableOpacity
         style={[styles.item, { height: item.height }]}
-        onPress={() =>
-          this.props.navigation.navigate("MeetingInfo", {
-            time: item,
-            id: this.state.id
-          })
-        }
+        onPress={() => {
+          console.log(item.type)
+          if (item.type == "meeting") {
+            this.props.navigation.navigate("MeetingInfo", {
+              time: item,
+              id: this.state.id
+            });
+          } else if (item.type == 'event') {
+            this.props.navigation.navigate("OfficerEventInfoScreen", {
+              type: item.type
+            });
+          }
+        }}
       >
         <Text>{item.name}</Text>
       </TouchableOpacity>
@@ -114,14 +125,33 @@ class OfficerChapterCalendarScreen extends React.Component {
     return r1.name !== r2.name;
   }
 
+  onDayPress = day => {
+    console.log(day);
+  };
+
   render() {
     return (
       <View>
-        <View style={{ height: height * 0.65 }}>
+        <View style={{ height: height * 0.7 }}>
           <Agenda
             items={this.state.items}
             selected={new Date()}
             renderItem={this.renderItem.bind(this)}
+            renderEmptyData={() => { 
+              return (
+                <View>
+                  <Text
+                    style={{
+                      textAlign: "center",
+                      fontSize: 50,
+                      marginTop: "30%"
+                    }}
+                  >
+                    No Events!
+                  </Text>
+                </View>
+              );
+            }}
             rowHasChanged={this.rowHasChanged.bind(this)}
           />
         </View>

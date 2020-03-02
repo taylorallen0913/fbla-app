@@ -177,7 +177,8 @@ class MeetingScreen extends React.Component {
         let endMeetingData = {
           duration: this.state.minutes + ":" + this.state.seconds,
           name: this.state.meetingName,
-          notes: this.state.meetingNotes
+          notes: this.state.meetingNotes,
+          type: 'meeting'
         };
         firebase
           .firestore()

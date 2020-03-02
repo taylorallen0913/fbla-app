@@ -24,12 +24,17 @@ class OfficerChapterHomeScreen extends React.Component {
         <Text style={{ textAlign: "center", fontSize: 19, marginTop: 30 }}>
           For a member to join your chapter, give them this code.
         </Text>
-        <Block center style={{marginTop: '75%'}}>
-        <Button color="#000080" onPress={() =>
-            this.props.navigation.navigate("MeetingScreen", {
-              id: id
-            })
-          }>Start Meeting</Button>
+        <Block center style={{ marginTop: "75%" }}>
+          <Button
+            color="#000080"
+            onPress={() =>
+              this.props.navigation.navigate("MeetingScreen", {
+                id: id
+              })
+            }
+          >
+            Start Meeting
+          </Button>
         </Block>
       </View>
     );

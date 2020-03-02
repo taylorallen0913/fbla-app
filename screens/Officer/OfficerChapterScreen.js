@@ -1,19 +1,19 @@
-import React from 'react';
+import React from "react";
 import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
   Text,
-  StatusBar,
-} from 'react-native';
+  StatusBar
+} from "react-native";
 
-import Icon from 'react-native-vector-icons/Ionicons';
-import {createAppContainer} from 'react-navigation';
-import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
+import Icon from "react-native-vector-icons/Ionicons";
+import { createAppContainer } from "react-navigation";
+import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 
-import HomeScreen from './OfficerChapter/OfficerChapterHomeScreen'
-import CalendarScreen from './OfficerChapter/OfficerChapterCalendarScreen'
+import HomeScreen from "./OfficerChapter/OfficerChapterHomeScreen";
+import CalendarScreen from "./OfficerChapter/OfficerChapterCalendarScreen";
 
 const TabNavigator = createMaterialBottomTabNavigator(
   {
@@ -22,9 +22,9 @@ const TabNavigator = createMaterialBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <View>
-            <Icon style={[{color: tintColor}]} size={25} name={'ios-home'} />
+            <Icon style={[{ color: tintColor }]} size={25} name={"ios-home"} />
           </View>
-        ),
+        )
       }
     },
     Calendar: {
@@ -32,20 +32,24 @@ const TabNavigator = createMaterialBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <View>
-            <Icon style={[{color: tintColor}]} size={25} name={'ios-calendar'} />
+            <Icon
+              style={[{ color: tintColor }]}
+              size={25}
+              name={"ios-calendar"}
+            />
           </View>
         ),
-        activeColor: '#ffffff',
-        inactiveColor: '#92c5c2',
-        barStyle: { backgroundColor: '#2c6d6a' },
+        activeColor: "#ffffff",
+        inactiveColor: "#a3c2fa",
+        barStyle: { backgroundColor: "#2163f6" }
       }
-    },
+    }
   },
   {
-    initialRouteName: 'Home',
-    activeColor: '#ffffff',
-    inactiveColor: '#bda1f7',
-    barStyle: { backgroundColor: '#6948f4' },
+    initialRouteName: "Home",
+    activeColor: "#ffffff",
+    inactiveColor: "#a3c2fa",
+    barStyle: { backgroundColor: "#2163f6" }
   }
 );
 
