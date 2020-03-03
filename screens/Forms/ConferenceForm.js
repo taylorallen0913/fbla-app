@@ -11,7 +11,6 @@ import * as firebase from "firebase";
 import { Block, Text, theme, Input, Button } from "galio-framework";
 import RadioForm from "react-native-simple-radio-button";
 
-
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     {children}
@@ -37,7 +36,7 @@ class ConferenceForm extends React.Component {
   };
 
   componentDidMount() {
-    const { email, displayName, uid } = firebase.auth().currentUser;
+    const { uid } = firebase.auth().currentUser;
     this.setState({ uid });
     const { params } = this.props.navigation.state;
     const id = params ? params.id : null;
@@ -57,6 +56,17 @@ class ConferenceForm extends React.Component {
       this.state.alternateEventType != null
     ) {
       this.props.navigation.goBack();
+      let userForm = {
+          uid: this.state.uid,
+          name: this.state.name,
+          grade: this.state.grade,
+          firstEventTopic: this.state.firstEventTopic,
+          firstEventType: this.state.firstEventType,
+          secondEventTopic: this.state.secondEventTopic,
+          secondEventType: this.state.secondEventType,
+          alternateEventTopic: this.state.alternateEventTopic,
+          alternateEventType: this.state.alternateEventType 
+      }
       firebase
         .firestore()
         .collection("chapters")
@@ -68,17 +78,19 @@ class ConferenceForm extends React.Component {
           for (let i = 0; i < calendarData.length; i++) {
             // If event is found
             if (calendarData[i].id == this.state.eventId) {
-                // Switch uid with item later
-              calendarData[i].signups.push(uid);
-              console.log(calendarData[i])
+              // Switch uid with item later
+              calendarData[i].signups.push(userForm);
             }
           }
-          firebase.firestore().collection('chapters').doc(this.state.uid).update({
+          firebase
+            .firestore()
+            .collection("chapters")
+            .doc(this.state.id)
+            .update({
               calendar: calendarData
-          })
-        }); 
+            });
+        });
     } else console.log("error");
-    
   };
 
   render() {
@@ -247,11 +259,7 @@ class ConferenceForm extends React.Component {
           </Block>
           <Block center style={{ marginTop: "20%" }}>
             <Button>
-              <Button
-                onPress={this.submitForm}
-              >
-                SUBMIT FORM
-              </Button>
+              <Button onPress={this.submitForm}>SUBMIT FORM</Button>
             </Button>
           </Block>
           <Block style={{ marginTop: "25%" }} />
