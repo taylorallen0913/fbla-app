@@ -5,7 +5,8 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
   Keyboard,
-  View
+  View,
+  Alert
 } from "react-native";
 import * as firebase from "firebase";
 import { Block, Text, theme, Input, Button } from "galio-framework";
@@ -57,16 +58,16 @@ class ConferenceForm extends React.Component {
     ) {
       this.props.navigation.goBack();
       let userForm = {
-          uid: this.state.uid,
-          name: this.state.name,
-          grade: this.state.grade,
-          firstEventTopic: this.state.firstEventTopic,
-          firstEventType: this.state.firstEventType,
-          secondEventTopic: this.state.secondEventTopic,
-          secondEventType: this.state.secondEventType,
-          alternateEventTopic: this.state.alternateEventTopic,
-          alternateEventType: this.state.alternateEventType 
-      }
+        uid: this.state.uid,
+        name: this.state.name,
+        grade: this.state.grade,
+        firstEventTopic: this.state.firstEventTopic,
+        firstEventType: this.state.firstEventType,
+        secondEventTopic: this.state.secondEventTopic,
+        secondEventType: this.state.secondEventType,
+        alternateEventTopic: this.state.alternateEventTopic,
+        alternateEventType: this.state.alternateEventType
+      };
       firebase
         .firestore()
         .collection("chapters")
@@ -90,7 +91,7 @@ class ConferenceForm extends React.Component {
               calendar: calendarData
             });
         });
-    } else console.log("error");
+    } else Alert.alert("Please fill out all fields in form.")
   };
 
   render() {
