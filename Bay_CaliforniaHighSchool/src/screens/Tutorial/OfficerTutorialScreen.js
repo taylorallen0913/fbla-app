@@ -29,7 +29,7 @@ const slides = [
     titleStyle: { textAlign: "center" },
     image: require("../../assets/officer-tutorial/meeting-screen.png"),
     imageStyle: { height: "80%", width: "80%" },
-    backgroundColor: "#22bcb5"
+    backgroundColor: "#C14953"
   },
   {
     key: "add-event-screen",
@@ -37,7 +37,7 @@ const slides = [
     titleStyle: { textAlign: "center" },
     image: require("../../assets/officer-tutorial/add-event-screen.png"),
     imageStyle: { height: "80%", width: "80%" },
-    backgroundColor: "#22bcb5"
+    backgroundColor: "#BBC7A4"
   },
   {
     key: "calendar-screen",
@@ -45,7 +45,7 @@ const slides = [
     titleStyle: { textAlign: "center" },
     image: require("../../assets/officer-tutorial/calendar-screen.png"),
     imageStyle: { height: "80%", width: "80%" },
-    backgroundColor: "#22bcb5"
+    backgroundColor: "#52B2CF"
   }
 ];
 
