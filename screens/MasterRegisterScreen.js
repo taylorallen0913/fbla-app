@@ -25,11 +25,17 @@ class MasterRegisterScreen extends React.Component {
             </Text>
           </Block>
           <Block flex center>
-          <Image
-            source={require('../assets/logo.png')}
-            style={{ height: height * 0.75, width: width * 0.75, marginTop: '-40%', zIndex: 1, resizeMode: "contain" }}
-          />
-        </Block>
+            <Image
+              source={require("../assets/logo.png")}
+              style={{
+                height: height * 0.75,
+                width: width * 0.75,
+                marginTop: "-40%",
+                zIndex: 1,
+                resizeMode: "contain"
+              }}
+            />
+          </Block>
         </Block>
         <Block flex space="between" style={styles.padded}>
           <Block flex space="around" style={{ zIndex: 2, paddingTop: "20%" }}>

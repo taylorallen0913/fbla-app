@@ -13,7 +13,7 @@ import {
 import * as firebase from "firebase";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import RNPickerSelect from "react-native-picker-select";
-import {Block} from 'galio-framework'
+import { Block } from "galio-framework";
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -31,7 +31,7 @@ AddEvent = props => {
   const [date, setDate] = useState(new Date(1598051720000));
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
-  const [location, setLocation] = useState(null)
+  const [location, setLocation] = useState(null);
 
   useEffect(() => {
     setId(props.navigation.state.params.id);
@@ -139,29 +139,27 @@ AddEvent = props => {
 
           <View>
             <>
-            {type == "event" && (
-              <RNPickerSelect
-                style={styles.input}
-                onValueChange={value => setEventType(value)}
-                items={[
-                  { label: "Conference", value: "conference" },
-                  { label: "Other", value: "other" }
-                ]}
-              />
-            )}
-            {type == "upcomingMeeting" && (
-              <Block style={{marginTop: '5%'}}>
-                <Text style={styles.inputText}>Location?</Text>
-                <TextInput
+              {type == "event" && (
+                <RNPickerSelect
                   style={styles.input}
-                  autoCapitalize="none"
-                  onChangeText={location =>
-                    setLocation(location)
-                  }
-                  value={location}
-                ></TextInput>
-              </Block>
-            )}
+                  onValueChange={value => setEventType(value)}
+                  items={[
+                    { label: "Conference", value: "conference" },
+                    { label: "Other", value: "other" }
+                  ]}
+                />
+              )}
+              {type == "upcomingMeeting" && (
+                <Block style={{ marginTop: "5%" }}>
+                  <Text style={styles.inputText}>Location?</Text>
+                  <TextInput
+                    style={styles.input}
+                    autoCapitalize="none"
+                    onChangeText={location => setLocation(location)}
+                    value={location}
+                  ></TextInput>
+                </Block>
+              )}
             </>
           </View>
           <View>

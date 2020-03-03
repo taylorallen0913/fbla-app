@@ -1,21 +1,21 @@
-import React from 'react';
+import React from "react";
 import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
   Text,
-  StatusBar,
-} from 'react-native';
+  StatusBar
+} from "react-native";
 
-import Icon from 'react-native-vector-icons/Ionicons';
-import {createAppContainer} from 'react-navigation';
-import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
+import Icon from "react-native-vector-icons/Ionicons";
+import { createAppContainer } from "react-navigation";
+import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 
-import HomeScreen from './MemberDashboard/MemberHomeScreen'
-import InfoScreen from './MemberDashboard/MemberInfoScreen'
-import ProfileScreen from './MemberDashboard/MemberProfileScreen'
-import SettingsScreen from '../Settings/Settings'
+import HomeScreen from "./MemberDashboard/MemberHomeScreen";
+import InfoScreen from "./MemberDashboard/MemberInfoScreen";
+import ProfileScreen from "./MemberDashboard/MemberProfileScreen";
+import SettingsScreen from "../Settings/Settings";
 
 const TabNavigator = createMaterialBottomTabNavigator(
   {
@@ -24,9 +24,9 @@ const TabNavigator = createMaterialBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <View>
-            <Icon style={[{color: tintColor}]} size={25} name={'ios-home'} />
+            <Icon style={[{ color: tintColor }]} size={25} name={"ios-home"} />
           </View>
-        ),
+        )
       }
     },
     Info: {
@@ -34,46 +34,54 @@ const TabNavigator = createMaterialBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <View>
-            <Icon style={[{color: tintColor}]} size={25} name={'ios-book'} />
+            <Icon style={[{ color: tintColor }]} size={25} name={"ios-book"} />
           </View>
         ),
-        activeColor: '#ffffff',
-        inactiveColor: '#a3c2fa',
-        barStyle: { backgroundColor: '#2163f6' },
+        activeColor: "#ffffff",
+        inactiveColor: "#a3c2fa",
+        barStyle: { backgroundColor: "#2163f6" }
       }
     },
     Profile: {
-        screen: ProfileScreen,
-        navigationOptions: {
-          tabBarIcon: ({ tintColor }) => (
-            <View>
-              <Icon style={[{color: tintColor}]} size={25} name={'ios-person'} />
-            </View>
-          ),
-          activeColor: '#ffffff',
-          inactiveColor: '#a3c2fa',
-          barStyle: { backgroundColor: '#2163f6' },
-        }
-      },
-      Settings: {
-        screen: SettingsScreen,
-        navigationOptions: {
-          tabBarIcon: ({ tintColor }) => (
-            <View>
-              <Icon style={[{color: tintColor}]} size={25} name={'ios-settings'} />
-            </View>
-          ),
-          activeColor: '#ffffff',
-          inactiveColor: '#a3c2fa',
-          barStyle: { backgroundColor: '#2163f6' },
-        }
-      }, 
+      screen: ProfileScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <View>
+            <Icon
+              style={[{ color: tintColor }]}
+              size={25}
+              name={"ios-person"}
+            />
+          </View>
+        ),
+        activeColor: "#ffffff",
+        inactiveColor: "#a3c2fa",
+        barStyle: { backgroundColor: "#2163f6" }
+      }
+    },
+    Settings: {
+      screen: SettingsScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <View>
+            <Icon
+              style={[{ color: tintColor }]}
+              size={25}
+              name={"ios-settings"}
+            />
+          </View>
+        ),
+        activeColor: "#ffffff",
+        inactiveColor: "#a3c2fa",
+        barStyle: { backgroundColor: "#2163f6" }
+      }
+    }
   },
   {
-    initialRouteName: 'Home',
-    activeColor: '#ffffff',
-    inactiveColor: '#a3c2fa',
-    barStyle: { backgroundColor: '#2163f6' },
+    initialRouteName: "Home",
+    activeColor: "#ffffff",
+    inactiveColor: "#a3c2fa",
+    barStyle: { backgroundColor: "#2163f6" }
   }
 );
 

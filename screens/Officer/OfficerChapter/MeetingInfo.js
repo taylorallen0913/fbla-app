@@ -33,7 +33,7 @@ class MeetingInfo extends React.Component {
   }
 
   deleteEvent = () => {
-    this.props.navigation.navigate('OfficerHome');
+    this.props.navigation.navigate("OfficerHome");
     firebase
       .firestore()
       .collection("chapters")
@@ -41,19 +41,23 @@ class MeetingInfo extends React.Component {
       .get()
       .then(doc => {
         let localCalendarData = doc.data().calendar;
-        console.log(JSON.stringify(localCalendarData))
-        console.log('\n\n')
+        console.log(JSON.stringify(localCalendarData));
+        console.log("\n\n");
         for (let i = 0; i < localCalendarData.length; i++) {
-          console.log(localCalendarData[i].id)
-          console.log(this.state.meetingId)
+          console.log(localCalendarData[i].id);
+          console.log(this.state.meetingId);
           if (localCalendarData[i].id == this.state.meetingId) {
-            localCalendarData.splice(i, 1)
+            localCalendarData.splice(i, 1);
           }
         }
-        console.log(JSON.stringify(localCalendarData))
-        firebase.firestore().collection('chapters').doc(this.state.id).update({
-          calendar: localCalendarData
-        })
+        console.log(JSON.stringify(localCalendarData));
+        firebase
+          .firestore()
+          .collection("chapters")
+          .doc(this.state.id)
+          .update({
+            calendar: localCalendarData
+          });
       });
   };
 
@@ -108,8 +112,6 @@ class MeetingInfo extends React.Component {
       });
   };
 
-  
-
   render() {
     const {
       attendance,
@@ -158,7 +160,7 @@ class MeetingInfo extends React.Component {
         <Text style={{ fontSize: 20, textAlign: "center", paddingTop: 20 }}>
           Members Who Attended Meeting:
         </Text>
-        <ScrollView  style={{height: '20%'}}>{mapItems}</ScrollView>
+        <ScrollView style={{ height: "20%" }}>{mapItems}</ScrollView>
         <Block center style={{ marginTop: "5%" }}>
           <Button color="#000080" onPress={() => this.deleteEvent()}>
             Delete Event

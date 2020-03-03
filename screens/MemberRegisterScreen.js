@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback
 } from "react-native";
-import { CheckBox } from 'react-native-elements'
+import { CheckBox } from "react-native-elements";
 import { Block, Button, Text, theme } from "galio-framework";
 import * as firebase from "firebase";
 
@@ -64,7 +64,7 @@ class MemberRegisterScreen extends React.Component {
               </Text>
             </Block>
             <Block flex space="between" style={styles.form}>
-              <Block style={{ marginTop: '8%' }}>
+              <Block style={{ marginTop: "8%" }}>
                 <Text style={(styles.inputText, { color: "white" })}>
                   Full Name
                 </Text>
@@ -76,7 +76,7 @@ class MemberRegisterScreen extends React.Component {
                 ></TextInput>
               </Block>
 
-              <Block style={{ marginTop: '8%' }}>
+              <Block style={{ marginTop: "8%" }}>
                 <Text style={(styles.inputText, { color: "white" })}>
                   Email Address
                 </Text>
@@ -88,7 +88,7 @@ class MemberRegisterScreen extends React.Component {
                 ></TextInput>
               </Block>
 
-              <Block style={{ marginTop: '8%' }}>
+              <Block style={{ marginTop: "8%" }}>
                 <Text style={(styles.inputText, { color: "white" })}>
                   Password
                 </Text>
@@ -104,17 +104,22 @@ class MemberRegisterScreen extends React.Component {
           </Block>
           <Block flex space="between" style={styles.padded}>
             <Block flex space="around" style={{ zIndex: 2, marginTop: "10%" }}>
-            <CheckBox
-              center
-              title="I agree to FBLA Overseer's Terms & Conditions"
-              checkedIcon='dot-circle-o'
-              uncheckedIcon='circle-o'
-              onPress={() => {this.setState({checked: !this.state.checked})}}
-              checked={this.state.checked}
-              textStyle={{color: 'white'}}
-              containerStyle={{backgroundColor: 'transparent', borderWidth: 0}}
-            />
-            <Block style={{margin: '15%'}}/>
+              <CheckBox
+                center
+                title="I agree to FBLA Overseer's Terms & Conditions"
+                checkedIcon="dot-circle-o"
+                uncheckedIcon="circle-o"
+                onPress={() => {
+                  this.setState({ checked: !this.state.checked });
+                }}
+                checked={this.state.checked}
+                textStyle={{ color: "white" }}
+                containerStyle={{
+                  backgroundColor: "transparent",
+                  borderWidth: 0
+                }}
+              />
+              <Block style={{ margin: "15%" }} />
               <Button
                 shadowless
                 style={styles.button}
@@ -124,7 +129,15 @@ class MemberRegisterScreen extends React.Component {
               >
                 SIGN UP
               </Button>
-              <Text center style={{color: 'grey', marginTop: '5%'}} onPress={() => {this.props.navigation.navigate('TOSScreen')}} >Terms and Conditions</Text>
+              <Text
+                center
+                style={{ color: "grey", marginTop: "5%" }}
+                onPress={() => {
+                  this.props.navigation.navigate("TOSScreen");
+                }}
+              >
+                Terms and Conditions
+              </Text>
               <Block flex style={styles.errorMessage}>
                 {this.state.errorMessage && (
                   <Text style={styles.error}>{this.state.errorMessage}</Text>

@@ -76,7 +76,9 @@ class JoinChapterScreen extends React.Component {
             </View>
           </View>
           <Block center style={{ marginTop: 20 }}>
-            <Text style={{fontSize: 30}}>Enter the Chapter ID your Officer gave you.</Text>
+            <Text style={{ fontSize: 30 }}>
+              Enter the Chapter ID your Officer gave you.
+            </Text>
           </Block>
           <View style={styles.errorMessage}>
             {this.state.errorMessage && (

@@ -19,19 +19,17 @@ class LoadingScreen extends React.Component {
           .get()
           .then(doc => {
             if (doc.data().role == "member") {
-                if(doc.data().tutorialCompleted === true) {
-                    this.props.navigation.navigate("Member");
-                }
-                else {
-                    this.props.navigation.navigate("MemberTutorial")
-                }
+              if (doc.data().tutorialCompleted === true) {
+                this.props.navigation.navigate("Member");
+              } else {
+                this.props.navigation.navigate("MemberTutorial");
+              }
             } else if (doc.data().role == "officer") {
-                if(doc.data().tutorialCompleted === true) {
-                    this.props.navigation.navigate("Officer");
-                }
-                else {
-                    this.props.navigation.navigate("OfficerTutorial")
-                }
+              if (doc.data().tutorialCompleted === true) {
+                this.props.navigation.navigate("Officer");
+              } else {
+                this.props.navigation.navigate("OfficerTutorial");
+              }
             }
           });
       }

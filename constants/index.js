@@ -1,7 +1,4 @@
-import materialTheme from './Theme';
-import utils from './utils';
+import materialTheme from "./Theme";
+import utils from "./utils";
 
-export {
-  materialTheme,
-  utils,
-}
+export { materialTheme, utils };

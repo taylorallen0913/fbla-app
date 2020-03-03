@@ -52,7 +52,7 @@ class BugReport extends React.Component {
                 value={this.state.text}
               />
             </View>
-            <Block center style={{marginTop: '10%'}}>
+            <Block center style={{ marginTop: "10%" }}>
               <Button
                 color="#000080"
                 onPress={() => this.props.navigation.goBack()}

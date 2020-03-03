@@ -128,7 +128,15 @@ class OfficerRegisterScreen extends React.Component {
               >
                 SIGN UP
               </Button>
-              <Text center style={{color: 'grey', marginTop: '5%'}} onPress={() => {this.props.navigation.navigate('TOSScreen')}} >Terms and Conditions</Text>
+              <Text
+                center
+                style={{ color: "grey", marginTop: "5%" }}
+                onPress={() => {
+                  this.props.navigation.navigate("TOSScreen");
+                }}
+              >
+                Terms and Conditions
+              </Text>
               <Block flex style={styles.errorMessage}>
                 {this.state.errorMessage && (
                   <Text style={styles.error}>{this.state.errorMessage}</Text>

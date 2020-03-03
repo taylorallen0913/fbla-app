@@ -91,7 +91,7 @@ class ConferenceForm extends React.Component {
               calendar: calendarData
             });
         });
-    } else Alert.alert("Please fill out all fields in form.")
+    } else Alert.alert("Please fill out all fields in form.");
   };
 
   render() {

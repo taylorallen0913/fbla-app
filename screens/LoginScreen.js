@@ -74,16 +74,16 @@ class LoginScreen extends React.Component {
           <Block flex space="between" style={styles.padded}>
             <Block flex space="around" style={{ zIndex: 2, marginTop: "20%" }}>
               <Block flex>
-                <Block style={{marginTop: '7%'}}>
-                <Button
-                  shadowless
-                  style={styles.button}
-                  color={materialTheme.COLORS.BUTTON_COLOR}
-                  onPress={this.handleLogin}
-                  round
-                >
-                  SIGN IN
-                </Button>
+                <Block style={{ marginTop: "7%" }}>
+                  <Button
+                    shadowless
+                    style={styles.button}
+                    color={materialTheme.COLORS.BUTTON_COLOR}
+                    onPress={this.handleLogin}
+                    round
+                  >
+                    SIGN IN
+                  </Button>
                 </Block>
                 <Block style={styles.errorMessage}>
                   {this.state.errorMessage && (
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     width: width - theme.SIZES.BASE * 4,
     height: theme.SIZES.BASE * 3,
     shadowRadius: 0,
-    shadowOpacity: 0,
+    shadowOpacity: 0
   },
   errorMessage: {
     height: 72,

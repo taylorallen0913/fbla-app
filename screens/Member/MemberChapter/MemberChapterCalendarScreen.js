@@ -116,7 +116,7 @@ class MemberChapterCalendarScreen extends React.Component {
             this.props.navigation.navigate("ConferenceForm", {
               id: this.state.id,
               eventId: item.id
-            })
+            });
           }
         }}
       >
@@ -136,7 +136,7 @@ class MemberChapterCalendarScreen extends React.Component {
   render() {
     return (
       <View>
-        <View style={{ height: height}}>
+        <View style={{ height: height }}>
           <Agenda
             items={this.state.items}
             selected={new Date()}

@@ -178,7 +178,7 @@ class MeetingScreen extends React.Component {
           duration: this.state.minutes + ":" + this.state.seconds,
           name: this.state.meetingName,
           notes: this.state.meetingNotes,
-          type: 'meeting'
+          type: "meeting"
         };
         firebase
           .firestore()
@@ -191,7 +191,7 @@ class MeetingScreen extends React.Component {
             })
           });
       });
-    this.props.navigation.navigate('OfficerHome');
+    this.props.navigation.navigate("OfficerHome");
   };
 
   getTime = () => {
@@ -266,7 +266,7 @@ class MeetingScreen extends React.Component {
             </View>
           </View>
           <Block center>
-            <Block style={{marginTop: '5%'}}>
+            <Block style={{ marginTop: "5%" }}>
               <Button
                 color="#1DA1F2"
                 onPress={() => Linking.openURL(this.generateURL())}
@@ -274,7 +274,7 @@ class MeetingScreen extends React.Component {
                 Share to Twitter
               </Button>
             </Block>
-            <Block style={{marginTop: '8%'}}>
+            <Block style={{ marginTop: "8%" }}>
               <Button color="#000080" onPress={() => this.endMeeting()}>
                 End Meeting
               </Button>
