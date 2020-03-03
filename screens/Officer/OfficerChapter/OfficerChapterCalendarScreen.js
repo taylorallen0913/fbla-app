@@ -79,17 +79,19 @@ class OfficerChapterCalendarScreen extends React.Component {
       // If event is not a meeting
       else {
         let eventMap = {
-          name: doc.type + '\n\n' + doc.name + "\n\n" + this.convertTime(doc.time),
+          name: "EVENT\n\n" + doc.name + "\n\n" + this.convertTime(doc.time),
           id: doc.id,
           date: doc.date,
-          type: doc.type
+          type: doc.type,
+          eventType: doc.eventType
         };
         if (itemsState.hasOwnProperty(doc.date)) {
           itemsState[doc.date].push({
-            name: doc.name + "\n\n" + this.convertTime(doc.time),
+            name: "EVENT\n\n" + this.convertTime(doc.time),
             id: doc.id,
             date: doc.date,
-            type: doc.type
+            type: doc.type,
+            eventType: doc.eventType
           });
           itemsState[doc.date].push(eventMap);
         } else itemsState[doc.date] = [eventMap];
@@ -103,15 +105,17 @@ class OfficerChapterCalendarScreen extends React.Component {
       <TouchableOpacity
         style={[styles.item, { height: item.height }]}
         onPress={() => {
-          console.log(item.type)
+          console.log(item.type);
           if (item.type == "meeting") {
             this.props.navigation.navigate("MeetingInfo", {
               time: item,
               id: this.state.id
             });
-          } else if (item.type == 'event') {
+          } else if (item.type == "event") {
             this.props.navigation.navigate("OfficerEventInfoScreen", {
-              type: item.type
+              type: item.type,
+              id: this.state.id,
+              eventId: item.id
             });
           }
         }}
@@ -137,21 +141,10 @@ class OfficerChapterCalendarScreen extends React.Component {
             items={this.state.items}
             selected={new Date()}
             renderItem={this.renderItem.bind(this)}
-            renderEmptyData={() => { 
-              return (
-                <View>
-                  <Text
-                    style={{
-                      textAlign: "center",
-                      fontSize: 50,
-                      marginTop: "30%"
-                    }}
-                  >
-                    No Events!
-                  </Text>
-                </View>
-              );
+            renderEmptyData={() => {
+              return <View />;
             }}
+            onRefresh={() => {}}
             rowHasChanged={this.rowHasChanged.bind(this)}
           />
         </View>
@@ -177,6 +170,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   addButton: {
+    marginTop: "5%",
     marginHorizontal: 30,
     backgroundColor: "#000080",
     borderRadius: 4,

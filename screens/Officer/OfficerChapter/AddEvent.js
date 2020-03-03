@@ -13,6 +13,7 @@ import {
 import * as firebase from "firebase";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import RNPickerSelect from "react-native-picker-select";
+import {Block} from 'galio-framework'
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -24,10 +25,13 @@ AddEvent = props => {
   const [id, setId] = useState();
   const [eventName, setEventName] = useState();
   const [eventDescription, setEventDescription] = useState();
+  const [type, setType] = useState();
   const [eventType, setEventType] = useState();
+  const [conferenceType, setConferenceType] = useState();
   const [date, setDate] = useState(new Date(1598051720000));
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
+  const [location, setLocation] = useState(null)
 
   useEffect(() => {
     setId(props.navigation.state.params.id);
@@ -76,9 +80,13 @@ AddEvent = props => {
         .toJSON()
         .toString()
         .substring(11, 19),
-      type: 'event',
+      type: type,
+      eventType: eventType,
       id: this.generateClassID(5),
-      attendance: new Array()
+      attendance: new Array(),
+      type: type,
+      conferenceType: conferenceType,
+      signups: new Array()
     };
     firebase
       .firestore()
@@ -119,18 +127,19 @@ AddEvent = props => {
             <Text style={styles.typeInput}>Event Type</Text>
             <RNPickerSelect
               style={styles.input}
-              onValueChange={(value) => {
-                setEventType(value);
-                console.log(value);
+              onValueChange={value => {
+                setType(value);
               }}
               items={[
-                { label: "State Leadership Confrence", value: "slc" },
-                { label: "National Leadership Confrence", value: "nlc" }
+                { label: "Event", value: "event" },
+                { label: "Upcoming Meeting", value: "upcomingMeeting" }
               ]}
             />
           </View>
+
           <View>
-            {eventType && (
+            <>
+            {type == "event" && (
               <RNPickerSelect
                 style={styles.input}
                 onValueChange={value => setEventType(value)}
@@ -140,7 +149,35 @@ AddEvent = props => {
                 ]}
               />
             )}
+            {type == "upcomingMeeting" && (
+              <Block style={{marginTop: '5%'}}>
+                <Text style={styles.inputText}>Location?</Text>
+                <TextInput
+                  style={styles.input}
+                  autoCapitalize="none"
+                  onChangeText={location =>
+                    setLocation(location)
+                  }
+                  value={location}
+                ></TextInput>
+              </Block>
+            )}
+            </>
           </View>
+          <View>
+            {eventType == "conference" && (
+              <RNPickerSelect
+                style={styles.input}
+                onValueChange={value => setConferenceType(value)}
+                items={[
+                  { label: "Regional Leadership Conference", value: "rlc" },
+                  { label: "State Leadership Conference", value: "slc" },
+                  { label: "National Leadership Conference", value: "nlc" }
+                ]}
+              />
+            )}
+          </View>
+
           <View style={{ marginTop: "3%" }}>
             <View>
               <Button onPress={showDatepicker} title="Select Date" />
@@ -202,8 +239,8 @@ const styles = StyleSheet.create({
   input: {
     borderBottomColor: "#8A8F9E",
     borderBottomWidth: StyleSheet.hairlineWidth,
-    height: 40,
-    fontSize: 15,
+    height: 35,
+    fontSize: 20,
     color: "#161F3D"
   },
   typeInput: {
@@ -211,8 +248,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     height: 40,
     fontSize: 15,
-    color: "#161F3D",
-    marginBottom: 7
+    color: "#161F3D"
   },
   button: {
     marginTop: 50,
