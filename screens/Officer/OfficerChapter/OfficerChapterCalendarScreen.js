@@ -108,7 +108,7 @@ class OfficerChapterCalendarScreen extends React.Component {
           console.log(item.type);
           if (item.type == "meeting") {
             this.props.navigation.navigate("MeetingInfo", {
-              time: item,
+              meetingId: item.id,
               id: this.state.id
             });
           } else if (item.type == "event") {

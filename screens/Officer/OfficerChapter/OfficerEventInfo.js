@@ -48,7 +48,7 @@ class OfficerEventInfo extends React.Component {
         let localCalendarData = doc.data().calendar;
         for (let i = 0; i < localCalendarData.length; i++) {
           if (localCalendarData[i].id == this.state.eventId) {
-            localCalendarData.splice(localCalendarData[i], 1)
+            localCalendarData.splice(i, 1)
           }
         }
         firebase.firestore().collection('chapters').doc(this.state.chapterId).update({
