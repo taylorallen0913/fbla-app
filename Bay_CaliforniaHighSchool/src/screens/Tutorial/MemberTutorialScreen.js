@@ -1,113 +1,94 @@
 import React from "react";
 import { Text, View, StyleSheet, Image, Dimensions } from "react-native";
-import Swiper from "react-native-swiper";
 import * as firebase from "firebase";
+import { Block } from "galio-framework";
+import AppIntroSlider from "react-native-app-intro-slider";
 
 const { height, width } = Dimensions.get("screen");
 
+const slides = [
+  {
+    key: "home",
+    title: "Access Your Local Chapter With Ease",
+    titleStyle: { textAlign: "center" },
+    image: require("../../assets/member-tutorial/home.png"),
+    imageStyle: { height: "80%", width: "80%" },
+    backgroundColor: "#59b2ab"
+  },
+  {
+    key: "about",
+    title: "Obtain Relevant FBLA Information",
+    titleStyle: { textAlign: "center" },
+    image: require("../../assets/member-tutorial/about.png"),
+    imageStyle: { height: "80%", width: "80%" },
+    backgroundColor: "#febe29"
+  },
+  {
+    key: "profile",
+    title: "Effortlessly Change Your Profile",
+    titleStyle: { textAlign: "center" },
+    image: require("../../assets/member-tutorial/profile.png"),
+    imageStyle: { height: "80%", width: "80%" },
+    backgroundColor: "#22bcb5"
+  }
+];
+
 class MemberTutorialScreen extends React.Component {
   state = {
+    showRealApp: false,
     uid: null
   };
 
   componentDidMount() {
     console.disableYellowBox = true;
+
     const { uid } = firebase.auth().currentUser;
     this.setState({ uid: uid });
   }
-
-  changeIndex = index => {
-    if (index === 2) {
-      setTimeout(() => {
-        this.props.navigation.navigate("Member");
-      }, 3000);
-      firebase
-        .firestore()
-        .collection("users")
-        .doc(this.state.uid)
-        .update({
-          tutorialCompleted: true
-        });
-    }
+  _onDone = () => {
+    this.props.navigation.navigate('Member')
+    firebase.firestore().collection('users').doc(this.state.uid).update({
+      tutorialCompleted: true
+    })
+    this.setState({ showRealApp: true });
   };
-
   render() {
-    return (
-      <Swiper
-        loop={false}
-        onIndexChanged={index => {
-          this.changeIndex(index);
-        }}
-        style={styles.wrapper}
-        showsButtons
-      >
-        <View style={styles.slide1}>
-          <View style={styles.image}>
-            <Image
-              source={require("../../assets/member-tutorial/home.png")}
-              style={{
-                height: height * 0.7,
-                width: width * 0.7
-              }}
-            />
-          </View>
-          <Text style={styles.text}>Join Your Local FBLA Chapter</Text>
-        </View>
-        <View style={styles.slide2}>
-          <View style={styles.image}>
-            <Image
-              source={require("../../assets/member-tutorial/about.png")}
-              style={{
-                height: height * 0.7,
-                width: width * 0.7
-              }}
-            />
-          </View>
-          <Text style={styles.text}>
-            Access Relevant Information About FBLA
-          </Text>
-        </View>
-        <View style={styles.slide3}>
-          <View style={styles.image}>
-            <Image
-              source={require("../../assets/member-tutorial/profile.png")}
-              style={{
-                height: height * 0.7,
-                width: width * 0.7
-              }}
-            />
-          </View>
-          <Text style={styles.text}>Edit Your Profile With Ease</Text>
-        </View>
-      </Swiper>
-    );
+    if (this.state.showRealApp) {
+      return <App />;
+    } else {
+      return (
+        <AppIntroSlider
+          renderItem={this._renderItem}
+          slides={slides}
+          onDone={this._onDone}
+        />
+      );
+    }
   }
 }
 
 const styles = StyleSheet.create({
-  wrapper: {},
+  mainContent: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "space-around"
+  },
   image: {
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  slide1: {
-    flex: 1,
-    backgroundColor: "#9DD6EB"
-  },
-  slide2: {
-    flex: 1,
-    backgroundColor: "#97CAE5"
-  },
-  slide3: {
-    flex: 1,
-    backgroundColor: "#92BBD9"
+    width: "20%",
+    height: "20%"
   },
   text: {
-    color: "#fff",
-    fontSize: 27,
-    fontWeight: "bold",
+    color: "rgba(255, 255, 255, 0.8)",
+    backgroundColor: "transparent",
     textAlign: "center",
-    marginTop: "5%"
+    paddingHorizontal: 16
+  },
+  title: {
+    fontSize: 22,
+    color: "white",
+    backgroundColor: "transparent",
+    textAlign: "center",
+    marginBottom: 16
   }
 });
 

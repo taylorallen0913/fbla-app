@@ -1,6 +1,6 @@
 # FBLA Overseer
 
-FBLA Overseer is a mobile application developed for the FBLA Mobile App Development competition created by Taylor Allen and Om Chaudhary for California High School.
+FBLA Overseer is a mobile application developed for the FBLA Mobile App Development competition created by Taylor Allen and Om Chaudhary from California High School.
 
 ## Table of contents
 
@@ -20,6 +20,18 @@ FBLA Overseers is a mobile application used for managing local FBLA chapters. Yo
 ## Technology Stack
 
 To enable the capability of the application to be cross-platform, our team used a framework called [React Native](https://reactnative.dev/). This technology combines the extremly powerful web development Javascript framework, [ReactJS](https://reactjs.org/), with features from native mobile development, to allow for the "write once run anywhere" capabilities the framework provides. Ultimately this means that you can write one app which compiles into both IOS and Android Native code without sacrificing performance.
+
+## Key Features
+
+* Officers
+   * Create their local chapter
+   * Allow members to join their chapter by giving out a 5-digit code
+   * Start meetings with a click of a button
+   * Track attendance of meeting by just giving out a 5-digit code
+   * Add future events to calendar
+* Members
+
+
 
 ## Getting Started
 
