@@ -21,9 +21,9 @@ FBLA Overseers is a mobile application used for managing local FBLA chapters. Yo
 
 To enable the capability of the application to be cross-platform, our team used a framework called [React Native](https://reactnative.dev/). This technology combines the extremly powerful web development Javascript framework, [ReactJS](https://reactjs.org/), with features from native mobile development, to allow for the "write once run anywhere" capabilities the framework provides. Ultimately this means that you can write one app which compiles into both IOS and Android Native code without sacrificing performance.
 
-## Key Features By Group
+## Key Features By User Group
 
-* Global
+* Global:
    * Access relevant FBLA information
    * Edit profile (display name, user id)
    * Report a bug if a user comes across one
@@ -32,13 +32,13 @@ To enable the capability of the application to be cross-platform, our team used 
    * View Privacy Policy of application
    * View Terms of Service of application
    * View Licensing of application
-* Officers
+* Officers:
    * Create their local chapter
    * Allow members to join their chapter by giving out a 5-digit code
    * Start meetings with a click of a button
    * Track attendance of meeting by just giving out a 5-digit code
    * Add future events to calendar
-* Members
+* Members:
 
 
 
