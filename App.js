@@ -38,6 +38,7 @@ import ContactUs from "./screens/ContactUs/ContactUs";
 import MemberTutorialScreen from "./screens/Tutorial/MemberTutorialScreen";
 import OfficerTutorialScreen from "./screens/Tutorial/OfficerTutorialScreen";
 import OfficerEventInfo from "./screens/Officer/OfficerChapter/OfficerEventInfo";
+import ConferenceForm from "./screens/Forms/ConferenceForm";
 
 // Require firebase module
 require("firebase/firestore");
@@ -130,6 +131,12 @@ const MemberAppStack = createStackNavigator({
     screen: ContactUs,
     navigationOptions: {
       title: "Contact Us"
+    }
+  },
+  ConferenceForm: {
+    screen: ConferenceForm,
+    navigationOption: {
+      title: "Conference Form"
     }
   }
 });

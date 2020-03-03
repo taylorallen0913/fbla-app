@@ -1,14 +1,14 @@
 import React from "react";
 import {
-  Alert,
   StyleSheet,
-  Dimensions,
   Text,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions,
+  Alert
 } from "react-native";
-import { Agenda } from "react-native-calendars";
 import * as firebase from "firebase";
+import { Agenda } from "react-native-calendars";
 import { Block, Button } from "galio-framework";
 
 const { height, width } = Dimensions.get("screen");
@@ -66,7 +66,9 @@ class MemberChapterCalendarScreen extends React.Component {
             "Duration: " +
             doc.duration +
             "\nID: " +
-            doc.id
+            doc.id,
+          type: doc.type,
+          id: doc.id
         };
         // If date is already in object
         if (itemsState.hasOwnProperty(doc.date)) {
@@ -77,15 +79,19 @@ class MemberChapterCalendarScreen extends React.Component {
       // If event is not a meeting
       else {
         let eventMap = {
-          name: doc.name + "\n\n" + this.convertTime(doc.time),
+          name: "EVENT\n\n" + doc.name + "\n\n" + this.convertTime(doc.time),
           id: doc.id,
-          date: doc.date
+          date: doc.date,
+          type: doc.type,
+          eventType: doc.eventType
         };
         if (itemsState.hasOwnProperty(doc.date)) {
           itemsState[doc.date].push({
-            name: doc.name + "\n\n" + this.convertTime(doc.time),
+            name: "EVENT\n\n" + this.convertTime(doc.time),
             id: doc.id,
-            date: doc.date
+            date: doc.date,
+            type: doc.type,
+            eventType: doc.eventType
           });
           itemsState[doc.date].push(eventMap);
         } else itemsState[doc.date] = [eventMap];
@@ -98,7 +104,21 @@ class MemberChapterCalendarScreen extends React.Component {
     return (
       <TouchableOpacity
         style={[styles.item, { height: item.height }]}
-        onPress={() => Alert.alert(item.name)}
+        onPress={() => {
+          if (item.type == "meeting") {
+            /*
+            this.props.navigation.navigate("MeetingInfo", {
+              meetingId: item.id,
+              id: this.state.id
+            });
+            */
+          } else if (item.type == "event") {
+            this.props.navigation.navigate("ConferenceForm", {
+              id: this.state.id,
+              eventId: item.id
+            })
+          }
+        }}
       >
         <Text>{item.name}</Text>
       </TouchableOpacity>
@@ -109,14 +129,22 @@ class MemberChapterCalendarScreen extends React.Component {
     return r1.name !== r2.name;
   }
 
+  onDayPress = day => {
+    console.log(day);
+  };
+
   render() {
     return (
       <View>
-        <View style={{ height: height * 0.7 }}>
+        <View style={{ height: height}}>
           <Agenda
             items={this.state.items}
             selected={new Date()}
             renderItem={this.renderItem.bind(this)}
+            renderEmptyData={() => {
+              return <View />;
+            }}
+            onRefresh={() => {}}
             rowHasChanged={this.rowHasChanged.bind(this)}
           />
         </View>
@@ -126,6 +154,18 @@ class MemberChapterCalendarScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  addButton: {
+    marginTop: "5%",
+    marginHorizontal: 30,
+    backgroundColor: "#000080",
+    borderRadius: 4,
+    height: 52,
+    alignContent: "center",
+    justifyContent: "center"
+  },
   item: {
     backgroundColor: "white",
     flex: 1,

@@ -105,7 +105,6 @@ class OfficerChapterCalendarScreen extends React.Component {
       <TouchableOpacity
         style={[styles.item, { height: item.height }]}
         onPress={() => {
-          console.log(item.type);
           if (item.type == "meeting") {
             this.props.navigation.navigate("MeetingInfo", {
               meetingId: item.id,

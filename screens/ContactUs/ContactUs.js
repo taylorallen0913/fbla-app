@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity
 } from "react-native";
-import { Block, Button } from 'galio-framework'
+import { Block, Button } from "galio-framework";
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -40,7 +40,7 @@ class ContactUs extends React.Component {
                 value={this.state.text}
               />
             </View>
-            <Block center style={{marginTop: '20%'}}>
+            <Block center style={{ marginTop: "20%" }}>
               <Button
                 color="#000080"
                 onPress={() => this.props.navigation.goBack()}
