@@ -39,6 +39,7 @@ import MemberTutorialScreen from "./screens/Tutorial/MemberTutorialScreen";
 import OfficerTutorialScreen from "./screens/Tutorial/OfficerTutorialScreen";
 import OfficerEventInfo from "./screens/Officer/OfficerChapter/OfficerEventInfo";
 import ConferenceForm from "./screens/Forms/ConferenceForm";
+import FAQ from "./screens/FAQ/FAQ";
 
 // Require firebase module
 require("firebase/firestore");
@@ -138,6 +139,12 @@ const MemberAppStack = createStackNavigator({
     navigationOption: {
       title: "Conference Form"
     }
+  },
+  FAQScreen: {
+    screen: FAQ,
+    navigationOptions: {
+      title: "FAQ"
+    }
   }
 });
 
@@ -212,6 +219,12 @@ const OfficerAppStack = createStackNavigator({
     screen: OfficerEventInfo,
     navigationOptions: {
       title: "Event Info"
+    }
+  },
+  FAQScreen: {
+    screen: FAQ,
+    navigationOptions: {
+      title: "FAQ"
     }
   }
 });

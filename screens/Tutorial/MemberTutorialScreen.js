@@ -18,7 +18,6 @@ class MemberTutorialScreen extends React.Component {
 
   changeIndex = index => {
     if (index === 2) {
-      console.log("FINISHED");
       setTimeout(() => {
         this.props.navigation.navigate("Member");
       }, 3000);

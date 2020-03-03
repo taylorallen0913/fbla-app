@@ -47,7 +47,15 @@ class Settings extends React.Component {
               </Button>
             </Block>
             <Block style={styles.button}>
-              <Button shadowless round color="info" size="small">
+              <Button
+                shadowless
+                round
+                color="info"
+                size="small"
+                onPress={() => {
+                  this.props.navigation.navigate("FAQScreen");
+                }}
+              >
                 FAQ
               </Button>
             </Block>

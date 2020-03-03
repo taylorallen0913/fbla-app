@@ -3,6 +3,8 @@ import { Text, View, StyleSheet, Image, Dimensions } from "react-native";
 import Swiper from "react-native-swiper";
 import * as firebase from "firebase";
 
+const { height, width } = Dimensions.get("screen");
+
 class OfficerTutorialScreen extends React.Component {
   state = {
     uid: null
@@ -15,9 +17,9 @@ class OfficerTutorialScreen extends React.Component {
   }
 
   changeIndex = index => {
-    if (index === 2) {
+    if (index === 4) {
       setTimeout(() => {
-        this.props.navigation.navigate("Member");
+        this.props.navigation.navigate("Officer");
       }, 3000);
       firebase
         .firestore()
@@ -42,19 +44,7 @@ class OfficerTutorialScreen extends React.Component {
         <View style={styles.slide1}>
           <View style={styles.image}>
             <Image
-              source={require("../../assets/member-tutorial/home.png")}
-              style={{
-                height: height * 0.7,
-                width: width * 0.7
-              }}
-            />
-          </View>
-          <Text style={styles.text}>Join Your Local FBLA Chapter</Text>
-        </View>
-        <View style={styles.slide2}>
-          <View style={styles.image}>
-            <Image
-              source={require("../../assets/member-tutorial/about.png")}
+              source={require("../../assets/officer-tutorial/add-chapter.png")}
               style={{
                 height: height * 0.7,
                 width: width * 0.7
@@ -62,20 +52,56 @@ class OfficerTutorialScreen extends React.Component {
             />
           </View>
           <Text style={styles.text}>
-            Access Relevant Information About FBLA
+            Create your Local FBLA Chapter for your Members to join
           </Text>
         </View>
-        <View style={styles.slide3}>
+        <View style={styles.slide2}>
           <View style={styles.image}>
             <Image
-              source={require("../../assets/member-tutorial/profile.png")}
+              source={require("../../assets/officer-tutorial/chapter-management-screen.png")}
               style={{
                 height: height * 0.7,
                 width: width * 0.7
               }}
             />
           </View>
-          <Text style={styles.text}>Edit Your Profile With Ease</Text>
+          <Text style={styles.text}>Manage your Chapter with ease</Text>
+        </View>
+        <View style={styles.slide3}>
+          <View style={styles.image}>
+            <Image
+              source={require("../../assets/officer-tutorial/add-event-screen.png")}
+              style={{
+                height: height * 0.7,
+                width: width * 0.7
+              }}
+            />
+          </View>
+          <Text style={styles.text}>Add Events to keep your Chapter in the loop</Text>
+        </View>
+        <View style={styles.slide4}>
+          <View style={styles.image}>
+            <Image
+              source={require("../../assets/officer-tutorial/calendar-screen.png")}
+              style={{
+                height: height * 0.7,
+                width: width * 0.7
+              }}
+            />
+          </View>
+          <Text style={styles.text}>Access your Chapter's Calendar to see what's coming up</Text>
+        </View>
+        <View style={styles.slide5}>
+          <View style={styles.image}>
+            <Image
+              source={require("../../assets/officer-tutorial/meeting-screen.png")}
+              style={{
+                height: height * 0.7,
+                width: width * 0.7
+              }}
+            />
+          </View> 
+          <Text style={styles.text}>Start Meetings and Effortlessly view Attendance</Text>
         </View>
       </Swiper>
     );
@@ -97,6 +123,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#97CAE5"
   },
   slide3: {
+    flex: 1,
+    backgroundColor: "#92BBD9"
+  },
+  slide4: {
+    flex: 1,
+    backgroundColor: "#92BBD9"
+  },
+  slide5: {
     flex: 1,
     backgroundColor: "#92BBD9"
   },
