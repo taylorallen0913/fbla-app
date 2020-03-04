@@ -17,7 +17,8 @@ FBLA Overseer is a mobile application developed for the FBLA Mobile App Developm
 * [Installation Guide](#installation-guide)
    * [Android APK](#android-apk)
    * [Expo Client](#expo-client)
-* [Developer Environment Setup](#developer-environment-setup)
+* [Authors](#authors)
+* [License](#license)
 
 
 ## About the Application
