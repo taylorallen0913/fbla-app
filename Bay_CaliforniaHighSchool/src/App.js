@@ -40,6 +40,8 @@ import OfficerTutorialScreen from "./screens/Tutorial/OfficerTutorialScreen";
 import OfficerEventInfo from "./screens/Officer/OfficerChapter/OfficerEventInfo";
 import ConferenceForm from "./screens/Forms/ConferenceForm";
 import FAQ from "./screens/FAQ/FAQ";
+import OfficerListManager from "./screens/Officer/OfficerChapter/OfficerListManager";
+import MemberOfficerList from "./screens/Member/MemberChapter/MemberOfficerList";
 
 // Require firebase module
 require("firebase/firestore");
@@ -56,7 +58,9 @@ var firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 // Ignore Firebase errors thrown on Android; the errors are harmless
 YellowBox.ignoreWarnings(["Setting a timer"]);
@@ -225,6 +229,12 @@ const OfficerAppStack = createStackNavigator({
     screen: FAQ,
     navigationOptions: {
       title: "FAQ"
+    }
+  },
+  OfficerListManagerScreen: {
+    screen: OfficerListManager,
+    navigationOptions: {
+      title: "Officer List"
     }
   }
 });

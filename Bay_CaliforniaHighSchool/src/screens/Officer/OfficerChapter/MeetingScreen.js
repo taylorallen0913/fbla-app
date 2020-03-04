@@ -75,13 +75,11 @@ class MeetingScreen extends React.Component {
     if (Platform.OS === "ios") {
       let location = await Location.getCurrentPositionAsync({});
       this.setState({ location });
-      console.log(location);
     } else if (Platform.OS === "android") {
       let location = await Location.getCurrentPositionAsync({
         accuracy: Location.Accuracy.High
       });
       this.setState({ location });
-      console.log(location);
     }
   };
 

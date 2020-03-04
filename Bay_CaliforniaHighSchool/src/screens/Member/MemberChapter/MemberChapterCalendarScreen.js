@@ -130,7 +130,6 @@ class MemberChapterCalendarScreen extends React.Component {
   }
 
   onDayPress = day => {
-    console.log(day);
   };
 
   render() {

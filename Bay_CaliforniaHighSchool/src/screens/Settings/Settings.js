@@ -12,7 +12,6 @@ class Settings extends React.Component {
   componentDidMount() {
     const user = firebase.auth().currentUser;
     const { email, displayName, uid } = firebase.auth().currentUser;
-    console.log(uid);
   }
 
   render() {

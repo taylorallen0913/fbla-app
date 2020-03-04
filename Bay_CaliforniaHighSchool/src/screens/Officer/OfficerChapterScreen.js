@@ -14,6 +14,7 @@ import { createMaterialBottomTabNavigator } from "react-navigation-material-bott
 
 import HomeScreen from "./OfficerChapter/OfficerChapterHomeScreen";
 import CalendarScreen from "./OfficerChapter/OfficerChapterCalendarScreen";
+import ManageScreen from './OfficerChapter/OfficerManageChapterScreen'
 
 const TabNavigator = createMaterialBottomTabNavigator(
   {
@@ -36,6 +37,23 @@ const TabNavigator = createMaterialBottomTabNavigator(
               style={[{ color: tintColor }]}
               size={25}
               name={"ios-calendar"}
+            />
+          </View>
+        ),
+        activeColor: "#ffffff",
+        inactiveColor: "#a3c2fa",
+        barStyle: { backgroundColor: "#2163f6" }
+      }
+    },
+    Manage: {
+      screen: ManageScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <View>
+            <Icon
+              style={[{ color: tintColor }]}
+              size={25}
+              name={"ios-person"}
             />
           </View>
         ),

@@ -1,6 +1,6 @@
-import React from "react";
-import { Text, View, StyleSheet } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import React from 'react'
+import { Text, View, StyleSheet } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
 
 class TOS extends React.Component {
   render() {
@@ -147,38 +147,38 @@ class TOS extends React.Component {
           <Text style={styles.body}>
             If you would like to contact us to understand more about this
             Agreement or wish to contact us concerning any matter relating to
-            it, you may send an email to fblaoverseer@gmail.com{"\n\n"}This
-            document was last updated on February 29, 2020{"\n\n\n\n"}
+            it, you may send an email to fblaoverseer@gmail.com{'\n\n'}This
+            document was last updated on February 29, 2020{'\n\n\n\n'}
           </Text>
         </ScrollView>
       </View>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   header: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 45,
-    fontWeight: "bold",
-    marginTop: 20
+    fontWeight: 'bold',
+    marginTop: 20,
   },
   body: {
     margin: 20,
     fontSize: 15,
-    fontWeight: "normal"
+    fontWeight: 'normal',
   },
   section: {
-    fontWeight: "bold",
-    textAlign: "center",
+    fontWeight: 'bold',
+    textAlign: 'center',
     fontSize: 25,
-    margin: 10
-  }
-});
+    margin: 10,
+  },
+})
 
-export default TOS;
+export default TOS

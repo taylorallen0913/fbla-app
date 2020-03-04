@@ -11,6 +11,7 @@ FBLA Overseer is a mobile application developed for the FBLA Mobile App Developm
    * [Technology Stack](#technology-stack)
    * [Key Features By User Group](#key-features-by-user-group)
    * [How To Install And Run](#how-to-install-and-run)
+   * [Developer Environment Setup](#developer-environment-setup)
 <!--te-->
 
 ## About the Application
@@ -19,7 +20,11 @@ FBLA Overseers is a mobile application used for managing local FBLA chapters. Yo
 
 ## Technology Stack
 
+### Front End
 To enable the capability of the application to be cross-platform, our team used a framework called [React Native](https://reactnative.dev/). This technology combines the extremly powerful web development Javascript framework, [ReactJS](https://reactjs.org/), with features from native mobile development, to allow for the "write once run anywhere" capabilities the framework provides. Ultimately this means that you can write one app which compiles into both IOS and Android Native code without sacrificing performance.
+
+### Back End
+The Firebase/Firestore SDK was used for the back end. Firebase aided in user authentication and Firestore provided access to a simple NoSQL database
 
 ## Key Features By User Group
 
@@ -42,6 +47,7 @@ To enable the capability of the application to be cross-platform, our team used 
 
 ## How To Install And Run
 
+## Developer Environment Setup
 
 ## Getting Started
 

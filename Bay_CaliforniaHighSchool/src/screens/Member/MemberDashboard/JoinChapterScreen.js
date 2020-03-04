@@ -30,7 +30,6 @@ class JoinChapterScreen extends React.Component {
       .doc(id)
       .get()
       .then(document => {
-        console.log(document.data());
         chapterMemberList = document.data().members;
         chapterMemberList.push(uid);
         db.collection("chapters")

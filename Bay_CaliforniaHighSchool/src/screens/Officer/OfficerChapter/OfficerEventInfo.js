@@ -2,7 +2,6 @@ import React from "react";
 import { StyleSheet, Dimensions, FlatList } from "react-native";
 import { Block, Text, Button, Accordion } from "galio-framework";
 import * as firebase from "firebase";
-import { getOrientationAsync } from "expo/build/ScreenOrientation/ScreenOrientation";
 
 const { height, width } = Dimensions.get("screen");
 
@@ -44,7 +43,6 @@ class OfficerEventInfo extends React.Component {
         localCalendarData.forEach(item => {
           if (item.id == this.state.eventId) {
             item.signups.forEach(innerItem => {
-              console.log(innerItem);
               localSignups.push({
                 title: innerItem.name,
                 content: (

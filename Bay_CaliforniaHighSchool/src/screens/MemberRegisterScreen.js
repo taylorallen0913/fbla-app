@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   View,
   StatusBar,
@@ -7,65 +7,65 @@ import {
   Keyboard,
   Dimensions,
   TouchableOpacity,
-  TouchableWithoutFeedback
-} from "react-native";
-import { CheckBox } from "react-native-elements";
-import { Block, Button, Text, theme } from "galio-framework";
-import * as firebase from "firebase";
+  TouchableWithoutFeedback,
+} from 'react-native'
+import { CheckBox } from 'react-native-elements'
+import { Block, Button, Text, theme } from 'galio-framework'
+import * as firebase from 'firebase'
 
-const { height, width } = Dimensions.get("screen");
+const { height, width } = Dimensions.get('screen')
 
-import materialTheme from "../constants/Theme";
+import materialTheme from '../constants/Theme'
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     {children}
   </TouchableWithoutFeedback>
-);
+)
 
 class MemberRegisterScreen extends React.Component {
   state = {
-    name: "",
-    email: "",
-    password: "",
+    name: '',
+    email: '',
+    password: '',
     errorMessage: null,
-    checked: false
-  };
+    checked: false,
+  }
 
   handleSignUp = () => {
-    var db = firebase.firestore();
+    var db = firebase.firestore()
     firebase
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(userCredentials => {
-        db.collection("users")
+        db.collection('users')
           .doc(userCredentials.user.uid)
           .set({
-            role: "member",
+            role: 'member',
             name: this.state.name,
-            tutorialCompleted: false
-          });
+            tutorialCompleted: false,
+          })
         return userCredentials.user.updateProfile({
-          displayName: this.state.name
-        });
+          displayName: this.state.name,
+        })
       })
-      .catch(error => this.setState({ errorMessage: error.message }));
-  };
+      .catch(error => this.setState({ errorMessage: error.message }))
+  }
 
   render() {
     return (
       <DismissKeyboard>
         <Block flex style={styles.container}>
           <StatusBar barStyle="light-content" />
-          <Block flex style={{ marginTop: "10%" }}>
+          <Block flex style={{ marginTop: '10%' }}>
             <Block>
               <Text center color="white" size={60}>
                 Join FBLA
               </Text>
             </Block>
             <Block flex space="between" style={styles.form}>
-              <Block style={{ marginTop: "8%" }}>
-                <Text style={(styles.inputText, { color: "white" })}>
+              <Block style={{ marginTop: '8%' }}>
+                <Text style={(styles.inputText, { color: 'white' })}>
                   Full Name
                 </Text>
                 <TextInput
@@ -76,8 +76,8 @@ class MemberRegisterScreen extends React.Component {
                 ></TextInput>
               </Block>
 
-              <Block style={{ marginTop: "8%" }}>
-                <Text style={(styles.inputText, { color: "white" })}>
+              <Block style={{ marginTop: '8%' }}>
+                <Text style={(styles.inputText, { color: 'white' })}>
                   Email Address
                 </Text>
                 <TextInput
@@ -88,8 +88,8 @@ class MemberRegisterScreen extends React.Component {
                 ></TextInput>
               </Block>
 
-              <Block style={{ marginTop: "8%" }}>
-                <Text style={(styles.inputText, { color: "white" })}>
+              <Block style={{ marginTop: '8%' }}>
+                <Text style={(styles.inputText, { color: 'white' })}>
                   Password
                 </Text>
                 <TextInput
@@ -103,23 +103,23 @@ class MemberRegisterScreen extends React.Component {
             </Block>
           </Block>
           <Block flex space="between" style={styles.padded}>
-            <Block flex space="around" style={{ zIndex: 2, marginTop: "10%" }}>
+            <Block flex space="around" style={{ zIndex: 2, marginTop: '10%' }}>
               <CheckBox
                 center
                 title="I agree to FBLA Overseer's Terms & Conditions"
                 checkedIcon="dot-circle-o"
                 uncheckedIcon="circle-o"
                 onPress={() => {
-                  this.setState({ checked: !this.state.checked });
+                  this.setState({ checked: !this.state.checked })
                 }}
                 checked={this.state.checked}
-                textStyle={{ color: "white" }}
+                textStyle={{ color: 'white' }}
                 containerStyle={{
-                  backgroundColor: "transparent",
-                  borderWidth: 0
+                  backgroundColor: 'transparent',
+                  borderWidth: 0,
                 }}
               />
-              <Block style={{ margin: "15%" }} />
+              <Block style={{ margin: '15%' }} />
               <Button
                 shadowless
                 style={styles.button}
@@ -131,9 +131,9 @@ class MemberRegisterScreen extends React.Component {
               </Button>
               <Text
                 center
-                style={{ color: "grey", marginTop: "5%" }}
+                style={{ color: 'grey', marginTop: '5%' }}
                 onPress={() => {
-                  this.props.navigation.navigate("TOSScreen");
+                  this.props.navigation.navigate('TOSScreen')
                 }}
               >
                 Terms and Conditions
@@ -147,53 +147,53 @@ class MemberRegisterScreen extends React.Component {
           </Block>
         </Block>
       </DismissKeyboard>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.COLORS.BLACK
+    backgroundColor: theme.COLORS.BLACK,
   },
   padded: {
     paddingHorizontal: theme.SIZES.BASE * 2,
-    position: "relative",
-    bottom: theme.SIZES.BASE
+    position: 'relative',
+    bottom: theme.SIZES.BASE,
   },
   button: {
     width: width - theme.SIZES.BASE * 4,
     height: theme.SIZES.BASE * 3,
     shadowRadius: 0,
-    shadowOpacity: 0
+    shadowOpacity: 0,
   },
   errorMessage: {
     height: 72,
-    alignItems: "center",
-    justifyContent: "center",
-    marginHorizontal: 30
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 30,
   },
   error: {
-    color: "#E9446A",
+    color: '#E9446A',
     fontSize: 13,
-    fontWeight: "600",
-    textAlign: "center"
+    fontWeight: '600',
+    textAlign: 'center',
   },
   form: {
     marginHorizontal: 30,
-    marginTop: "10%"
+    marginTop: '10%',
   },
   inputTitle: {
-    color: "white",
+    color: 'white',
     fontSize: 10,
-    textTransform: "uppercase"
+    textTransform: 'uppercase',
   },
   input: {
-    borderBottomColor: "white",
+    borderBottomColor: 'white',
     borderBottomWidth: StyleSheet.hairlineWidth,
     height: 40,
     fontSize: 15,
-    color: "white"
-  }
-});
+    color: 'white',
+  },
+})
 
-export default MemberRegisterScreen;
+export default MemberRegisterScreen

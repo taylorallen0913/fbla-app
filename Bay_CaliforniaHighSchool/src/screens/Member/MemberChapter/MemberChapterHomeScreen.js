@@ -79,7 +79,6 @@ class MemberChapterHomeScreen extends React.Component {
   };
 
   isInRange = (range, lat1, long1, lat2, long2) => {
-    console.log(Math.abs(lat1 - lat2));
     if (Math.abs(lat1 - lat2) < range || Math.abs(long1 - long2) < range) {
       return true;
     }

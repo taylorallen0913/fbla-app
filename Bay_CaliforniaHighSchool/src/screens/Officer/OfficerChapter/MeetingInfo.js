@@ -41,16 +41,11 @@ class MeetingInfo extends React.Component {
       .get()
       .then(doc => {
         let localCalendarData = doc.data().calendar;
-        console.log(JSON.stringify(localCalendarData));
-        console.log("\n\n");
         for (let i = 0; i < localCalendarData.length; i++) {
-          console.log(localCalendarData[i].id);
-          console.log(this.state.meetingId);
           if (localCalendarData[i].id == this.state.meetingId) {
             localCalendarData.splice(i, 1);
           }
         }
-        console.log(JSON.stringify(localCalendarData));
         firebase
           .firestore()
           .collection("chapters")

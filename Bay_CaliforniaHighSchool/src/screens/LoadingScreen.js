@@ -1,40 +1,40 @@
-import React from "react";
-import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
-import * as firebase from "firebase";
-import * as Permissions from "expo-permissions";
+import React from 'react'
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native'
+import * as firebase from 'firebase'
+import * as Permissions from 'expo-permissions'
 
 class LoadingScreen extends React.Component {
   constructor() {
-    super();
+    super()
   }
 
   componentDidMount() {
-    Permissions.askAsync(Permissions.LOCATION);
+    Permissions.askAsync(Permissions.LOCATION)
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        const { uid } = firebase.auth().currentUser;
-        var userDb = firebase.firestore().collection("users");
+        const { uid } = firebase.auth().currentUser
+        var userDb = firebase.firestore().collection('users')
         userDb
           .doc(uid)
           .get()
           .then(doc => {
-            if (doc.data().role == "member") {
+            if (doc.data().role == 'member') {
               if (doc.data().tutorialCompleted === true) {
-                this.props.navigation.navigate("Member");
+                this.props.navigation.navigate('Member')
               } else {
-                this.props.navigation.navigate("MemberTutorial");
+                this.props.navigation.navigate('MemberTutorial')
               }
-            } else if (doc.data().role == "officer") {
+            } else if (doc.data().role == 'officer') {
               if (doc.data().tutorialCompleted === true) {
-                this.props.navigation.navigate("Officer");
+                this.props.navigation.navigate('Officer')
               } else {
-                this.props.navigation.navigate("OfficerTutorial");
+                this.props.navigation.navigate('OfficerTutorial')
               }
             }
-          });
+          })
       }
-      this.props.navigation.navigate("Auth");
-    });
+      this.props.navigation.navigate('Auth')
+    })
   }
 
   render() {
@@ -43,16 +43,16 @@ class LoadingScreen extends React.Component {
         <Text>Loading...</Text>
         <ActivityIndicator size="large"></ActivityIndicator>
       </View>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  }
-});
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+})
 
-export default LoadingScreen;
+export default LoadingScreen

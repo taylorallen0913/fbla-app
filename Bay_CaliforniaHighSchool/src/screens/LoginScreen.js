@@ -5,44 +5,44 @@ import {
   Dimensions,
   TouchableWithoutFeedback,
   Keyboard,
-  KeyboardAvoidingView
-} from "react-native";
-import React from "react";
-import { Block, Button, Text, theme, NavBar } from "galio-framework";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import * as firebase from "firebase";
+  KeyboardAvoidingView,
+} from 'react-native'
+import React from 'react'
+import { Block, Button, Text, theme, NavBar } from 'galio-framework'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import * as firebase from 'firebase'
 
-const { height, width } = Dimensions.get("screen");
+const { height, width } = Dimensions.get('screen')
 
-import materialTheme from "../constants/Theme";
+import materialTheme from '../constants/Theme'
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     {children}
   </TouchableWithoutFeedback>
-);
+)
 
 class LoginScreen extends React.Component {
   state = {
-    email: "",
-    password: "",
-    errorMessage: null
-  };
+    email: '',
+    password: '',
+    errorMessage: null,
+  }
 
   handleLogin = () => {
-    const { email, password } = this.state;
+    const { email, password } = this.state
 
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .catch(error => this.setState({ errorMessage: error.message }));
-  };
+      .catch(error => this.setState({ errorMessage: error.message }))
+  }
 
   render() {
     return (
       <DismissKeyboard>
         <Block flex style={styles.container}>
-          <Block flex style={{ marginTop: "30%" }}>
+          <Block flex style={{ marginTop: '30%' }}>
             <Block>
               <Text center color="white" size={60}>
                 Log In
@@ -50,7 +50,7 @@ class LoginScreen extends React.Component {
             </Block>
             <Block flex space="between" style={styles.form}>
               <Block>
-                <Text style={{ color: "white" }}>Email Address</Text>
+                <Text style={{ color: 'white' }}>Email Address</Text>
                 <TextInput
                   style={styles.input}
                   autoCapitalize="none"
@@ -60,7 +60,7 @@ class LoginScreen extends React.Component {
               </Block>
 
               <Block style={{ marginTop: 32 }}>
-                <Text style={{ color: "white" }}>Password</Text>
+                <Text style={{ color: 'white' }}>Password</Text>
                 <TextInput
                   style={styles.input}
                   secureTextEntry
@@ -72,9 +72,9 @@ class LoginScreen extends React.Component {
             </Block>
           </Block>
           <Block flex space="between" style={styles.padded}>
-            <Block flex space="around" style={{ zIndex: 2, marginTop: "20%" }}>
+            <Block flex space="around" style={{ zIndex: 2, marginTop: '20%' }}>
               <Block flex>
-                <Block style={{ marginTop: "7%" }}>
+                <Block style={{ marginTop: '7%' }}>
                   <Button
                     shadowless
                     style={styles.button}
@@ -91,20 +91,20 @@ class LoginScreen extends React.Component {
                   )}
                 </Block>
                 <TouchableOpacity
-                  style={{ alignContent: "center" }}
+                  style={{ alignContent: 'center' }}
                   onPress={() =>
-                    this.props.navigation.navigate("MasterRegister")
+                    this.props.navigation.navigate('MasterRegister')
                   }
                 >
                   <Text
                     style={{
-                      color: "#C0C0C0",
+                      color: '#C0C0C0',
                       fontSize: 13,
-                      textAlign: "center"
+                      textAlign: 'center',
                     }}
                   >
-                    Don't Have An Account?{" "}
-                    <Text style={{ fontWeight: "500", color: "#E9446A" }}>
+                    Don't Have An Account?{' '}
+                    <Text style={{ fontWeight: '500', color: '#E9446A' }}>
                       Sign Up
                     </Text>
                   </Text>
@@ -114,53 +114,53 @@ class LoginScreen extends React.Component {
           </Block>
         </Block>
       </DismissKeyboard>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.COLORS.BLACK
+    backgroundColor: theme.COLORS.BLACK,
   },
   padded: {
     paddingHorizontal: theme.SIZES.BASE * 2,
-    position: "relative",
-    bottom: theme.SIZES.BASE
+    position: 'relative',
+    bottom: theme.SIZES.BASE,
   },
   button: {
     width: width - theme.SIZES.BASE * 4,
     height: theme.SIZES.BASE * 3,
     shadowRadius: 0,
-    shadowOpacity: 0
+    shadowOpacity: 0,
   },
   errorMessage: {
     height: 72,
-    alignItems: "center",
-    justifyContent: "center",
-    marginHorizontal: 30
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 30,
   },
   error: {
-    color: "#E9446A",
+    color: '#E9446A',
     fontSize: 13,
-    fontWeight: "600",
-    textAlign: "center"
+    fontWeight: '600',
+    textAlign: 'center',
   },
   form: {
     marginHorizontal: 30,
-    marginTop: "20%"
+    marginTop: '20%',
   },
   inputTitle: {
-    color: "white",
+    color: 'white',
     fontSize: 10,
-    textTransform: "uppercase"
+    textTransform: 'uppercase',
   },
   input: {
-    borderBottomColor: "white",
+    borderBottomColor: 'white',
     borderBottomWidth: StyleSheet.hairlineWidth,
     height: 40,
     fontSize: 15,
-    color: "white"
-  }
-});
+    color: 'white',
+  },
+})
 
-export default LoginScreen;
+export default LoginScreen
